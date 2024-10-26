@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "nombre": "anvorguesa",
+    "precio": 2000,
+    "imagen": "hamburguesa-simple.jpg"
+  },
+  {
+    "id": 2,
+    "nombre": "anvorguesa de pollo",
+    "precio": 1500,
+    "imagen": "hamburguesa1.png"
+  },
+  {
+    "id": 3,
+    "nombre": "anvorguesa doble",
+    "precio": 3500,
+    "imagen": "hamburguesa-2.jpg"
+  },
+  {
+    "id": 4,
+    "nombre": "anvorguesa vegana",
+    "precio": 8500,
+    "imagen": "hamburguesa-doble.png"
+  },
+  {
+    "id": 5,
+    "nombre": "anvorguesa con queso",
+    "precio": 4500,
+    "imagen": "hamburguesa-triple.png"
+  },
+  {
+    "id": 6,
+    "nombre": "anvorguesa triple",
+    "precio": 2500,
+    "imagen": "hamburguesa-pepino.jpg"
+  },
+  {
+    "id": 7,
+    "nombre": "anvorguesa con lechuga",
+    "precio": 14000,
+    "imagen": "hamburguesa-queso.jpg"
+  },
+  {
+    "id": 8,
+    "nombre": "anvorguesa 3/4",
+    "precio": 9500,
+    "imagen": "McQueso.png"
+  }
+]
