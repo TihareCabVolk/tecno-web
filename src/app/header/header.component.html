@@ -1,0 +1,46 @@
+<nav class="bg-gray-800">
+    <div class="container mx-auto flex items-center justify-between py-4">
+        <img alt="" src="img/logow.png" width="120" height="50">
+        <a class="text-white text-lg font-bold" href="#">Wcdonald's</a>
+        <button class="text-white lg:hidden" type="button" onclick="toggleNavbar()">
+            <span class="material-icons">menu</span>
+        </button>
+        <div class="hidden lg:flex lg:items-center lg:space-x-4" id="navbarSupportedContent">
+            <ul class="flex space-x-4">
+                <li>
+                    <a class="text-white hover:underline" aria-current="page" href="/">Catalogo</a>
+                </li>
+                <li>
+                    <a class="text-white hover:underline" href="#">dsjkofhak</a>
+                </li>
+                <li class="relative">
+                    <a class="text-white hover:underline" href="#" onclick="toggleDropdown(event)">Dropdown</a>
+                    <ul class="absolute hidden mt-2 bg-white text-black rounded shadow-lg" id="dropdown-menu">
+                        <li><a class="block px-4 py-2" href="#">Action</a></li>
+                        <li><a class="block px-4 py-2" href="#">Another action</a></li>
+                        <li class="border-t border-gray-200"></li>
+                        <li><a class="block px-4 py-2" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="text-gray-500 cursor-not-allowed" aria-disabled="true">a</a>
+                </li>
+            </ul>
+            <a class="text-white" routerLink="/carrito-listar">
+                <i class="fa fa-shopping-cart"></i> (<span class="font-bold">{{carritoService.cantidad()}}</span>)
+            </a>
+        </div>
+    </div>
+</nav>
+
+<script>
+    function toggleNavbar() {
+        const navbar = document.getElementById('navbarSupportedContent');
+        navbar.classList.toggle('hidden');
+    }
+
+    function toggleDropdown(event) {
+        const dropdown = document.getElementById('dropdown-menu');
+        dropdown.classList.toggle('hidden');
+    }
+</script>
