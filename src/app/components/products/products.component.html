@@ -1,0 +1,24 @@
+<div
+  *ngFor="let producto of allProductos"
+  class="flex flex-col bg-white rounded-lg shadow-md p-5"
+>
+  <img
+    src="https://img.freepik.com/psd-premium/pila-patatas-fritas-crujientes_1234317-2146.jpg?w=740"
+    alt="Producto"
+    class="object-cover w-full h-30 mb-4 rounded-lg"
+  />
+  <h3 class="text-lg font-semibold mb-2">{{ producto.name }}</h3>
+  <div class="flex justify-between items-center">
+    <span class="text-xl font-bold text-blue-500">
+      ${{ producto.price * 1000 }}
+    </span>
+    <!-- Botón "+" solo aparece en modo "user" -->
+    <button
+      *ngIf="modo === 'user'"
+      (click)="openCard(producto.id)"
+      class="w-8 h-8 font-semibold text-white bg-blue-600 rounded-full hover:bg-blue-700 flex items-center justify-center"
+    >
+      +
+    </button>
+  </div>
+</div>

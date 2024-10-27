@@ -1,4 +1,6 @@
-<div class="container w-4/5 mx-auto flex justify-between items-center">
+<div
+  class="container w-4/5 mx-auto flex justify-between items-center flex-col sm:flex-row"
+>
   <!-- Logo -->
   <div class="flex flex-row">
     <img src="" alt="" />
@@ -9,7 +11,6 @@
   <div class="flex space-x-5 items-center">
     <!-- links -->
     <ul class="flex flex-row space-x-4 items-center">
-      <li><a href="/" class="hover:text-gray-300">Home</a></li>
       <li><a href="/about" class="hover:text-gray-300">About</a></li>
       <li><a href="/contact" class="hover:text-gray-300">Contact</a></li>
     </ul>
@@ -26,7 +27,7 @@
           class="w-8 h-8 rounded-full"
         />
 
-        <span class="text-gray-700">Tom Cook</span>
+        <span class="text-gray-700">Taimao</span>
 
         <svg
           class="w-4 h-4 text-gray-700"
@@ -50,13 +51,18 @@
         class="absolute mt-3 w-48 border rounded shadow-lg bg-white group-hover:block"
       >
         <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+          >Cuenta</a
+        >
+        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+          >Mis cupones</a
+        >
+        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
           >Sign out</a
         >
       </div>
     </div>
 
     <!-- user cart -->
-    <!-- Carrito de Compras Icono -->
     <div class="relative">
       <button (click)="toggleCart()" class="flex items-center">
         <svg
@@ -82,9 +88,10 @@
         </span>
       </button>
 
+      <!-- Carrito de Compras Icono -->
       <div
         *ngIf="isOpenCart"
-        class="absolute -right-20 mt-6 bg-white border border-gray-200 rounded-lg shadow-lg"
+        class="absolute z-20 -right-20 mt-6 bg-white border border-gray-200 rounded-lg shadow-lg"
         style="width: 30vw; height: 50vh"
       >
         <div class="p-4 overflow-y-auto h-full">
