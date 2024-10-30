@@ -1,12 +1,17 @@
 <div
-  *ngFor="let category of categorias"
-  class="flex flex-1 flex-col items-center"
+  *ngFor="let category of categories"
+  class="flex flex-1 flex-col items-center text-gray-700 transition-transform transform hover:scale-110"
   style="flex-basis: 9rem"
 >
-  <img
-    src="{{ category.img }}"
-    alt="{{ category.nombre }}"
-    class="w-32 h-32 object-cover mb-2 rounded-full shadow-lg p-4 transition-transform transform hover:scale-105"
-  />
-  <h3 class="text-lg font-semibold mb-2 text-center">{{ category.nombre }}</h3>
+  <a (click)="selectCategory(category.id)">
+    <!-- Reemplaza '/ruta-destino' con la ruta deseada -->
+    <img
+      src="{{ category.img }}"
+      alt="{{ category.nombre }}"
+      class="w-32 h-32 object-cover mb-3 rounded-full shadow-lg p-2"
+    />
+    <h3 class="text-lg font-semibold mb-1 text-center text-gray-800">
+      {{ category.nombre }}
+    </h3>
+  </a>
 </div>

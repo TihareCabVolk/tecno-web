@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component , HostListener} from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -20,5 +20,17 @@ export class NavbarComponent {
    public toggleCart():void{
     this.isOpenCart = !this.isOpenCart; 
    }
+
+   @HostListener('document:click', ['$event'])
+   public onClickOutside(event: Event) {
+    const target = event.target as HTMLElement;
+    const isInsideButton = target.closest('button')?.contains(target);
+    const isInsideDropdown = target.closest('.relative')?.contains(target);
+
+    if (!isInsideButton && !isInsideDropdown) {
+      this.isOpen = false;
+      this.isOpenCart = false;
+    }
+  }
 
 }
