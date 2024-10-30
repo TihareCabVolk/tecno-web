@@ -7,6 +7,7 @@ import { CarritoListarComponent } from "./carrito-listar/carrito-listar.componen
 import { initFlowbite } from 'flowbite';
 
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -16,7 +17,7 @@ import { initFlowbite } from 'flowbite';
 })
 
 export class AppComponent implements OnInit {
-  title = 'base-p';
+  title = 'tecno-web';
   ngOnInit(): void {
     initFlowbite();
   }
