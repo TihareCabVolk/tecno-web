@@ -3,7 +3,7 @@
   class="flex flex-col bg-white rounded-lg shadow-lg p-5 relative"
 >
   <img
-    src="https://img.freepik.com/psd-premium/pila-patatas-fritas-crujientes_1234317-2146.jpg?w=740"
+    src="{{ producto.imageUrl }}"
     alt="Producto"
     class="object-cover w-full h-40 mb-4"
   />
@@ -11,7 +11,7 @@
 
   <div class="flex justify-between items-center">
     <span class="text-xl font-bold text-orange-600">
-      ${{ producto.price * 1000 }}
+      ${{ producto.price }}
     </span>
     <!-- Botón "+" solo aparece en modo "user" -->
     <button

@@ -9,22 +9,20 @@
       <h2 class="text-3xl font-bold mb-6 text-orange-600">Categorías</h2>
       <!-- Category Content -->
       <app-category
-        (categorySelected)="onCategorySelected($event)"
-        [categories]="categories"
         class="flex flex-wrap gap-4 bg-white shadow-md p-5 rounded-lg sm:flex-row md:flex-row lg:gap-6 xl:gap-8"
-        modo="view"
+        [categories]="categories"
+        [mode]="'view'"
       ></app-category>
-    </div>
-
-    <!-- Productos -->
-    <div class="py-5">
-      <h2 class="text-3xl font-bold mb-6 text-orange-600">Productos</h2>
-      <!-- Products Content -->
-      <app-products
-        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4"
-        [products]="products"
-        [modo]="'user'"
-      ></app-products>
+      <!-- Productos -->
+      <div class="py-5">
+        <h2 class="text-3xl font-bold mb-6 text-orange-600">Productos</h2>
+        <!-- Products Content -->
+        <app-products
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4"
+          [products]="products"
+          [modo]="'user'"
+        ></app-products>
+      </div>
     </div>
   </main>
 </div>

@@ -6,38 +6,50 @@ import { ProductsComponent } from "../../components/products/products.component"
 import { Product } from '../../models/Products';
 import { Category } from '../../models/Category';
 import { WcdonaldsService } from '../../services/wcdonalds.service';
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-catalogo',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, CategoryComponent, ProductsComponent],
+  imports: [CommonModule,RouterOutlet, NavbarComponent, CategoryComponent, ProductsComponent],
   templateUrl: './catalogo.component.html',
   styleUrl: './catalogo.component.scss'
 })
 export class CatalogoComponent implements OnInit {
-  
-    constructor(private wdService: WcdonaldsService){}
+  public products: Product[] = [];
+  public categories: Category[] = [];
+  private categoryId!: number;
+  private destroy$ = new Subject<void>();
 
-    public products:Product[]=[];
-    public categories:Category[]=[];
+  constructor(private wdService: WcdonaldsService, private route: ActivatedRoute) {}
 
-    public selectedCategory: number = 1;
-
-    // Método que recibe el ID de categoría desde el hijo
-    onCategorySelected(id: number) {
-      this.selectedCategory = id;
-      this.wdService.loadAllProducts().subscribe(data =>{
-        this.products = data.filter(p => p.category_id == this.selectedCategory);
-      });
-    }
-
-    public ngOnInit(): void {
-      this.wdService.loadAllProducts().subscribe(data =>{
-        this.products = data.filter(p => p.category_id == this.selectedCategory);
+  ngOnInit(): void {
+    this.route.paramMap
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(params => {
+        const id = params.get('id');
+        this.categoryId = id ? +id : 0;
+        this.loadProductsByCategory();
       });
 
-      this.wdService.loadAllCategory().subscribe(data =>{
+    this.wdService.loadAllCategory()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
         this.categories = data;
-      })
-    }
+      });
+  }
+
+  private loadProductsByCategory(): void {
+    this.wdService.loadAllProducts()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        this.products = data.filter(p => p.categoryId === this.categoryId);
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }
