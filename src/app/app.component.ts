@@ -1,24 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
-import { HomeComponent } from "./home/home.component";
-import { CarrritoCompraComponent } from './carrito-compra/carrrito-compra.component';
-import { HeaderComponent } from "./header/header.component";
-import { CarritoListarComponent } from "./carrito-listar/carrito-listar.component";
-import { initFlowbite } from 'flowbite';
-
-
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { CatalogoComponent } from './pages/catalogo/catalogo.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HomeComponent, CarrritoCompraComponent, HeaderComponent, RouterLink, CarritoListarComponent],
+  imports: [RouterOutlet, CatalogoComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
-
-export class AppComponent implements OnInit {
-  title = 'base-p';
-  ngOnInit(): void {
-    initFlowbite();
-  }
+export class AppComponent {
+  title = 'Carrito';
 }
-

@@ -8,9 +8,9 @@ import { NavigationEnd, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CarritoListarComponent } from '../pay/carrito-listar.component';
 import { ChangeDetectorRef } from '@angular/core';
-import { VisibilidadElementosService } from '../../services/visibilidad-elementos.service';
+import { CartComponent } from '../cart/cart.component';
 @Component({
-  selector: 'app-cart',
+  selector: 'app-navbar',
   standalone: true,
   imports: [
     CommonModule,
@@ -18,15 +18,41 @@ import { VisibilidadElementosService } from '../../services/visibilidad-elemento
     CommonModule,
     FormsModule,
     CarritoListarComponent,
+    CartComponent,
   ],
-  templateUrl: './cart.component.html',
-  styleUrl: './cart.component.scss',
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.scss',
 })
-export class CartComponent implements OnInit {
-  public mostrar: boolean = true;
+export class NavbarComponent implements OnInit {
+  public isOpen: boolean = false;
+  public isOpenCart: boolean = false;
+  public cantProduct: number = 1;
+
+  public toggleMenu(): void {
+    this.isOpen = !this.isOpen;
+  }
+
+  public toggleCart(): void {
+    this.isOpenCart = !this.isOpenCart;
+  }
+
+  @HostListener('document:click', ['$event'])
+  public onClickOutside(event: Event) {
+    const target = event.target as HTMLElement;
+    const isInsideButton = target.closest('button')?.contains(target);
+    const isInsideDropdown = target.closest('.relative')?.contains(target);
+
+    if (!isInsideButton && !isInsideDropdown) {
+      this.isOpen = false;
+      this.isOpenCart = false;
+    }
+  }
+
+  //Logica del carrito en el navbar o header
+  @Input() mostrar: boolean = true;
   public carritoService = inject(CarritoService);
   listCarrito: Carrito[] = [];
-  private estadoService = inject(VisibilidadElementosService);
+
   constructor(public router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
@@ -37,10 +63,12 @@ export class CartComponent implements OnInit {
       this.listCarrito = carrito; // Se actualiza automáticamente con cada cambio en el carrito
     });
 
-    this.estadoService.mostrar$.subscribe((value) => {
-      this.mostrar = value;
-      console.log('Mostrar actualizado a:', this.mostrar);
-      this.cdr.detectChanges(); // Fuerza la detección de cambios
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.mostrar = event.url !== '/carrito';
+        console.log('Navegando a:', event.url, this.mostrar);
+        this.cdr.detectChanges(); // Fuerza la detección de cambios
+      }
     });
   }
 
