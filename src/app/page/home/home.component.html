@@ -1,0 +1,36 @@
+<div class="min-h-screen flex flex-col bg-gray-100" id="catalogo">
+  <app-navbar class="sticky top-0 py-5 bg-white shadow-lg z-50"></app-navbar>
+
+  <main class="container w-4/5 mx-auto my-10">
+    <h1></h1>
+    <app-carosuel></app-carosuel>
+
+    <section class="container mx-auto py-12 grid gap-8 md:grid-cols-3 text-center">
+      <div class="flex flex-col items-center">
+        <img src="https://www.shutterstock.com/shutterstock/photos/2316171029/display_1500/stock-vector-grilled-cheeseburger-on-sesame-bun-with-fries-icon-isolated-2316171029.jpg" alt="Opción 1" class="w-28 h-28 mb-4">
+        <h3 class="text-lg font-semibold text-gray-800">Pide a casa o recoge tu pedido en el restaurante que prefieras</h3>
+      </div>
+      <div class="flex flex-col items-center">
+        <img src="https://www.shutterstock.com/shutterstock/photos/2316171029/display_1500/stock-vector-grilled-cheeseburger-on-sesame-bun-with-fries-icon-isolated-2316171029.jpg" alt="Opción 2" class="w-28 h-28 mb-4">
+        <h3 class="text-lg font-semibold text-gray-800">Disfruta de grandes descuentos y beneficios solo por registrarte</h3>
+      </div>
+      <div class="flex flex-col items-center">
+        <img src="https://www.shutterstock.com/shutterstock/photos/2316171029/display_1500/stock-vector-grilled-cheeseburger-on-sesame-bun-with-fries-icon-isolated-2316171029.jpg" alt="Opción 3" class="w-28 h-28 mb-4">
+        <h3 class="text-lg font-semibold text-gray-800">La experiencia McDonald's 100% pensada para ti y para los tuyos</h3>
+      </div>
+    </section>
+  
+    <!-- Sección de Imagen Grande con Texto -->
+    <section class="relative bg-cover bg-center" style="background-image: url('https://www.shutterstock.com/image-vector/street-food-festival-people-eat-600nw-1934670140.jpg'); height: 400px;">
+      <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white">
+        <h2 class="text-4xl font-bold">Pedir por la App es más fácil</h2>
+        <p class="text-xl font-semibold mt-2">
+          <span class="text-pink-500">Cuando quieras,</span> 
+          <span class="text-red-500">como quieras.</span>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <app-footer></app-footer>
+</div>
