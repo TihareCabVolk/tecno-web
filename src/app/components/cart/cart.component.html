@@ -124,7 +124,7 @@
                             class="text-base font-bold text-gray-900 dark:text-white"
                           >
                             CLP
-                            {{ item.producto.price | number : "1.2-2" }}
+                            {{ item.producto.price * 100 | number : "1.2-2" }}
                           </p>
                         </div>
                       </div>
@@ -299,6 +299,7 @@
                       <button
                         data-drawer-hide="drawer-right-example"
                         routerLink="/carrito"
+                        style="background-color: #f97316"
                         class="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                       >
                         Continuar pago
