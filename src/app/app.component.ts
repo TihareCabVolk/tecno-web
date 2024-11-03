@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { HomeComponent } from "./home/home.component";
-import { CarrritoCompraComponent } from './carrito-compra/carrrito-compra.component';
-import { HeaderComponent } from "./header/header.component";
-import { CarritoListarComponent } from "./carrito-listar/carrito-listar.component";
 import { initFlowbite } from 'flowbite';
+import { CatalogoComponent } from './pages/catalogo/catalogo.component';
 
 
 
