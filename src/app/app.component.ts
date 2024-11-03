@@ -11,9 +11,9 @@ import { initFlowbite } from 'flowbite';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HomeComponent, CarrritoCompraComponent, HeaderComponent, RouterLink, CarritoListarComponent],
+  imports: [RouterOutlet, CatalogoComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 
 export class AppComponent implements OnInit {
@@ -22,4 +22,3 @@ export class AppComponent implements OnInit {
     initFlowbite();
   }
 }
-

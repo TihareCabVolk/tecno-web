@@ -1,11 +1,10 @@
 import { Routes } from '@angular/router';
-import { CarrritoCompraComponent } from './carrito-compra/carrrito-compra.component';
-import { HomeComponent } from './home/home.component';
-import { CarritoListarComponent } from './carrito-listar/carrito-listar.component';
+import { CarritoListarComponent } from './components/pay/carrito-listar.component';
+import { CatalogoComponent } from './pages/catalogo/catalogo.component';
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'carrito-listar', component: CarritoListarComponent },
-    { path: '**', pathMatch: 'full', redirectTo: '' }
-
+  { path: '', component: CatalogoComponent },
+  { path: 'carrito', component: CarritoListarComponent },
+  //Si ingresa una ruta incorrecta, redirige al inicio
+  { path: '**', pathMatch: 'full', redirectTo: '' },
 ];
