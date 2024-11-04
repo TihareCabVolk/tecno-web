@@ -29,6 +29,8 @@ export class CarritoListarComponent implements OnInit {
   @Input() deliveryVisible: boolean = false;
   @Input() retiroVisible: boolean = false;
 
+
+
   ngOnInit(): void {
     initFlowbite();
     this.getListCarrito();
