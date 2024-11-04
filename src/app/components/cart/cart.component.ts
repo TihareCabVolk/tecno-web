@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { CarritoListarComponent } from '../pay/carrito-listar.component';
 import { ChangeDetectorRef } from '@angular/core';
 import { VisibilidadElementosService } from '../../services/visibilidad-elementos.service';
+
+
 @Component({
   selector: 'app-cart',
   standalone: true,
@@ -27,7 +29,7 @@ export class CartComponent implements OnInit {
   public carritoService = inject(CarritoService);
   listCarrito: Carrito[] = [];
   private estadoService = inject(VisibilidadElementosService);
-  constructor(public router: Router, private cdr: ChangeDetectorRef) {}
+  constructor(public router: Router, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     initFlowbite();
