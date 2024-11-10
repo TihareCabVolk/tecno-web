@@ -1,1 +1,114 @@
-<p>form-register works!</p>
+<form action="" [formGroup]="registerForm" class="w-full">
+  <!-- Mensaje de Error Global -->
+  <div
+    *ngIf="message"
+    class="w-full p-3 bg-red-100 text-red-700 rounded-lg flex justify-between items-center mb-4"
+  >
+    <span>{{ message }}</span>
+    <button
+      (click)="closeError()"
+      class="text-red-700 font-bold hover:text-red-900"
+    >
+      ✖
+    </button>
+  </div>
+  <!-- Título -->
+  <h1 class="text-3xl font-semibold font-mcdonalds">Register</h1>
+
+  <!-- Campo de Username -->
+  <div class="w-full my-4">
+    <div class="relative">
+      <input
+        type="text"
+        formControlName="username"
+        placeholder="Username"
+        class="w-full py-3 pr-12 pl-5 bg-gray-100 rounded-lg border-none outline-none font-medium text-gray-700 placeholder-gray-400"
+      />
+      <i
+        class="absolute right-5 top-1/2 -translate-y-1/2 bx bx-user"
+        style="font-size: 20px"
+      ></i>
+    </div>
+    <!-- Mensaje de error de Username -->
+    <div
+      *ngIf="
+        registerForm.get('username')?.invalid &&
+        registerForm.get('username')?.touched
+      "
+      class="text-s text-red-500 font-semibold text-start"
+    >
+      <small *ngIf="registerForm.get('username')?.errors?.['required']">
+        Username is required.
+      </small>
+    </div>
+  </div>
+
+  <!-- Campo de Email -->
+  <div class="w-full my-4">
+    <div class="relative mt-3">
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Email"
+        class="w-full py-3 pr-12 pl-5 bg-gray-100 rounded-lg border-none outline-none font-medium text-gray-700 placeholder-gray-400"
+      />
+
+      <i
+        class="absolute right-5 top-1/2 -translate-y-1/2 bx bx-envelope"
+        style="font-size: 20px"
+      ></i>
+    </div>
+    <!-- Mensaje de error de Email -->
+    <div
+      *ngIf="
+        registerForm.get('email')?.invalid && registerForm.get('email')?.touched
+      "
+      class="text-s text-red-500 font-semibold text-start"
+    >
+      <small *ngIf="registerForm.get('email')?.errors?.['required']">
+        Email is required.
+      </small>
+      <small *ngIf="registerForm.get('email')?.errors?.['email']">
+        Email is not valid.
+      </small>
+    </div>
+  </div>
+
+  <!-- Campo de Contraseña -->
+  <div class="w-full my-4">
+    <div class="relative">
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="Password"
+        class="w-full py-3 pr-12 pl-5 bg-gray-100 rounded-lg border-none outline-none font-medium text-gray-700 placeholder-gray-400"
+      />
+
+      <i
+        class="absolute right-5 top-1/2 -translate-y-1/2 bx bx-lock-alt"
+        style="font-size: 20px"
+      ></i>
+    </div>
+    <!-- Mensaje de error de Password -->
+    <div
+      *ngIf="
+        registerForm.get('password')?.invalid &&
+        registerForm.get('password')?.touched
+      "
+      class="text-s text-red-500 font-semibold text-start"
+    >
+      <small *ngIf="registerForm.get('password')?.errors?.['required']">
+        Password is required.
+      </small>
+    </div>
+  </div>
+
+  <!-- Botón de Registro -->
+  <button
+    type="submit"
+    class="w-full h-10 rounded-lg font-semibold border-none cursor-pointer text-white bg-blue-500"
+    (click)="onSubmitRegister()"
+  >
+    Register
+  </button>
+</form>

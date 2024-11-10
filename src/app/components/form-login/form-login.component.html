@@ -1,1 +1,89 @@
-<p>form-login works!</p>
+<form [formGroup]="loginForm" class="w-full">
+  <!-- Mensaje de Error Global -->
+  <div
+    *ngIf="message"
+    class="w-full p-3 bg-red-100 text-red-700 rounded-lg flex justify-between items-center mb-4"
+  >
+    <span>{{ message }}</span>
+    <button
+      (click)="closeError()"
+      class="text-red-700 font-bold hover:text-red-900"
+    >
+      ✖
+    </button>
+  </div>
+
+  <!-- Título -->
+  <h1 class="text-3xl font-semibold font-mcdonalds">Login</h1>
+
+  <!-- Campo de Email -->
+  <div class="w-full my-4">
+    <div class="relative">
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Email"
+        class="w-full py-3 pr-12 pl-5 bg-gray-100 rounded-lg border-none outline-none font-medium text-gray-700 placeholder-gray-400"
+      />
+      <i
+        class="absolute right-5 top-1/2 -translate-y-1/2 bx bx-envelope"
+        style="font-size: 20px"
+      ></i>
+    </div>
+    <!-- Mensaje de error de Email -->
+    <div
+      *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+      class="text-s text-red-500 font-semibold text-start"
+    >
+      <small *ngIf="loginForm.get('email')?.errors?.['required']"
+        >Email is required.</small
+      >
+      <small *ngIf="loginForm.get('email')?.errors?.['email']"
+        >Email is not valid.</small
+      >
+    </div>
+  </div>
+
+  <!-- Campo de Contraseña -->
+  <div class="w-full my-4">
+    <div class="relative">
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="Password"
+        class="w-full py-3 pr-12 pl-5 bg-gray-100 rounded-lg border-none outline-none font-medium text-gray-700 placeholder-gray-400"
+      />
+      <i
+        class="absolute right-5 top-1/2 -translate-y-1/2 bx bx-lock-alt"
+        style="font-size: 20px"
+      ></i>
+    </div>
+    <!-- Mensaje de error de Contraseña -->
+    <div
+      *ngIf="
+        loginForm.get('password')?.invalid && loginForm.get('password')?.touched
+      "
+      class="text-s text-red-500 font-semibold text-start"
+    >
+      <small *ngIf="loginForm.get('password')?.errors?.['required']"
+        >Password is required.</small
+      >
+    </div>
+  </div>
+
+  <!-- Enlace de Olvidé mi contraseña -->
+  <div class="my-2">
+    <a href="#" class="text-sm text-gray-500 hover:text-gray-700"
+      >forgot password?</a
+    >
+  </div>
+
+  <!-- Botón de Login -->
+  <button
+    type="button"
+    class="w-full h-10 rounded-lg font-semibold border-none cursor-pointer text-white bg-blue-500"
+    (click)="onSubmitLogin()"
+  >
+    Login
+  </button>
+</form>
