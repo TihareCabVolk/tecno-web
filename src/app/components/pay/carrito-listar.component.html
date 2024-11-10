@@ -164,8 +164,7 @@
 
   <div class="relative bg-white rounded-lg w-1/3 p-6" (click)="$event.stopPropagation()">
 
-
-    <p class="text-3xl font-semibold py-6 text-black">¿Dónde quieres tu pedido?</p>
+    <p class="flex justify-center text-3xl font-semibold py-8 text-black">¿Dónde quieres tu pedido?</p>
 
     <div class="flex py-4 justify-center space-x-4">
       <!-- Botón para Delivery -->
@@ -225,9 +224,19 @@
 
     <!-- Botón para realizar la Compra -->
     <div class="flex justify-center mt-4">
-      <button class="text-white font-semibold rounded-full p-2 bg-green-400 hover:bg-green-300 transition duration-300">
+      <button class="text-white font-semibold rounded-full p-2 bg-green-400 hover:bg-green-300 transition duration-300"
+        (click)="metodoPagoVisible()">
         Realizar pedido
       </button>
+    </div>
+
+    <div *ngIf="isVisiblePago" class="overlay" (click)="metodoPagoNoVisible()">
+      <div class="relative popup" [@fadeInOut] (click)="$event.stopPropagation()">
+        <i class="fa fa-check-circle"></i>
+        <h2 class="flex justify-center py-4 font-semibold rounded-full">¡Gracias!</h2>
+        <p>Se ha realizado el pago exitosamente.</p>
+        <span class="close-button" (click)="metodoPagoNoVisible()">&times;</span>
+      </div>
     </div>
   </div>
 </div>
