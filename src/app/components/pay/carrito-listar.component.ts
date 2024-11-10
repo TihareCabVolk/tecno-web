@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { initFlowbite } from 'flowbite';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { VisibilidadElementosService } from '../../services/visibilidad-elementos.service';
+import { AfterViewInit } from '@angular/core';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-cart-listar',
@@ -28,8 +30,6 @@ export class CarritoListarComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
   @Input() deliveryVisible: boolean = false;
   @Input() retiroVisible: boolean = false;
-
-
 
   ngOnInit(): void {
     initFlowbite();
@@ -76,6 +76,13 @@ export class CarritoListarComponent implements OnInit {
   // Se hace invisible la ventana para la forma de retiro del pedido o delivery
   hideModal(): boolean {
     return this.isModalVisible = false;
+  }
+
+  // Cerrar la ventana flotante con un click fuera de ella
+  cerrarModalConClick(event: MouseEvent) {
+    if (event.target === event.currentTarget) {
+      this.isModalVisible = false;
+    }
   }
 
   // Se hace visible el contenido del Delivery y se hace inaccesible el boton Retiro en Tienda
