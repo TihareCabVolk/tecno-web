@@ -191,15 +191,12 @@
       <!-- Delivery -->
       <div *ngIf="deliveryVisible">
         <p class="text-2xl font-semibold">
-          <i class="fas fa-map-marker-alt text-black"></i>
+          <i class="fas fa-map-marker-alt py-4 text-black"></i>
           Busca tu dirección:
         </p>
-
-        <div class="map-conatiner">
-          <div id="map"></div>
+        <div class="font-semibold py-4">
+          <label>Ingresa tu dirección...</label>
         </div>
-
-        <label>Ingresa tu dirección...</label>
         <div class="flex flex-col items-center space-y-4">
           <textarea id="indicaciones" rows="3"
             class="border border-orange-500 rounded-lg p-2 w-full resize-none focus:outline-dashed focus:ring-2 focus:ring-orange-300"
@@ -209,8 +206,11 @@
       </div>
 
       <!-- Retiro en Tienda -->
-      <div class="text-2xl text-center font-semibold py-2" *ngIf="retiroVisible">
-        <p>Detalles para Retiro en Tienda: </p>
+      <div class="text-center py-4 font-semibold " *ngIf="retiroVisible">
+
+        <div class="py-4 font-semibold">
+          <p>Detalles para Retiro en Tienda: </p>
+        </div>
         <div class="flex flex-col items-center space-y-4">
           <textarea id="comentarios" rows="6"
             class="border border-orange-500 rounded-lg p-2 w-full resize-none focus:outline-dashed focus:ring-2 focus:ring-orange-300"
@@ -224,17 +224,19 @@
 
     <!-- Botón para realizar la Compra -->
     <div class="flex justify-center mt-4">
-      <button class="text-white font-semibold rounded-full p-2 bg-green-400 hover:bg-green-300 transition duration-300"
+      <button class="text-white font-semibold rounded-md p-2 bg-green-400 hover:bg-green-300 transition duration-300"
         (click)="metodoPagoVisible()">
         Realizar pedido
       </button>
     </div>
 
+    <!-- Pestaña para el pago -->
     <div *ngIf="isVisiblePago" class="overlay" (click)="metodoPagoNoVisible()">
       <div class="relative popup" [@fadeInOut] (click)="$event.stopPropagation()">
-        <i class="fa fa-check-circle"></i>
         <h2 class="flex justify-center py-4 font-semibold rounded-full">¡Gracias!</h2>
-        <p>Se ha realizado el pago exitosamente.</p>
+        <div class="flex justify-center px-10">
+          <img src='https://cdn.pixabay.com/photo/2017/01/13/01/22/ok-1976099_640.png' alt=''>
+        </div>
         <span class="close-button" (click)="metodoPagoNoVisible()">&times;</span>
       </div>
     </div>
