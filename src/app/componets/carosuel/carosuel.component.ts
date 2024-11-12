@@ -10,11 +10,11 @@ import { Component } from '@angular/core';
 })
 export class CarosuelComponent {
   images = [
-    'https://media.revistagq.com/photos/6490312847440fcd9be41fb7/master/pass/flash.jpg',
-    'https://media.revistagq.com/photos/6490312847440fcd9be41fb7/master/pass/flash.jpg',
-    'https://media.revistagq.com/photos/6490312847440fcd9be41fb7/master/pass/flash.jpg'
+    { src: 'images/oferta-1.webp', name: 'Oferta de Hamburguesa' },
+    { src: 'images/oferta-2.webp', name: 'Oferta de Bebida' },
+    { src: 'https://media.revistagq.com/photos/6490312847440fcd9be41fb7/master/pass/flash.jpg', name: 'FLash' },
+    // Añade más imágenes si es necesario
   ];
-  
   currentSlide = 0;
 
   showSlide(index: number) {

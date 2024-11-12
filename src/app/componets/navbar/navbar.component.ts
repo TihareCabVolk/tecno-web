@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -8,11 +8,16 @@ import { Component, HostListener } from '@angular/core';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent {
-  isLoggedIn = false;
+export class NavbarComponent implements OnInit{
+  public isLoggedIn:boolean = false;
+
   public isOpen:boolean = false;
   public isOpenCart:boolean = false;
   public cantProduct:number = 1;
+
+  public ngOnInit(): void {
+    // Verificar si el token está en el localStorage
+  }
 
   public toggleMenu():void{
     this.isOpen = !this.isOpen; 
@@ -32,5 +37,10 @@ export class NavbarComponent {
       this.isOpen = false;
       this.isOpenCart = false;
     }
+  }
+
+  public loggedIn(){
+    this.isLoggedIn = !this.isLoggedIn;
+    return !this.isLoggedIn;
   }
 }
