@@ -1,4 +1,11 @@
-import { Component, inject, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  Output,
+  OnInit,
+  EventEmitter,
+} from '@angular/core';
 import { CarritoService } from '../../services/carrito.service';
 import { Carrito } from '../../models/carrito';
 import { CommonModule, NgClass, NgFor } from '@angular/common';
@@ -21,7 +28,6 @@ export class CarritoListarComponent implements OnInit {
 
   public botonDelivery: boolean = true;
   public botonRetiro: boolean = true;
-
   public isModalVisible: boolean = false;
 
   @Input() isVisible: boolean = false;
@@ -29,38 +35,34 @@ export class CarritoListarComponent implements OnInit {
   @Input() deliveryVisible: boolean = false;
   @Input() retiroVisible: boolean = false;
 
-
-
+  //Metodos iniciales
   ngOnInit(): void {
     initFlowbite();
     this.getListCarrito();
     this.estadoService.setMostrar(false);
   }
 
+  //Obetener la lista de carrito
   getListCarrito() {
     this.listCarrito = this.carritoService.getCarrito();
   }
-
+  //Eliminar un item
   eliminarItem(index: number) {
     this.carritoService.eliminar(index);
     this.getListCarrito();
   }
-
+  //Actuazar un item
   actualizar(item: Carrito, index: number) {
     this.carritoService.actualizar(index, item.cantidad);
   }
 
-  onKeyDown(event: any) {
-    event.preventDefault();
-  }
-
   item = { cantidad: 1 };
-
+  //incrementa el valor de la flecha derecha y actualiza el valor
   incrementar(item: Carrito, index: number) {
     item.cantidad += 1;
     this.actualizar(item, index);
   }
-
+  //incrementa el valor de la flecha izquierda y actualiza el valor
   decrementar(item: Carrito, index: number) {
     if (item.cantidad > 1) {
       item.cantidad -= 1;
@@ -68,25 +70,33 @@ export class CarritoListarComponent implements OnInit {
     }
   }
 
+  //Apartado de ubicacion
+
   // Se hace visible la ventana para la forma de retiro del pedido o delivery
   showModal(): boolean {
-    return this.isModalVisible = true;
+    return (this.isModalVisible = true);
   }
 
   // Se hace invisible la ventana para la forma de retiro del pedido o delivery
   hideModal(): boolean {
-    return this.isModalVisible = false;
+    return (this.isModalVisible = false);
   }
 
   // Se hace visible el contenido del Delivery y se hace inaccesible el boton Retiro en Tienda
   deliveryShow(): boolean {
-    if (this.deliveryVisible == false) { this.botonDelivery = !this.botonDelivery; return this.deliveryVisible = true }
-    else this.botonDelivery = !this.botonDelivery; return this.deliveryVisible = false;
+    if (this.deliveryVisible == false) {
+      this.botonDelivery = !this.botonDelivery;
+      return (this.deliveryVisible = true);
+    } else this.botonDelivery = !this.botonDelivery;
+    return (this.deliveryVisible = false);
   }
 
   // Se hace visible el contenido del Retiro en tienda y se hace inaccesible el boton Delivery
   retiroShow(): boolean {
-    if (this.retiroVisible == false) { this.botonRetiro = !this.botonRetiro; return this.retiroVisible = true }
-    else this.botonRetiro = !this.botonRetiro; return this.retiroVisible = false;
+    if (this.retiroVisible == false) {
+      this.botonRetiro = !this.botonRetiro;
+      return (this.retiroVisible = true);
+    } else this.botonRetiro = !this.botonRetiro;
+    return (this.retiroVisible = false);
   }
 }

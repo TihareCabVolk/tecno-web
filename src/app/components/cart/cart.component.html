@@ -263,7 +263,9 @@
                               class="text-base font-medium text-gray-900 dark:text-white"
                             >
                               CLP
-                              {{ carritoService.total() | number : "1.2-2" }}
+                              {{
+                                carritoService.total() * 100 | number : "1.2-2"
+                              }}
                             </dd>
                           </dl>
 
@@ -291,7 +293,9 @@
                             class="text-base font-bold text-gray-900 dark:text-white"
                           >
                             CLP
-                            {{ carritoService.total() | number : "1.2-2" }}
+                            {{
+                              carritoService.total() * 100 | number : "1.2-2"
+                            }}
                           </dd>
                         </dl>
                       </div>

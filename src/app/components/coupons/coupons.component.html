@@ -1,0 +1,378 @@
+<div class="mt-4" class="min-h-screen flex flex-col bg-gray-100">
+  <section
+    class="py-8 antialiased dark:bg-gray-900 md:py-16"
+    style="
+      background-image: linear-gradient(
+          rgba(255, 255, 255, 0.85),
+          rgba(255, 255, 255, 0.85)
+        ),
+        url('/images/background.jpg');
+      background-repeat: repeat;
+      background-size: 20rem;
+    "
+  >
+    <div class="mx-auto max-w-screen-xl px-4 2xl:px-0" id="catalogo">
+      <h2
+        class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl"
+      >
+        Cupones
+      </h2>
+
+      <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
+        <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
+          <div class="space-y-6">
+            <!--Apartado de agregado-->
+            <div
+              class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6"
+            >
+              <div class="flex items-center justify-center">
+                <button
+                  (click)="showModal()"
+                  title="Agregar"
+                  class="group cursor-pointer outline-none hover:rotate-90 duration-300"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="50px"
+                    height="50px"
+                    viewBox="0 0 24 24"
+                    class="stroke-red-500 fill-none group-hover:fill-white-600 group-active:stroke-green-200 group-active:fill-orange-600 group-active:duration-0 duration-300"
+                  >
+                    <path
+                      d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
+                      stroke-width="1.5"
+                    ></path>
+                    <path d="M8 12H16" stroke-width="1.5"></path>
+                    <path d="M12 16V8" stroke-width="1.5"></path>
+                  </svg>
+                </button>
+
+                <label for="counter-input" class="sr-only"
+                  >Choose quantity:</label
+                >
+              </div>
+            </div>
+
+            @for (item of listaCupones; track item) {
+            <div
+              class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6"
+            >
+              <div
+                class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0"
+              >
+                <div class="shrink-0 md:order-1 flex flex-col items-start">
+                  <!--Aca tendria que estar en el src item.producto.image_url-->
+                  <img
+                    class="h-10 w-10 dark:hidden"
+                    src="https://cupon.cl/static/shop/49316/logo/cupon_easy.png"
+                    alt="imac image"
+                  />
+
+                  <p
+                    class="text-8xl font-medium text-gray-900 hover:scale-105 dark:text-white"
+                    contenteditable="true"
+                    (blur)="actualizar(item, 'descuento', $event, $index)"
+                  >
+                    {{ item.descuento }}%
+                  </p>
+                </div>
+
+                <div
+                  class="flex items-center justify-between md:order-3 md:justify-end"
+                >
+                  <div class="text-end md:order-4 md:w-32">
+                    <div class="flex items-center gap-4">
+                      <button
+                        title="Eliminar"
+                        (click)="eliminarItem($index)"
+                        class="group relative flex h-14 w-14 flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-red-800 bg-red-400 hover:bg-red-600"
+                      >
+                        <svg
+                          viewBox="0 0 1.625 1.625"
+                          class="absolute -top-7 fill-white delay-100 group-hover:top-6 group-hover:animate-[spin_1.4s] group-hover:duration-1000"
+                          height="15"
+                          width="15"
+                        >
+                          <path
+                            d="M.471 1.024v-.52a.1.1 0 0 0-.098.098v.618c0 .054.044.098.098.098h.487a.1.1 0 0 0 .098-.099h-.39c-.107 0-.195 0-.195-.195"
+                          ></path>
+                          <path
+                            d="M1.219.601h-.163A.1.1 0 0 1 .959.504V.341A.033.033 0 0 0 .926.309h-.26a.1.1 0 0 0-.098.098v.618c0 .054.044.098.098.098h.487a.1.1 0 0 0 .098-.099v-.39a.033.033 0 0 0-.032-.033"
+                          ></path>
+                          <path
+                            d="m1.245.465-.15-.15a.02.02 0 0 0-.016-.006.023.023 0 0 0-.023.022v.108c0 .036.029.065.065.065h.107a.023.023 0 0 0 .023-.023.02.02 0 0 0-.007-.016"
+                          ></path>
+                        </svg>
+                        <svg
+                          width="16"
+                          fill="none"
+                          viewBox="0 0 39 7"
+                          class="origin-right duration-500 group-hover:rotate-90"
+                        >
+                          <line
+                            stroke-width="4"
+                            stroke="white"
+                            y2="5"
+                            x2="39"
+                            y1="5"
+                          ></line>
+                          <line
+                            stroke-width="3"
+                            stroke="white"
+                            y2="1.5"
+                            x2="26.0357"
+                            y1="1.5"
+                            x1="12"
+                          ></line>
+                        </svg>
+                        <svg
+                          width="16"
+                          fill="none"
+                          viewBox="0 0 33 39"
+                          class=""
+                        >
+                          <mask fill="white" id="path-1-inside-1_8_19">
+                            <path
+                              d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z"
+                            ></path>
+                          </mask>
+                          <path
+                            mask="url(#path-1-inside-1_8_19)"
+                            fill="white"
+                            d="M0 0H33H0ZM37 35C37 39.4183 33.4183 43 29 43H4C-0.418278 43 -4 39.4183 -4 35H4H29H37ZM4 43C-0.418278 43 -4 39.4183 -4 35V0H4V35V43ZM37 0V35C37 39.4183 33.4183 43 29 43V35V0H37Z"
+                          ></path>
+                          <path
+                            stroke-width="4"
+                            stroke="white"
+                            d="M12 6L12 29"
+                          ></path>
+                          <path
+                            stroke-width="4"
+                            stroke="white"
+                            d="M21 6V29"
+                          ></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md"
+                >
+                  <div class="flex items-center justify-center h-full">
+                    <p
+                      class="text-4xl font-medium text-gray-900 hover:scale-105 dark:text-white"
+                      contenteditable="true"
+                      (blur)="actualizar(item, 'nombre', $event, $index)"
+                    >
+                      {{ item.nombre }}
+                    </p>
+                  </div>
+
+                  <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                      <label
+                        class="font-semibold text-sm text-gray-600 pb-1 block"
+                        for="desde"
+                        >Desde</label
+                      >
+                      <input
+                        class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                        type="date"
+                        id="desde"
+                        [(ngModel)]="item.fechaInicio"
+                        (change)="
+                          actualizar(item, 'fechaInicio', $event, $index)
+                        "
+                      />
+                    </div>
+                    <div>
+                      <label
+                        class="font-semibold text-sm text-gray-600 pb-1 block"
+                        for="hasta"
+                        >Hasta</label
+                      >
+                      <input
+                        class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                        type="date"
+                        id="hasta"
+                        [(ngModel)]="item.fechaTermino"
+                        (change)="
+                          actualizar(item, 'fechaTermino', $event, $index)
+                        "
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Ventana visible e invisible -->
+<div
+  *ngIf="isModalVisible"
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+>
+  <div class="relative bg-white rounded-lg w-1/3 p-6">
+    <!--Formulario de agregado-->
+
+    <div
+      class="mx-auto max-w-[432px] bg-white rounded-md shadow-lg drop-shadow-md"
+    >
+      <div class="px-4 py-3 flex justify-between">
+        <div>
+          <h2 class="font-bold" style="font-size: 32px">Agregar cupon</h2>
+          <p class="text-gray-500" style="font-size: 15px">
+            Ingrese los datos pertinentes.
+          </p>
+        </div>
+        <button
+          (click)="hideModal()"
+          style="cursor: pointer"
+          class="text-gray-600"
+          aria-label="Cerrar modal"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-7 w-7"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="3"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <hr class="bg-gray-600" />
+      <div class="px-4 pt-3 pb-6 space-y-3">
+        <div>
+          <input
+            type="text"
+            placeholder="Nombre del cupon"
+            [(ngModel)]="nombreCupon"
+            class="w-full ring-1 ring-gray-400 rounded-md text-md px-2 py-2 outline-none bg-gray-100 focus:placeholder-gray-500"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Direccion de imagen"
+            [(ngModel)]="imagenCupon"
+            class="w-full ring-1 ring-gray-400 rounded-md text-md px-2 py-2 outline-none bg-gray-100 focus:placeholder-gray-500"
+          />
+        </div>
+        <!--Ingresar fechas-->
+        <div class="mt-1">
+          <label class="text-gray-500" style="font-size: 12px" for="inicio">
+            Fecha inicio
+          </label>
+          <input
+            class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+            type="date"
+            id="inicio"
+            [(ngModel)]="fechaInicio"
+          />
+        </div>
+
+        <div class="mt-1">
+          <label class="text-gray-500" style="font-size: 12px" for="termino">
+            Fecha Termino
+          </label>
+          <input
+            class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+            type="date"
+            id="termino"
+            [(ngModel)]="fechaTermino"
+          />
+        </div>
+
+        <!--Ingresar porcentaje-->
+        <div class="text-gray-500" style="font-size: 12px">
+          Porcentaje descuento
+        </div>
+        <div class="mt-1 flex space-x-3">
+          <input
+            [(ngModel)]="descuentoCupon"
+            class="text-md flex-1 px-1 py-1.5 ring-1 ring-gray-400 rounded-md outline-none"
+            type="number"
+            id="percentage"
+            name="percentage"
+            min="0"
+            max="100"
+            step="1"
+            placeholder="0-100"
+            required
+          />
+        </div>
+
+        <!--Categorias-->
+        <div>
+          <div class="text-gray-500" style="font-size: 12px">Categorias</div>
+          <div class="mt-1 flex space-x-3">
+            <label
+              for="female"
+              class="flex-1 flex space-x-2 justify-between items-center rounded-md px-2 py-1 border border-gray-400"
+            >
+              <span>Hamburguesas</span>
+              <input type="radio" id="female" name="gender" />
+            </label>
+            <label
+              for="male"
+              class="flex-1 flex space-x-2 justify-between items-center rounded-md px-2 py-1 border border-gray-400"
+            >
+              <span>Bebidas</span>
+              <input type="radio" id="male" name="gender" />
+            </label>
+            <label
+              for="other"
+              class="flex-1 flex space-x-2 justify-between items-center rounded-md px-2 py-1 border border-gray-400"
+            >
+              <span>Personalizar</span>
+              <input type="radio" id="other" name="gender" />
+            </label>
+          </div>
+        </div>
+        <div>
+          <p class="text-gray-600 mt-4" style="font-size: 11px">
+            Presiona "agregar" para generar un codigo unico en su nuevo cupon.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <button
+            (click)="
+              agregarProducto(
+                nombreCupon,
+                descuentoCupon,
+                fechaInicio,
+                fechaTermino,
+                imagenCupon
+              )
+            "
+            class="text-xl w-32 h-12 rounded bg-orange-400 text-white relative overflow-hidden group z-10 hover:text-white duration-1000"
+          >
+            <span
+              class="absolute bg-orange-200 w-36 h-36 rounded-full group-hover:scale-100 scale-0 -z-10 -left-2 -top-10 group-hover:duration-500 duration-700 origin-center transform transition-all"
+            ></span>
+            <span
+              class="absolute bg-orange-600 w-36 h-36 -left-2 -top-10 rounded-full group-hover:scale-100 scale-0 -z-10 group-hover:duration-700 duration-500 origin-center transform transition-all"
+            ></span>
+            Agregar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
