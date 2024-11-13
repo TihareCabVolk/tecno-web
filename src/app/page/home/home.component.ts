@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../../componets/navbar/navbar.component';
-import { CarosuelComponent } from '../../componets/carosuel/carosuel.component';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { CarosuelComponent } from '../../components/carosuel/carosuel.component';
 import { CommonModule } from '@angular/common';
-import { FooterComponent } from "../../componets/footer/footer.component";
+import { FooterComponent } from "../../components/footer/footer.component";
 
 @Component({
   selector: 'app-home',
