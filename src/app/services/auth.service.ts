@@ -71,4 +71,11 @@ export class AuthService {
     return false;
   }
 
+  /**
+   * Método para obtener el email.
+   */
+  public getEmail(): string | null {
+    return sessionStorage.getItem('email');
+  }
+
 }
