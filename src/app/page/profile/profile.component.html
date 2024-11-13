@@ -32,6 +32,43 @@
     <div class="cupones-content" *ngIf="selectedOption === 'cupones'">
         <h2>Contenido de Mis Cupones</h2>
         <p>{{ getContent() }}</p>
+
+        <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-8 mx-auto max-w-4xl">
+            <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
+                <div class="shrink-0 md:order-1 flex flex-col items-start">
+                    <img class="h-10 w-10 dark:hidden" src="https://cupon.cl/static/shop/49316/logo/cupon_easy.png" alt="Cupon Image" />
+                    <p class="text-8xl font-medium text-gray-900 hover:scale-105 dark:text-white" contenteditable="true">
+                        20%
+                    </p>
+                </div>
+                <div class="flex items-center justify-between md:order-3 md:justify-end">
+                    <div class="text-end md:order-4 md:w-32">
+                        <div class="flex items-center gap-4">
+                            <button class="text-blue-600 font-bold hover:underline">
+                                Ver detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
+                    <div class="flex items-center justify-center h-full">
+                        <p class="text-4xl font-medium text-gray-900 hover:scale-105 dark:text-white" contenteditable="true">
+                            Nombre del Cupón
+                        </p>
+                    </div>
+                    <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
+                            <label class="font-semibold text-sm text-gray-600 pb-1 block" for="desde">Desde</label>
+                            <input class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500 text-black" type="date" id="desde" />
+                        </div>
+                        <div>
+                            <label class="font-semibold text-sm text-gray-600 pb-1 block" for="hasta">Hasta</label>
+                            <input class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500 text-black" type="date" id="hasta" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
