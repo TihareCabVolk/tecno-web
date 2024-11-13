@@ -1,1 +1,37 @@
-<p>profile works!</p>
+<p>profile works! header por importar </p>
+<div class="sidebar mt-16">
+    <aside class="w-64 bg-[#E5E7EB] p-4 fixed h-full shadow-md">
+        <ul>
+            <li class="mb-4">
+                <a (click)="profileOption('perfil')" class="sidebar-link">Mi Perfil</a>
+            </li>
+            <li class="mb-4">
+                <a (click)="profileOption('pedidos')" class="sidebar-link">Mis Pedidos</a>
+            </li>
+            <li class="mb-4">
+                <a (click)="profileOption('cupones')" class="sidebar-link">Mis Cupones</a>
+            </li>
+            <li class="absolute bottom-20">
+                <img src="/assets/logout.png" alt="Logout" class="logout-icon" />
+            </li>
+        </ul>
+    </aside>
+</div>
+
+<div class="content-container">
+    <div class="profile-content" *ngIf="selectedOption === 'perfil'">
+        <h2>Usuario: {{ username }}</h2>
+        <h2>Correo: {{ email }}</h2>
+        <h2>Celular: {{ phone }}</h2>
+        <p>{{ getContent() }}</p> 
+    </div>
+    <div class="pedido-content" *ngIf="selectedOption === 'pedidos'">
+        <h2>Contenido de Mis Pedidos</h2> 
+        <p>{{ getContent() }}</p>
+    </div>
+    <div class="cupones-content" *ngIf="selectedOption === 'cupones'">
+        <h2>Contenido de Mis Cupones</h2>
+        <p>{{ getContent() }}</p>
+    </div>
+</div>
+
