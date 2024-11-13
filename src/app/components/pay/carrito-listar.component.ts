@@ -7,16 +7,14 @@ import { initFlowbite } from 'flowbite';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { VisibilidadElementosService } from '../../services/visibilidad-elementos.service';
 import { trigger, transition, style, animate } from '@angular/animations'
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AfterViewInit } from '@angular/core';
-import * as L from 'leaflet';
 import { from } from 'rxjs';
 
 @Component({
   selector: 'app-cart-listar',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarComponent, FontAwesomeModule],
+  imports: [CommonModule, FormsModule, NavbarComponent],
   templateUrl: './carrito-listar.component.html',
   styleUrl: './carrito-listar.component.scss',
   animations: [
