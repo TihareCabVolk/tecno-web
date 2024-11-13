@@ -31,7 +31,6 @@ import { Router } from '@angular/router';
 
       this.auth.register(username,email,password).subscribe({
         next: (response) => {
-          localStorage.setItem('token','true')
           this.router.navigate(['/home'])
         },
         error: (error) => {

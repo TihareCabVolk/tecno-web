@@ -33,7 +33,6 @@ export class FormLoginComponent implements OnDestroy {
   
     this.auth.login(email, password).subscribe({
       next: (response) => {
-        localStorage.setItem('token','true')
         if(response?.isAdmin){
           this.router.navigate(['/admin'])  
         }else{

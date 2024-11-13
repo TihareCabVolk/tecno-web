@@ -63,7 +63,10 @@
           <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-orange-100"
             >Mis cupones</a
           >
-          <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-orange-100"
+          <a
+            href="#"
+            class="block px-4 py-2 text-gray-700 hover:bg-orange-100"
+            (click)="logout()"
             >Sign out</a
           >
         </div>
@@ -136,6 +139,7 @@
     <!-- Botón de "Iniciar sesión" si no está logueado -->
     <ng-template #loginButton>
       <button
+        (click)="access()"
         class="bg-orange-600 text-white py-2 px-4 rounded hover:bg-orange-700"
       >
         Iniciar sesión
