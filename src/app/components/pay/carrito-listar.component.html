@@ -1,7 +1,6 @@
 <div class="mt-4" class="min-h-screen flex flex-col bg-gray-100">
-  <!-- Navbar -->
-  <app-navbar class="sticky top-0 py-5 bg-white shadow-lg z-50"></app-navbar>
-
+  <!--  <app-navbar class="sticky top-0 py-5 bg-white shadow-lg z-50"></app-navbar>
+-->
   <section class="py-8 antialiased dark:bg-gray-900 md:py-16" style="
       background-image: linear-gradient(
           rgba(255, 255, 255, 0.85),
@@ -144,10 +143,8 @@
             </button>
           </div>
           <!--Codigo de cupon-->
-          <div>
-            class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700
-            dark:bg-gray-800 sm:p-6"
-            >
+          <div class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700
+            dark:bg-gray-800 sm:p-6">
             <!--El form tiene que eliminarse porque da serios problemas con el ngModel-->
             <div class="space-y-4">
               <label for="voucher" class="mb-2 block text-sm font-semibold text-gray-900 dark:text-white">
@@ -181,7 +178,6 @@
   <div class="relative bg-white rounded-lg w-1/3 p-6" (click)="$event.stopPropagation()">
 
     <p class="flex justify-center text-3xl font-semibold py-8 text-black">¿Dónde quieres tu pedido?</p>
-    >>>>>>> carrito-test-t
 
     <div class="flex py-4 justify-center space-x-4">
       <!-- Botón para Delivery -->
@@ -249,7 +245,7 @@
 
     <div *ngIf="isVisiblePago" class="overlay" (click)="metodoPagoNoVisible()">
       <div class="card">
-        <button type="button" class="dismiss">X</button>
+        <span class="dismiss close-button">&times;</span>
         <div class="header">
           <div class="image">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
