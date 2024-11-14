@@ -231,13 +231,30 @@
     </div>
 
     <!-- Pestaña para el pago -->
+
     <div *ngIf="isVisiblePago" class="overlay" (click)="metodoPagoNoVisible()">
-      <div class="relative popup" [@fadeInOut] (click)="$event.stopPropagation()">
-        <h2 class="flex justify-center py-4 font-semibold rounded-full">¡Gracias!</h2>
-        <div class="flex justify-center px-10">
-          <img src='https://cdn.pixabay.com/photo/2017/01/13/01/22/ok-1976099_640.png' alt=''>
+      <div class="card">
+        <button type="button" class="dismiss">X</button>
+        <div class="header">
+          <div class="image">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+              <g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g>
+              <g id="SVGRepo_iconCarrier">
+                <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="#000000"
+                  d="M20 7L9.00004 18L3.99994 13"></path>
+              </g>
+            </svg>
+          </div>
+          <div class="content">
+            <span class="title font-semibold">Orden validada</span>
+            <p class="message font-semibold">¡Gracias por tu compra! Tu pedido será entregado en breve.
+            </p>
+          </div>
+          <div class="actions">
+            <button type="button" class="track">Ver estado de mi pedido</button>
+          </div>
         </div>
-        <span class="close-button" (click)="metodoPagoNoVisible()">&times;</span>
       </div>
     </div>
   </div>
