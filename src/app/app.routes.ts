@@ -10,6 +10,7 @@ export const routes: Routes = [
   { path: 'login', component: AuthComponent, canActivate: [authGuard] },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'carrito', component: CarritoListarComponent },
+  { path: 'catalogo', component: CatalogoComponent },
+  { path: 'carrito-listar', component: CarritoListarComponent },
   { path: 'cupones', component: CouponsComponent },
 ];
