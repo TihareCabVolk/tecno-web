@@ -8,11 +8,13 @@ import {
 } from '@angular/core';
 import { CarritoService } from '../../services/carrito.service';
 import { Carrito } from '../../models/carrito';
-import { CommonModule, NgClass, NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { initFlowbite } from 'flowbite';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { VisibilidadElementosService } from '../../services/visibilidad-elementos.service';
+import { CuponesService } from '../../services/cupones.service';
+import { Cupon } from '../../models/cupon';
 
 @Component({
   selector: 'app-cart-listar',
@@ -23,12 +25,18 @@ import { VisibilidadElementosService } from '../../services/visibilidad-elemento
 })
 export class CarritoListarComponent implements OnInit {
   public carritoService = inject(CarritoService);
-  public listCarrito: Carrito[] = [];
   private estadoService = inject(VisibilidadElementosService);
+  public cuponesService = inject(CuponesService);
+
+  public listCarrito: Carrito[] = [];
+  public listaCupones: Cupon[] = [];
 
   public botonDelivery: boolean = true;
   public botonRetiro: boolean = true;
   public isModalVisible: boolean = false;
+
+  public descuento: number = 0;
+  public codigooCupon: string = ''; // Variable para almacenar el código del cupon
 
   @Input() isVisible: boolean = false;
   @Output() close = new EventEmitter<void>();
@@ -39,9 +47,38 @@ export class CarritoListarComponent implements OnInit {
   ngOnInit(): void {
     initFlowbite();
     this.getListCarrito();
+    this.cuponesService.getCupon();
     this.estadoService.setMostrar(false);
   }
 
+  verificar(codeCupon: string) {
+    this.listaCupones = this.cuponesService.getCupon(); // Obtener la lista de cupones
+
+    // Buscar el cupón con el código proporcionado
+    const cuponEncontrado = this.listaCupones.find(
+      (item) => item.codigo === codeCupon
+    );
+
+    if (cuponEncontrado) {
+      const fechaActual = new Date();
+      const fechaInicio = new Date(cuponEncontrado.fechaInicio);
+      const fechaTermino = new Date(cuponEncontrado.fechaTermino);
+
+      if (fechaInicio <= fechaActual && fechaTermino >= fechaActual) {
+        this.descuento = cuponEncontrado.descuento; // Aplicar el descuento
+      } else {
+        alert('El cupón ingresado no es válido en la fecha actual.');
+        this.descuento = 0;
+      }
+    } else {
+      alert('El cupón ingresado no existe.');
+      this.descuento = 0;
+    }
+  }
+
+  reseteo() {
+    this.descuento = 0;
+  }
   //Obetener la lista de carrito
   getListCarrito() {
     this.listCarrito = this.carritoService.getCarrito();

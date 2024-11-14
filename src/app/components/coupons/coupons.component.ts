@@ -18,7 +18,6 @@ export class CouponsComponent implements OnInit {
   descuentoCupon: number = 0;
   fechaInicio: string = '';
   fechaTermino: string = '';
-  imagenCupon: string = '';
   categoria: string = '';
 
   //Cupon
@@ -26,7 +25,8 @@ export class CouponsComponent implements OnInit {
   public listaCupones: Cupon[] = [];
   private estadoService = inject(VisibilidadElementosService);
 
-  public isModalVisible: boolean = false;
+  public ventanaAgregar: boolean = false;
+  public ventanaModificar: boolean = false;
 
   //Metodos iniciales
   ngOnInit(): void {
@@ -41,86 +41,144 @@ export class CouponsComponent implements OnInit {
     console.log(this.fechaInicio);
     console.log(this.listaCupones);
   }
+
+  agregarProducto(
+    nombre: string,
+    descuento: number,
+    fechaInicio: string,
+    fechaTermino: string
+  ) {
+    if (!nombre || nombre.trim() === '') {
+      alert('Ingrese el nombre del cupón.');
+      return;
+    }
+
+    if (descuento == null || descuento < 0 || descuento > 100) {
+      alert('Ingrese un descuento válido entre 0 y 100.');
+      return;
+    }
+
+    if (!fechaInicio || !fechaTermino) {
+      alert('Ingrese ambas fechas.');
+      return;
+    }
+
+    if (new Date(fechaInicio) >= new Date(fechaTermino)) {
+      alert('La fecha de inicio debe ser anterior a la fecha de término.');
+      return;
+    }
+
+    // Generación del código aleatorio de 15 caracteres
+    const caracteres =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let codigo = '';
+    for (let i = 0; i < 15; i++) {
+      const aleatorio = Math.floor(Math.random() * caracteres.length);
+      codigo += caracteres.charAt(aleatorio);
+    }
+
+    // Agregar el cupón a través del servicio
+    this.cuponesService.agregar(
+      codigo,
+      nombre,
+      descuento,
+      fechaInicio,
+      fechaTermino
+    );
+    this.ocultarVentaAgregado();
+    location.reload();
+  }
+
   //Eliminar un item
   eliminarItem(index: number) {
     this.cuponesService.eliminar(index);
     this.getlistaCupones();
   }
 
-  //Actuazar un item
-  actualizar(item: Cupon, campo: string, event: Event, index: number) {
-    const element = event.target as HTMLInputElement;
-
-    // Actualiza el campo correspondiente en el item
-    if (campo === 'nombre') {
-      const nuevoValor = element.innerText.trim();
-      item.nombre = nuevoValor;
-    } else if (campo === 'descuento') {
-      const nuevoValor = element.innerText.trim();
-      const descuentoNumerico = parseInt(nuevoValor.replace('%', ''), 10);
-      item.descuento = !isNaN(descuentoNumerico)
-        ? descuentoNumerico
-        : item.descuento;
-    } else if (campo === 'fechaInicio') {
-      const nuevoValor = element.value.trim();
-      item.fechaInicio = nuevoValor;
-    } else if (campo === 'fechaTermino') {
-      const nuevoValor = element.value.trim();
-      item.fechaTermino = nuevoValor;
-    }
-
-    this.cuponesService.actualizar(
-      index,
-      item.nombre,
-      item.descuento,
-      item.fechaInicio,
-      item.fechaTermino
-    );
-
-    console.log(item.descuento);
-    console.log(this.listaCupones);
-  }
-
-  agregarProducto(
+  // Actualizar un cupón con validaciones
+  actualizar(
+    item: Cupon,
     nombre: string,
     descuento: number,
     fechaInicio: string,
-    fechaTermino: string,
-    image_url: string
+    fechaTermino: string
   ) {
-    // Método que genera un código aleatorio con números y letras de largo 15
-
-    const caracteres =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let codigo = '';
-
-    // Generar código aleatorio de largo 15
-    for (let i = 0; i < 15; i++) {
-      const aleatorio = Math.floor(Math.random() * caracteres.length);
-      codigo += caracteres.charAt(aleatorio);
+    // Validación del nombre
+    if (!nombre || nombre.trim() === '') {
+      alert('Ingrese el nombre del cupón.');
+      return;
     }
 
-    this.cuponesService.agregar(
-      codigo,
+    // Validación del descuento
+    if (descuento == null || descuento < 0 || descuento > 100) {
+      alert('Ingrese un descuento válido entre 0 y 100.');
+      return;
+    }
+
+    // Validación de las fechas
+    if (!fechaInicio || !fechaTermino) {
+      alert('Ingrese ambas fechas.');
+      return;
+    }
+
+    const inicio = new Date(fechaInicio);
+    const termino = new Date(fechaTermino);
+    if (inicio >= termino) {
+      alert('La fecha de inicio debe ser anterior a la fecha de término.');
+      return;
+    }
+
+    item.nombre = nombre;
+    item.descuento = descuento;
+    item.fechaInicio = fechaInicio;
+    item.fechaTermino = fechaTermino;
+    // Llamada al servicio para actualizar el cupón
+    this.cuponesService.actualizar(
+      this.indext,
       nombre,
       descuento,
       fechaInicio,
-      fechaTermino,
-      image_url
+      fechaTermino
     );
-    this.hideModal();
+
+    // Opcional: actualiza la lista de cupones
+    this.getlistaCupones();
+    console.log(this.listaCupones);
+    this.ocultarVentanaModificado();
     location.reload();
   }
 
-  //Apartado de ubicacion
+  //TEST
+  isFechaInvalida(): boolean {
+    // Convertir las fechas a objetos Date para compararlas
+    const inicio = new Date(this.fechaInicio);
+    const termino = new Date(this.fechaTermino);
+    // La validación se cumple si la fecha de inicio es mayor o igual a la de término
+    return inicio >= termino;
+  }
+  //TEST
 
-  // Se hace visible la ventana para la forma de retiro del pedido o delivery
-  showModal(): boolean {
-    return (this.isModalVisible = true);
+  ventanaAgregado(): boolean {
+    return (this.ventanaAgregar = true);
   }
 
-  // Se hace invisible la ventana para la forma de retiro del pedido o delivery
-  hideModal(): boolean {
-    return (this.isModalVisible = false);
+  ocultarVentaAgregado(): boolean {
+    return (this.ventanaAgregar = false);
+  }
+  //Indice al momento de pulsar modificar cupon
+  public indext: number = 0;
+  ventanaModificado(index: number): boolean {
+    this.indext = index;
+    const item = this.listaCupones[index];
+    this.nombreCupon = item.nombre;
+    this.descuentoCupon = item.descuento;
+    this.fechaInicio = item.fechaInicio;
+    this.fechaTermino = item.fechaTermino;
+    this.ventanaModificar = true;
+    return (this.ventanaModificar = true);
+  }
+
+  ocultarVentanaModificado(): boolean {
+    return (this.ventanaModificar = false);
   }
 }

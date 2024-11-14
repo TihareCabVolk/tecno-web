@@ -164,6 +164,7 @@
         </div>
 
         <!--Order BOX-->
+        <!--Pagar-->
         <div class="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
           <div
             class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6"
@@ -182,7 +183,8 @@
                   <dd
                     class="text-base font-medium text-gray-900 dark:text-white"
                   >
-                    CLP {{ carritoService.total() * 100 | number : "1.2-2" }}
+                    CLP
+                    {{ carritoService.total() * 100 | number : "1.2-2" }}
                   </dd>
                 </dl>
 
@@ -193,7 +195,7 @@
                     Descuento
                   </dt>
                   <dd class="text-base font-medium text-green-600">
-                    CLP -$3000
+                    CLP -${{ carritoService.total() * 100 * (descuento / 100) }}
                   </dd>
                 </dl>
               </div>
@@ -205,7 +207,12 @@
                   Total
                 </dt>
                 <dd class="text-base font-bold text-gray-900 dark:text-white">
-                  CLP {{ carritoService.total() * 100 | number : "1.2-2" }}
+                  CLP
+                  {{
+                    carritoService.total() * 100 -
+                      carritoService.total() * 100 * (descuento / 100)
+                      | number : "1.2-2"
+                  }}
                 </dd>
               </dl>
             </div>
@@ -217,32 +224,41 @@
               Pagar
             </button>
           </div>
+          <!--Codigo de cupon-->
           <div
             class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6"
           >
-            <form class="space-y-4">
-              <div>
-                <label
-                  for="voucher"
-                  class="mb-2 block text-sm font-semibold text-gray-900 dark:text-white"
-                >
-                  Ingrese su cupon.
-                </label>
-                <input
-                  type="text"
-                  id="voucher"
-                  class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
-                  placeholder=""
-                  required
-                />
-              </div>
-              <button
-                type="submit"
-                class="flex w-full bg-orange-500 items-center text-white justify-center rounded-lg px-5 py-2.5 text-sm font-medium hover:bg-orange-400 focus:outline-none focus:ring-4 focus:ring-orange-300 dark:focus:ring-orange-800"
+            <!--El form tiene que eliminarse porque da serios problemas con el ngModel-->
+            <div class="space-y-4">
+              <label
+                for="voucher"
+                class="mb-2 block text-sm font-semibold text-gray-900 dark:text-white"
               >
-                Aplicar codigo
-              </button>
-            </form>
+                Ingrese su cupon.
+              </label>
+              <input
+                type="text"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
+                [(ngModel)]="codigooCupon"
+                placeholder="Ingrese su codigo"
+                required
+              />
+              <p>{{ codigooCupon }}</p>
+            </div>
+            <button
+              (click)="verificar(codigooCupon)"
+              type="submit"
+              class="flex w-full bg-orange-500 items-center text-white justify-center rounded-lg px-5 py-2.5 text-sm font-medium hover:bg-orange-400 focus:outline-none focus:ring-4 focus:ring-orange-300 dark:focus:ring-orange-800"
+            >
+              Aplicar codigo
+            </button>
+            <button
+              (click)="reseteo()"
+              type="submit"
+              class="flex w-full bg-orange-500 items-center text-white justify-center rounded-lg px-5 py-2.5 text-sm font-medium hover:bg-orange-400 focus:outline-none focus:ring-4 focus:ring-orange-300 dark:focus:ring-orange-800"
+            >
+              Reset
+            </button>
           </div>
         </div>
       </div>

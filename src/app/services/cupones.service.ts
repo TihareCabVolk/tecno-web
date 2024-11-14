@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Product } from '../models/Products';
 import { Cupon } from '../models/cupon';
 @Injectable({
   providedIn: 'root',
@@ -26,8 +25,7 @@ export class CuponesService {
     nombre: string,
     descuento: number,
     fechaInicio: string,
-    fechaTermino: string,
-    image_url: string
+    fechaTermino: string
   ) {
     this.obtenerSession();
 
@@ -43,8 +41,7 @@ export class CuponesService {
         nombre,
         descuento,
         fechaInicio,
-        fechaTermino,
-        image_url
+        fechaTermino
       );
       this.listaCupones.push(cupon);
     }

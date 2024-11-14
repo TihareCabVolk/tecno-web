@@ -13,7 +13,8 @@
   >
     <div class="mx-auto max-w-screen-xl px-4 2xl:px-0" id="catalogo">
       <h2
-        class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl"
+        class="text-8xl font-semibold text-gray-900 dark:text-white"
+        style="font-family: 'Comic Sans MS', cursive, sans-serif"
       >
         Cupones
       </h2>
@@ -21,13 +22,13 @@
       <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
         <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
           <div class="space-y-6">
-            <!--Apartado de agregado-->
+            <!--Apartado de agregado, con icono +-->
             <div
               class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6"
             >
               <div class="flex items-center justify-center">
                 <button
-                  (click)="showModal()"
+                  (click)="ventanaAgregado()"
                   title="Agregar"
                   class="group cursor-pointer outline-none hover:rotate-90 duration-300"
                 >
@@ -62,16 +63,17 @@
               >
                 <div class="shrink-0 md:order-1 flex flex-col items-start">
                   <!--Aca tendria que estar en el src item.producto.image_url-->
-                  <img
-                    class="h-10 w-10 dark:hidden"
-                    src="https://cupon.cl/static/shop/49316/logo/cupon_easy.png"
-                    alt="imac image"
-                  />
+
+                  <div class="h-30 w-30 dark:hidden">
+                    <p
+                      class="text-2xl font-bold font-mcdonalds text-orange-600"
+                    >
+                      <span style="color: #fbcd15">W</span>c Donald's
+                    </p>
+                  </div>
 
                   <p
                     class="text-8xl font-medium text-gray-900 hover:scale-105 dark:text-white"
-                    contenteditable="true"
-                    (blur)="actualizar(item, 'descuento', $event, $index)"
                   >
                     {{ item.descuento }}%
                   </p>
@@ -81,7 +83,7 @@
                   class="flex items-center justify-between md:order-3 md:justify-end"
                 >
                   <div class="text-end md:order-4 md:w-32">
-                    <div class="flex items-center gap-4">
+                    <div class="flex flex-col items-center gap-4">
                       <button
                         title="Eliminar"
                         (click)="eliminarItem($index)"
@@ -153,6 +155,15 @@
                           ></path>
                         </svg>
                       </button>
+
+                      <button class="Btn" (click)="ventanaModificado($index)">
+                        editar
+                        <svg class="svg" viewBox="0 0 512 512">
+                          <path
+                            d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"
+                          ></path>
+                        </svg>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -163,8 +174,6 @@
                   <div class="flex items-center justify-center h-full">
                     <p
                       class="text-4xl font-medium text-gray-900 hover:scale-105 dark:text-white"
-                      contenteditable="true"
-                      (blur)="actualizar(item, 'nombre', $event, $index)"
                     >
                       {{ item.nombre }}
                     </p>
@@ -177,15 +186,14 @@
                         for="desde"
                         >Desde</label
                       >
-                      <input
-                        class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-                        type="date"
-                        id="desde"
-                        [(ngModel)]="item.fechaInicio"
-                        (change)="
-                          actualizar(item, 'fechaInicio', $event, $index)
-                        "
-                      />
+                      <div class="flex items-center space-x-2">
+                        <p
+                          class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-1/2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                        >
+                          {{ item.fechaInicio | date : "dd/MM/yyyy" }}
+                        </p>
+                        <p text="text-lg">📅</p>
+                      </div>
                     </div>
                     <div>
                       <label
@@ -193,15 +201,206 @@
                         for="hasta"
                         >Hasta</label
                       >
+
+                      <div class="flex items-center space-x-2">
+                        <p
+                          class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-1/2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                        >
+                          {{ item.fechaTermino | date : "dd/MM/yyyy" }}
+                        </p>
+                        <p text="text-lg">📅</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--Ventana de modificacion-->
+              <div
+                *ngIf="ventanaModificar"
+                class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+              >
+                <div
+                  class="mx-auto max-w-[432px] bg-white rounded-md shadow-lg drop-shadow-md"
+                >
+                  <div class="px-4 py-3 flex justify-between">
+                    <div>
+                      <h2 class="font-bold" style="font-size: 32px">
+                        Modificar cupon
+                      </h2>
+                      <p class="text-gray-500" style="font-size: 15px">
+                        Modifique el cupon a su criterio.
+                      </p>
+                    </div>
+                    <button
+                      (click)="ocultarVentanaModificado()"
+                      style="cursor: pointer"
+                      class="text-gray-600"
+                      aria-label="Cerrar modal"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-7 w-7"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="3"
+                          d="M6 18L18 6M6 6l12 12"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                  <hr class="bg-gray-600" />
+                  <div class="px-4 pt-3 pb-6 space-y-3">
+                    <div>
                       <input
-                        class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-                        type="date"
-                        id="hasta"
-                        [(ngModel)]="item.fechaTermino"
-                        (change)="
-                          actualizar(item, 'fechaTermino', $event, $index)
-                        "
+                        type="text"
+                        placeholder="Nombre del cupón"
+                        [(ngModel)]="nombreCupon"
+                        #nombreCuponRef="ngModel"
+                        class="w-full ring-1 ring-gray-400 rounded-md text-md px-2 py-2 outline-none bg-gray-100 focus:placeholder-gray-500"
+                        required
                       />
+                      <div
+                        *ngIf="nombreCuponRef.invalid && nombreCuponRef.touched"
+                        class="text-red-500 text-xs"
+                      >
+                        El nombre es requerido.
+                      </div>
+                    </div>
+
+                    <!--Ingresar fechas-->
+                    <div class="mt-1">
+                      <label
+                        class="text-gray-500"
+                        style="font-size: 12px"
+                        for="inicio"
+                      >
+                        Fecha inicio
+                      </label>
+                      <input
+                        id="inicio"
+                        type="date"
+                        [(ngModel)]="fechaInicio"
+                        #fechaInicioRef="ngModel"
+                        required
+                        class="input-class"
+                      />
+                      <div
+                        *ngIf="isFechaInvalida()"
+                        class="text-red-500 text-xs"
+                      >
+                        La fecha de inicio debe ser anterior a la fecha de
+                        término.
+                      </div>
+                    </div>
+
+                    <div class="mt-1">
+                      <label
+                        class="text-gray-500"
+                        style="font-size: 12px"
+                        for="termino"
+                      >
+                        Fecha Termino
+                      </label>
+                      <input
+                        id="termino"
+                        type="date"
+                        [(ngModel)]="fechaTermino"
+                        #fechaTerminoRef="ngModel"
+                        required
+                        class="input-class"
+                      />
+                    </div>
+
+                    <!--Ingresar porcentaje-->
+                    <div class="text-gray-500" style="font-size: 12px">
+                      Porcentaje descuento
+                    </div>
+                    <div class="mt-1 flex space-x-3">
+                      <input
+                        [(ngModel)]="descuentoCupon"
+                        class="text-md flex-1 px-1 py-1.5 ring-1 ring-gray-400 rounded-md outline-none"
+                        #descuentoCuponRef="ngModel"
+                        id="percentage"
+                        type="number"
+                        min="0"
+                        max="100"
+                        step="1"
+                        required
+                        placeholder="0-100"
+                      />
+                      <div
+                        *ngIf="
+                          descuentoCuponRef.invalid && descuentoCuponRef.touched
+                        "
+                        class="text-red-500 text-xs"
+                      >
+                        Ingrese un descuento válido entre 0 y 100.
+                      </div>
+                    </div>
+
+                    <!--Categorias-->
+                    <div>
+                      <div class="text-gray-500" style="font-size: 12px">
+                        Categorias
+                      </div>
+                      <div class="mt-1 flex space-x-3">
+                        <label
+                          for="female"
+                          class="flex-1 flex space-x-2 justify-between items-center rounded-md px-2 py-1 border border-gray-400"
+                        >
+                          <span>Hamburguesas</span>
+                          <input type="radio" id="female" name="gender" />
+                        </label>
+                        <label
+                          for="male"
+                          class="flex-1 flex space-x-2 justify-between items-center rounded-md px-2 py-1 border border-gray-400"
+                        >
+                          <span>Bebidas</span>
+                          <input type="radio" id="male" name="gender" />
+                        </label>
+                        <label
+                          for="other"
+                          class="flex-1 flex space-x-2 justify-between items-center rounded-md px-2 py-1 border border-gray-400"
+                        >
+                          <span>Personalizar</span>
+                          <input type="radio" id="other" name="gender" />
+                        </label>
+                      </div>
+                    </div>
+
+                    <div>
+                      <p class="text-gray-600 mt-4" style="font-size: 11px">
+                        Presiona "Modificar" para alterar los datos de su cupon
+                        seleccionado.
+                      </p>
+                    </div>
+
+                    <div class="text-center">
+                      <button
+                        (click)="
+                          actualizar(
+                            item,
+                            nombreCupon,
+                            descuentoCupon,
+                            fechaInicio,
+                            fechaTermino
+                          )
+                        "
+                        class="text-xl w-32 h-12 rounded bg-orange-400 text-white relative overflow-hidden group z-10 hover:text-white duration-1000"
+                      >
+                        <span
+                          class="absolute bg-orange-200 w-36 h-36 rounded-full group-hover:scale-100 scale-0 -z-10 -left-2 -top-10 group-hover:duration-500 duration-700 origin-center transform transition-all"
+                        ></span>
+                        <span
+                          class="absolute bg-orange-600 w-36 h-36 -left-2 -top-10 rounded-full group-hover:scale-100 scale-0 -z-10 group-hover:duration-700 duration-500 origin-center transform transition-all"
+                        ></span>
+                        Modificar
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -215,163 +414,172 @@
   </section>
 </div>
 
-<!-- Ventana visible e invisible -->
+<!--Formulario de agregado-->
 <div
-  *ngIf="isModalVisible"
+  *ngIf="ventanaAgregar"
   class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
 >
-  <div class="relative bg-white rounded-lg w-1/3 p-6">
-    <!--Formulario de agregado-->
-
-    <div
-      class="mx-auto max-w-[432px] bg-white rounded-md shadow-lg drop-shadow-md"
-    >
-      <div class="px-4 py-3 flex justify-between">
-        <div>
-          <h2 class="font-bold" style="font-size: 32px">Agregar cupon</h2>
-          <p class="text-gray-500" style="font-size: 15px">
-            Ingrese los datos pertinentes.
-          </p>
-        </div>
-        <button
-          (click)="hideModal()"
-          style="cursor: pointer"
-          class="text-gray-600"
-          aria-label="Cerrar modal"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-7 w-7"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="3"
-              d="M6 18L18 6M6 6l12 12"
-            ></path>
-          </svg>
-        </button>
+  <div
+    class="mx-auto max-w-[432px] bg-white rounded-md shadow-lg drop-shadow-md"
+  >
+    <div class="px-4 py-3 flex justify-between">
+      <div>
+        <h2 class="font-bold" style="font-size: 32px">Agregar cupon</h2>
+        <p class="text-gray-500" style="font-size: 15px">
+          Ingrese los datos pertinentes.
+        </p>
       </div>
-      <hr class="bg-gray-600" />
-      <div class="px-4 pt-3 pb-6 space-y-3">
-        <div>
-          <input
-            type="text"
-            placeholder="Nombre del cupon"
-            [(ngModel)]="nombreCupon"
-            class="w-full ring-1 ring-gray-400 rounded-md text-md px-2 py-2 outline-none bg-gray-100 focus:placeholder-gray-500"
-          />
+      <button
+        (click)="ocultarVentaAgregado()"
+        style="cursor: pointer"
+        class="text-gray-600"
+        aria-label="Cerrar modal"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-7 w-7"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+      </button>
+    </div>
+    <hr class="bg-gray-600" />
+    <div class="px-4 pt-3 pb-6 space-y-3">
+      <div>
+        <input
+          type="text"
+          placeholder="Nombre del cupón"
+          [(ngModel)]="nombreCupon"
+          #nombreCuponRef="ngModel"
+          class="w-full ring-1 ring-gray-400 rounded-md text-md px-2 py-2 outline-none bg-gray-100 focus:placeholder-gray-500"
+          required
+        />
+        <div
+          *ngIf="nombreCuponRef.invalid && nombreCuponRef.touched"
+          class="text-red-500 text-xs"
+        >
+          El nombre es requerido.
         </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Direccion de imagen"
-            [(ngModel)]="imagenCupon"
-            class="w-full ring-1 ring-gray-400 rounded-md text-md px-2 py-2 outline-none bg-gray-100 focus:placeholder-gray-500"
-          />
-        </div>
-        <!--Ingresar fechas-->
-        <div class="mt-1">
-          <label class="text-gray-500" style="font-size: 12px" for="inicio">
-            Fecha inicio
-          </label>
-          <input
-            class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-            type="date"
-            id="inicio"
-            [(ngModel)]="fechaInicio"
-          />
-        </div>
+      </div>
 
-        <div class="mt-1">
-          <label class="text-gray-500" style="font-size: 12px" for="termino">
-            Fecha Termino
-          </label>
-          <input
-            class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-            type="date"
-            id="termino"
-            [(ngModel)]="fechaTermino"
-          />
+      <!--Ingresar fechas-->
+      <div class="mt-1">
+        <label class="text-gray-500" style="font-size: 12px" for="inicio">
+          Fecha inicio
+        </label>
+        <input
+          id="inicio"
+          type="date"
+          [(ngModel)]="fechaInicio"
+          #fechaInicioRef="ngModel"
+          required
+          class="input-class"
+        />
+        <div *ngIf="isFechaInvalida()" class="text-red-500 text-xs">
+          La fecha de inicio debe ser anterior a la fecha de término.
         </div>
+      </div>
 
-        <!--Ingresar porcentaje-->
-        <div class="text-gray-500" style="font-size: 12px">
-          Porcentaje descuento
+      <div class="mt-1">
+        <label class="text-gray-500" style="font-size: 12px" for="termino">
+          Fecha Termino
+        </label>
+        <input
+          id="termino"
+          type="date"
+          [(ngModel)]="fechaTermino"
+          #fechaTerminoRef="ngModel"
+          required
+          class="input-class"
+        />
+      </div>
+
+      <!--Ingresar porcentaje-->
+      <div class="text-gray-500" style="font-size: 12px">
+        Porcentaje descuento
+      </div>
+      <div class="mt-1 flex space-x-3">
+        <input
+          [(ngModel)]="descuentoCupon"
+          class="text-md flex-1 px-1 py-1.5 ring-1 ring-gray-400 rounded-md outline-none"
+          #descuentoCuponRef="ngModel"
+          id="percentage"
+          type="number"
+          min="0"
+          max="100"
+          step="1"
+          required
+          placeholder="0-100"
+        />
+        <div
+          *ngIf="descuentoCuponRef.invalid && descuentoCuponRef.touched"
+          class="text-red-500 text-xs"
+        >
+          Ingrese un descuento válido entre 0 y 100.
         </div>
+      </div>
+
+      <!--Categorias-->
+      <div>
+        <div class="text-gray-500" style="font-size: 12px">Categorias</div>
         <div class="mt-1 flex space-x-3">
-          <input
-            [(ngModel)]="descuentoCupon"
-            class="text-md flex-1 px-1 py-1.5 ring-1 ring-gray-400 rounded-md outline-none"
-            type="number"
-            id="percentage"
-            name="percentage"
-            min="0"
-            max="100"
-            step="1"
-            placeholder="0-100"
-            required
-          />
-        </div>
-
-        <!--Categorias-->
-        <div>
-          <div class="text-gray-500" style="font-size: 12px">Categorias</div>
-          <div class="mt-1 flex space-x-3">
-            <label
-              for="female"
-              class="flex-1 flex space-x-2 justify-between items-center rounded-md px-2 py-1 border border-gray-400"
-            >
-              <span>Hamburguesas</span>
-              <input type="radio" id="female" name="gender" />
-            </label>
-            <label
-              for="male"
-              class="flex-1 flex space-x-2 justify-between items-center rounded-md px-2 py-1 border border-gray-400"
-            >
-              <span>Bebidas</span>
-              <input type="radio" id="male" name="gender" />
-            </label>
-            <label
-              for="other"
-              class="flex-1 flex space-x-2 justify-between items-center rounded-md px-2 py-1 border border-gray-400"
-            >
-              <span>Personalizar</span>
-              <input type="radio" id="other" name="gender" />
-            </label>
-          </div>
-        </div>
-        <div>
-          <p class="text-gray-600 mt-4" style="font-size: 11px">
-            Presiona "agregar" para generar un codigo unico en su nuevo cupon.
-          </p>
-        </div>
-
-        <div class="text-center">
-          <button
-            (click)="
-              agregarProducto(
-                nombreCupon,
-                descuentoCupon,
-                fechaInicio,
-                fechaTermino,
-                imagenCupon
-              )
-            "
-            class="text-xl w-32 h-12 rounded bg-orange-400 text-white relative overflow-hidden group z-10 hover:text-white duration-1000"
+          <label
+            for="female"
+            class="flex-1 flex space-x-2 justify-between items-center rounded-md px-2 py-1 border border-gray-400"
           >
-            <span
-              class="absolute bg-orange-200 w-36 h-36 rounded-full group-hover:scale-100 scale-0 -z-10 -left-2 -top-10 group-hover:duration-500 duration-700 origin-center transform transition-all"
-            ></span>
-            <span
-              class="absolute bg-orange-600 w-36 h-36 -left-2 -top-10 rounded-full group-hover:scale-100 scale-0 -z-10 group-hover:duration-700 duration-500 origin-center transform transition-all"
-            ></span>
-            Agregar
-          </button>
+            <span>Hamburguesas</span>
+            <input type="radio" id="female" name="gender" />
+          </label>
+          <label
+            for="male"
+            class="flex-1 flex space-x-2 justify-between items-center rounded-md px-2 py-1 border border-gray-400"
+          >
+            <span>Bebidas</span>
+            <input type="radio" id="male" name="gender" />
+          </label>
+          <label
+            for="other"
+            class="flex-1 flex space-x-2 justify-between items-center rounded-md px-2 py-1 border border-gray-400"
+          >
+            <span>Personalizar</span>
+            <input type="radio" id="other" name="gender" />
+          </label>
         </div>
+      </div>
+      <div>
+        <p class="text-gray-600 mt-4" style="font-size: 11px">
+          Presiona "agregar" para generar un codigo unico en su nuevo cupon.
+        </p>
+      </div>
+
+      <div class="text-center">
+        <button
+          (click)="
+            agregarProducto(
+              nombreCupon,
+              descuentoCupon,
+              fechaInicio,
+              fechaTermino
+            )
+          "
+          class="text-xl w-32 h-12 rounded bg-orange-400 text-white relative overflow-hidden group z-10 hover:text-white duration-1000"
+        >
+          <span
+            class="absolute bg-orange-200 w-36 h-36 rounded-full group-hover:scale-100 scale-0 -z-10 -left-2 -top-10 group-hover:duration-500 duration-700 origin-center transform transition-all"
+          ></span>
+          <span
+            class="absolute bg-orange-600 w-36 h-36 -left-2 -top-10 rounded-full group-hover:scale-100 scale-0 -z-10 group-hover:duration-700 duration-500 origin-center transform transition-all"
+          ></span>
+          Agregar
+        </button>
       </div>
     </div>
   </div>
