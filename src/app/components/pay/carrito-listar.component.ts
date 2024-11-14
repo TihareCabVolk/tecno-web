@@ -139,7 +139,7 @@ export class CarritoListarComponent implements OnInit {
   // Cerrar la ventana flotante con un click fuera de ella
   public cerrarModalConClick(event: MouseEvent): boolean {
     if (event.target === event.currentTarget) { return this.isModalVisible = false }
-    return this.isModalVisible
+    return this.isModalVisible;
   }
 
   // Se hace visible el contenido del Delivery y se hace inaccesible el boton Retiro en Tienda
@@ -167,6 +167,7 @@ export class CarritoListarComponent implements OnInit {
   }
 
   public pagoNoVisible(): boolean {
+    this.isModalVisible = false;
     return this.isVisiblePago = false;
   }
 
