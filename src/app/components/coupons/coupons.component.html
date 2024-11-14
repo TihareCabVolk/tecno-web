@@ -182,7 +182,7 @@
                   <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
                       <label
-                        class="font-semibold text-sm text-gray-600 pb-1 block"
+                        class="block text-gray-500 text-sm mb-1"
                         for="desde"
                         >Desde</label
                       >
@@ -190,7 +190,7 @@
                         <p
                           class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-1/2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                         >
-                          {{ item.fechaInicio | date : "dd/MM/yyyy" }}
+                          {{ item.fechaInicio | date : "MM/dd/yyyy" }}
                         </p>
                         <p text="text-lg">📅</p>
                       </div>
@@ -206,7 +206,7 @@
                         <p
                           class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-1/2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                         >
-                          {{ item.fechaTermino | date : "dd/MM/yyyy" }}
+                          {{ item.fechaTermino | date : "MM/dd/yyyy" }}
                         </p>
                         <p text="text-lg">📅</p>
                       </div>
@@ -275,8 +275,7 @@
                     <!--Ingresar fechas-->
                     <div class="mt-1">
                       <label
-                        class="text-gray-500"
-                        style="font-size: 12px"
+                        class="block text-gray-500 text-sm mb-1"
                         for="inicio"
                       >
                         Fecha inicio
@@ -287,7 +286,7 @@
                         [(ngModel)]="fechaInicio"
                         #fechaInicioRef="ngModel"
                         required
-                        class="input-class"
+                        class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-1/2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                       />
                       <div
                         *ngIf="isFechaInvalida()"
@@ -300,8 +299,7 @@
 
                     <div class="mt-1">
                       <label
-                        class="text-gray-500"
-                        style="font-size: 12px"
+                        class="block text-gray-500 text-sm mb-1"
                         for="termino"
                       >
                         Fecha Termino
@@ -312,7 +310,7 @@
                         [(ngModel)]="fechaTermino"
                         #fechaTerminoRef="ngModel"
                         required
-                        class="input-class"
+                        class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-1/2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
 
@@ -472,7 +470,7 @@
 
       <!--Ingresar fechas-->
       <div class="mt-1">
-        <label class="text-gray-500" style="font-size: 12px" for="inicio">
+        <label class="block text-gray-500 text-sm mb-1" for="inicio">
           Fecha inicio
         </label>
         <input
@@ -481,7 +479,7 @@
           [(ngModel)]="fechaInicio"
           #fechaInicioRef="ngModel"
           required
-          class="input-class"
+          class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-1/2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
         />
         <div *ngIf="isFechaInvalida()" class="text-red-500 text-xs">
           La fecha de inicio debe ser anterior a la fecha de término.
@@ -489,7 +487,7 @@
       </div>
 
       <div class="mt-1">
-        <label class="text-gray-500" style="font-size: 12px" for="termino">
+        <label class="block text-gray-500 text-sm mb-1" for="termino">
           Fecha Termino
         </label>
         <input
@@ -498,7 +496,7 @@
           [(ngModel)]="fechaTermino"
           #fechaTerminoRef="ngModel"
           required
-          class="input-class"
+          class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-1/2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
