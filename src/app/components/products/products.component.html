@@ -35,8 +35,9 @@
       <div class="modal-section shadow-lg left-section">
         <div class="p-6">
           <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Detalles del Producto</h3>
+          <h2 class="font-semibold text-gray-900 dark:text-white">{{ producto.name }}</h2>
+          <img class="border-imag" src="{{ producto.image_url }}" alt="">
           <p class="text-gray-700 font-semibold mb-4">{{ producto.description }}</p>
-          <img src="{{ producto.image_url }}" alt="">
         </div>
       </div>
       <div class="modal-section shadow-lg right-section">
@@ -77,6 +78,7 @@
           </label>
         </div>
         }
+        <!-- Categoria Papas fritas -->
         @if (producto.category_id == 3) {
         <div class="checkbox-wrapper">
           <input checked="" type="checkbox" class="check" id="check1-61">
@@ -92,6 +94,7 @@
           </label>
         </div>
         }
+        <!-- Categoria Pizzas -->
         @if (producto.category_id == 4) {
         <div class="checkbox-wrapper">
           <input checked="" type="checkbox" class="check" id="check1-61">
@@ -107,6 +110,7 @@
           </label>
         </div>
         }
+        <!-- Categoria Postres -->
         @if (producto.category_id == 5) {
         <div class="checkbox-wrapper">
           <input checked="" type="checkbox" class="check" id="check1-61">
@@ -122,6 +126,7 @@
           </label>
         </div>
         }
+        <!-- Categoria Bebidas -->
         @if (producto.category_id == 6) {
         <div class="checkbox-wrapper">
           <input checked="" type="checkbox" class="check" id="check1-61">

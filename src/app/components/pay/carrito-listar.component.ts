@@ -49,6 +49,8 @@ export class CarritoListarComponent implements OnInit {
   public botonDelivery: boolean = true;
   public botonRetiro: boolean = true;
   public isModalVisible: boolean = false;
+
+  public isVisibleMetodoPago: boolean = false;
   public isVisiblePago: boolean = false;
 
   public descuento: number = 0;
@@ -153,10 +155,18 @@ export class CarritoListarComponent implements OnInit {
   }
 
   public metodoPagoVisible(): boolean {
-    return this.isVisiblePago = true;
+    return this.isVisibleMetodoPago = true;
   }
 
   public metodoPagoNoVisible(): boolean {
+    return this.isVisibleMetodoPago = false;
+  }
+
+  public pagoVisible(): boolean {
+    return this.isVisiblePago = true;
+  }
+
+  public pagoNoVisible(): boolean {
     return this.isVisiblePago = false;
   }
 
