@@ -33,12 +33,12 @@ export class FormLoginComponent implements OnDestroy {
   
     this.auth.login(email, password).subscribe({
       next: (response) => {
-        if(response?.isAdmin){
+        if(response?.user?.admin){
           this.router.navigate(['/admin'])  
         }else{
           this.router.navigate(['/home'])
         }
-        
+        sessionStorage.setItem('user',JSON.stringify(response?.user));
       },
       error: (error) => {
         this.showError(error.error.message || 'Error desconocido');

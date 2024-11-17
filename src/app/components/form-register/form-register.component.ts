@@ -32,6 +32,7 @@ import { Router } from '@angular/router';
       this.auth.register(username,email,password).subscribe({
         next: (response) => {
           this.router.navigate(['/home'])
+          sessionStorage.setItem('user',JSON.stringify(response.user));
         },
         error: (error) => {
           this.showError(error.error.message || 'Error desconocido');

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnInit} from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { User } from '../../interfaces/User';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +13,8 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit{
   public isLoggedIn: boolean = false;
+  public user!:User;
+
   public isOpen: boolean = false;
   public isOpenCart: boolean = false;
   public cantProduct: number = 1;
@@ -23,6 +26,9 @@ export class NavbarComponent implements OnInit{
     this.auth.isAuthenticated().subscribe((data: boolean) => {
       this.isLoggedIn = data;
     });
+    if (typeof window !== 'undefined') {
+      this.user = JSON.parse(sessionStorage.getItem('user') || '{}');
+    }
   }
 
   /**
