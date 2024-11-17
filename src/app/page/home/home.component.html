@@ -27,6 +27,16 @@
       </div>
     </section>
 
+    <section class="container mx-auto my-16">
+      <h1 class="text-4xl font-mcdonalds text-[#F97316] mb-1 text-center">
+        Categorias
+      </h1>
+      <app-category
+        class="flex flex-wrap gap-4 rounded-lg sm:flex-row md:flex-row lg:gap-6 xl:gap-8"
+        [mode]="'user'"
+      ></app-category>
+    </section>
+
     <section
       class="relative bg-cover bg-center rounded-3xl overflow-hidden"
       style="background-image: url('images/bg-msg.jpg'); height: 400px"
@@ -43,7 +53,7 @@
     </section>
 
     <section class="container mx-auto my-16">
-      <h2 class="text-4xl font-bold text-[#F97316] mb-1 text-center">
+      <h2 class="text-4xl font-mcdonalds text-[#F97316] mb-1 text-center">
         Sobre WC Donalds
       </h2>
       <p class="text-gray-600 text-sm text-center">

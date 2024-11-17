@@ -1,0 +1,17 @@
+@for (c of categories; track $index) {
+<div
+  [routerLink]="['/catalogo/', c.category_id]"
+  class="flex flex-1 flex-col items-center text-gray-700 transition-transform transform hover:scale-110"
+  style="flex-basis: 9rem"
+>
+  <img
+    src="{{ c.img_url }}"
+    alt="{{ c.name }}"
+    class="w-32 h-32 object-cover mb-3 rounded-full shadow-lg p-2"
+  />
+  <h3 class="text-lg font-semibold mb-1 text-center text-gray-800">
+    {{ c.name }}
+  </h3>
+</div>
+}
+<router-outlet></router-outlet>
