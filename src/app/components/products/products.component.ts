@@ -3,6 +3,7 @@ import { Component, OnInit, Input, inject } from '@angular/core';
 import { Product } from '../../models/Products';
 import { CarritoService } from '../../services/carrito.service';
 
+
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -13,14 +14,14 @@ import { CarritoService } from '../../services/carrito.service';
 export class ProductsComponent implements OnInit {
   private carritoService = inject(CarritoService);
 
-  constructor() {}
+  constructor() { }
 
   @Input() products: Product[] = [];
   @Input() modo: string = '';
 
   public productoSeleccionado: number = 0;
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void { }
 
   openCard(id: number): void {
     this.productoSeleccionado = id;

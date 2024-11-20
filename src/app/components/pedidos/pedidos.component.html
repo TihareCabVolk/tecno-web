@@ -1,0 +1,32 @@
+<div class="p-6">
+    <h2 class="text-3xl font-semibold mb-6 text-gray-800">Mis Pedidos</h2>
+    <ul class="space-y-4">
+      <li
+        *ngFor="let pedido of pedidos"
+        class="bg-white border-l-4 rounded-lg p-4 shadow flex justify-between items-center"
+        [ngClass]="{
+          'border-red-500': pedido.estado === 'En preparación',
+          'border-yellow-500': pedido.estado === 'En reparto',
+          'border-green-500': pedido.estado === 'Entregado'
+        }"
+      >
+        <div>
+          <h3 class="text-lg font-bold text-gray-800">
+            Pedido n° {{ pedido.id }}
+          </h3>
+          <p class="text-gray-600">Fecha Pedido: {{ pedido.fecha }}</p>
+        </div>
+        <span
+          class="text-sm font-semibold py-1 px-3 rounded-full text-white"
+          [ngClass]="{
+            'bg-red-500': pedido.estado === 'En preparación',
+            'bg-yellow-500': pedido.estado === 'En reparto',
+            'bg-green-500': pedido.estado === 'Entregado'
+          }"
+        >
+          {{ pedido.estado }}
+        </span>
+      </li>
+    </ul>
+  </div>
+  
