@@ -16,8 +16,54 @@ export class WcdonaldsService {
   public getAllCategories():Observable<Category[]>{
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    return this.http.post<Category[]>(`${this.api}/categoria`,{},{headers}).pipe(
+    return this.http.post<Category[]>(`${this.api}/category`,{},{headers}).pipe(
       map(response => { return response })
+      ,
+      catchError((error: HttpErrorResponse) => throwError(() => error))
+    );
+  };
+
+  public updateCategory(category_id:number,name:string,description:string|null,img_url:string):Observable<{message:string}>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = {category_id,name,description,img_url};
+
+    return this.http.post<{message:string}>(`${this.api}/category/edit`,body,{headers}).pipe(
+      map(response => {return response})
+      ,
+      catchError((error: HttpErrorResponse) => throwError(() => error))
+    );
+  };
+
+  public addProduct(name:string,category_id:number,price:number,description:string,img_url:string):Observable<{message:string}>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = {name,category_id,price,description,img_url};
+
+    console.log(body);
+    
+    return this.http.post<{message:string}>(`${this.api}/product/add`,body,{headers}).pipe(
+      map(response => {return response})
+      ,
+      catchError((error: HttpErrorResponse) => throwError(() => error))
+    );
+  };
+
+  public updateProduct(product:Products):Observable<{message:string}>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = {...product};
+
+    return this.http.post<{message:string}>(`${this.api}/product/edit`,body,{headers}).pipe(
+      map(response => {return response})
+      ,
+      catchError((error: HttpErrorResponse) => throwError(() => error))
+    );
+  };
+
+  public deleteProduct(product_id:number):Observable<{message:string}>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = {product_id};
+
+    return this.http.post<{message:string}>(`${this.api}/product/delete`,body,{headers}).pipe(
+      map(response => {return response})
       ,
       catchError((error: HttpErrorResponse) => throwError(() => error))
     );
@@ -27,7 +73,17 @@ export class WcdonaldsService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const body = {category_id};
 
-    return this.http.post<Products[]>(`${this.api}/producto`,body,{headers}).pipe(
+    return this.http.post<Products[]>(`${this.api}/product/filter`,body,{headers}).pipe(
+      map(response => {return response})
+      ,
+      catchError((error: HttpErrorResponse) => throwError(() => error))
+    )
+  }
+
+  public getAllProducts():Observable<Products[]>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post<Products[]>(`${this.api}/product`,{headers}).pipe(
       map(response => {return response})
       ,
       catchError((error: HttpErrorResponse) => throwError(() => error))

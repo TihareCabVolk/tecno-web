@@ -1,0 +1,12 @@
+<div class="min-h-screen flex bg-white">
+  <!-- Sidebar -->
+  <app-sidebar (isActiveChange)="isSidebarActive = $event"></app-sidebar>
+
+  <!-- Contenido principal -->
+  <div
+    class="my-4 h-[calc(100vh-32px)] flex-1 transition-all duration-500 ease-in-out mr-4"
+    [ngClass]="{ 'ml-28': !isSidebarActive, 'ml-72': isSidebarActive }"
+  >
+    <router-outlet></router-outlet>
+  </div>
+</div>

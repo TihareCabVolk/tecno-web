@@ -34,7 +34,7 @@ export class FormLoginComponent implements OnDestroy {
     this.auth.login(email, password).subscribe({
       next: (response) => {
         if(response?.user?.admin){
-          this.router.navigate(['/admin'])  
+          this.router.navigate(['/admin/products'])  
         }else{
           this.router.navigate(['/home'])
         }

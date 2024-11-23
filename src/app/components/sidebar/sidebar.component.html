@@ -1,0 +1,65 @@
+<aside
+  class="fixed top-0 left-0 my-4 ml-4 h-[calc(100vh-32px)] bg-[#1F2937] rounded-xl transition-all duration-500 ease-in-out"
+  [ngClass]="{ 'w-64': isActive, 'w-20': !isActive }"
+>
+  <!-- Header -->
+  <header
+    class="flex items-center justify-between px-5 py-4 relative transition-all duration-500 ease-in-out"
+    [ngClass]="{ 'flex-col': !isActive, 'flex-row': isActive }"
+  >
+    <p
+      class="font-mcdonalds transition-all duration-500 ease-in-out text-white"
+      style="font-size: 1.5rem"
+    >
+      W<span
+        [ngClass]="{
+          hidden: !isActive
+        }"
+        >cDonald's</span
+      >
+    </p>
+
+    <button
+      (click)="toggle()"
+      class="py-1 px-2 flex items-center justify-center bg-white text-gray-900 rounded-lg transition hover:bg-gray-200"
+      [ngClass]="{ 'move-down': !isActive, 'move-up': isActive }"
+    >
+      <i [class]="!isActive ? 'bx bx-menu text-2xl' : 'bx bx-x text-2xl'"></i>
+    </button>
+  </header>
+
+  <!-- Navegación -->
+  <nav class="mt-4">
+    <ul class="px-4 flex flex-col gap-3">
+      <a
+        routerLink="{{ i.link }}"
+        *ngFor="let i of primaryNav"
+        class="relative group flex items-center gap-4 px-3 py-2 text-white rounded-lg hover:bg-gray-700"
+      >
+        <i class="{{ i.icon }} text-2xl"></i>
+        <span class="text-sm font-medium" [ngClass]="{ hidden: !isActive }">
+          {{ i.label }}
+        </span>
+      </a>
+    </ul>
+  </nav>
+
+  <!-- Footer (Usuario) -->
+  <div
+    class="absolute bottom-6 left-4 w-[calc(100%-2rem)] bg-gray-900 p-3 rounded-lg flex items-center gap-3 text-white"
+  >
+    <img
+      [src]="'images/profile.png'"
+      alt="User Avatar"
+      class="w-10 h-10 rounded-full object-cover"
+      [ngClass]="{ hidden: !isActive }"
+    />
+    <div [ngClass]="{ hidden: !isActive }">
+      <p class="font-bold text-sm">{{ user.username || "" }}</p>
+      <p class="text-xs text-gray-400">Admin</p>
+    </div>
+    <button (click)="logout()" class="ml-auto text-red-500 hover:text-red-700">
+      <i class="bx bx-log-out text-2xl"></i>
+    </button>
+  </div>
+</aside>

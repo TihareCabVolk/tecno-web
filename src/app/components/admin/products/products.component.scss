@@ -1,0 +1,26 @@
+.products-container {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .filters {
+    border-right: 1px solid #e5e7eb;
+  }
+  
+  .product-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .product-item img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  button {
+    cursor: pointer;
+  }
+  

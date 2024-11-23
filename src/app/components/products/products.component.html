@@ -14,7 +14,6 @@
     <span class="text-xl font-bold text-orange-600"> ${{ p.price }} </span>
     <!-- Botón "+" solo aparece en modo "user" -->
     <button
-      *ngIf="modo === 'user'"
       (click)="openCard(p.product_id)"
       class="w-8 h-8 font-semibold text-white bg-orange-500 rounded-full hover:bg-orange-600 flex items-center justify-center"
     >

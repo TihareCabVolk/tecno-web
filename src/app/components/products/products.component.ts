@@ -15,7 +15,6 @@ export class ProductsComponent implements OnInit{
     constructor(){};
 
     @Input() products:Products[]=[];
-    @Input() modo: string = '';
     
 
     public productoSeleccionado: number = 0;
