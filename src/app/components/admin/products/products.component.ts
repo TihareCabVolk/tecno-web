@@ -5,29 +5,30 @@ import { Products } from '../../../interfaces/Products';
 import { WcdonaldsService } from '../../../services/wcdonalds.service';
 import { Category } from '../../../interfaces/Category';
 import { Subject, takeUntil } from 'rxjs';
+import { ProductModalComponent } from "../product-modal/product-modal.component";
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ProductModalComponent],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent implements OnInit, OnDestroy {
-  public products: Products[] = []; // Todos los productos originales
-  public filteredProducts: Products[] = []; // Productos filtrados dinámicamente
+
+  public products: Products[] = [];
+  public filteredProducts: Products[] = [];
   public categories: Category[] = [];
 
   public filterForm!: FormGroup;
-  public addProductForm!: FormGroup; // Formulario para agregar producto
-  public editProductForm!: FormGroup; // Formulario para editar producto
-
-  public showAddProductForm = false; // Controla la visibilidad del modal
-  public showEditProductForm = false; // Controla la visibilidad del modal de editar producto
-
-  public selectedProduct: Products | null = null; // Producto seleccionado para editar
 
   private destroy$ = new Subject<void>(); // Para manejar las suscripciones
+  
+  public showModal = false;
+  public selectedProduct: Products | null = null; // Producto seleccionado para editar
+  public modalTitle = '';
+
+
 
   constructor(private wdService: WcdonaldsService) {
     // Formulario de filtros
@@ -40,36 +41,18 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.filterForm.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.applyFilters();
     });
-
-    // Formulario de agregar producto
-    this.addProductForm = new FormGroup({
-      name: new FormControl('', Validators.required),
-      category_id: new FormControl('', Validators.required),
-      price: new FormControl(0, [Validators.required, Validators.min(0)]),
-      description: new FormControl('', Validators.required),
-      img_url: new FormControl('', Validators.required),
-    });
-
-    // Formulario de editar producto
-    this.editProductForm = new FormGroup({
-      name: new FormControl('', Validators.required),
-      category_id: new FormControl('', Validators.required),
-      price: new FormControl(0, [Validators.required, Validators.min(0)]),
-      description: new FormControl('', Validators.required),
-      img_url: new FormControl('', Validators.required),
-    });
-  }
+  };
 
   public ngOnInit(): void {
     this.getCategories();
     this.getProducts();
-  }
+  };
 
   public ngOnDestroy(): void {
     // Completa el Subject para desuscribirse de todas las suscripciones
     this.destroy$.next();
     this.destroy$.complete();
-  }
+  };
 
   private getProducts(): void {
     this.wdService.getAllProducts()
@@ -83,7 +66,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
           console.error('Error al obtener los productos:', err.message);
         },
       });
-  }
+  };
 
   private getCategories(): void {
     this.wdService.getAllCategories()
@@ -93,7 +76,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
           this.categories = data;
         },
       });
-  }
+  };
 
   private applyFilters(): void {
     const searchTerm = this.filterForm.get('searchTerm')?.value.toLowerCase() || '';
@@ -104,82 +87,47 @@ export class ProductsComponent implements OnInit, OnDestroy {
       const matchesCategory = selectedCategory ? product.category_id === selectedCategory : true;
       return matchesSearchTerm && matchesCategory;
     });
-  }
+  };
 
-  public toggleAddProductForm(): void {
-    this.showAddProductForm = !this.showAddProductForm;
-    if (!this.showAddProductForm) {
-      // Resetear el formulario con valores predeterminados
-      this.addProductForm.reset({
-        name: '',
-        category_id: '', // Cambia esto al valor predeterminado si es necesario
-        price: 0,
-        description: '',
-        img_url: ''
-      });
-    }
-  }
+  public toggleAddProduct(): void {
+    this.modalTitle = 'Agregar Producto';
+    this.selectedProduct = null;
+    this.showModal = true;
+  };
 
-  public toggleEditProductForm(): void {
-    this.showEditProductForm = !this.showEditProductForm;
-    if (!this.showEditProductForm) {
-      this.selectedProduct = null;
-    }
-  }
-
-  public addProduct(): void {
-    if (this.addProductForm.invalid) {
-      alert('Por favor completa todos los campos requeridos.');
-      return;
-    }
-
-    const { name, category_id, price, description, img_url } = this.addProductForm.value;
-
-    this.wdService.addProduct(name, category_id, price, description, img_url)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: () => {
-          this.getProducts();
-          this.toggleAddProductForm();
-        },
-        error: (err) => {
-          console.error('Error al agregar el producto:', err.message);
-        },
-      });
-  }
-
-  public editProduct(product: Products | null): void {
-    if (!product) return;
-
+  public toggleEditProduct(product: Products): void {
+    this.modalTitle = 'Editar Producto';
     this.selectedProduct = product;
-    this.editProductForm.patchValue({
-      name: product.name,
-      category_id: product.category_id,
-      price: product.price,
-      description: product.description,
-      img_url: product.img_url,
-    });
-    this.showEditProductForm = true;
-  }
-
-  public saveEditedProduct(): void {
-    if (this.editProductForm.invalid) return;
-
-    const updatedProduct: Products = {
-      ...this.selectedProduct!,
-      ...this.editProductForm.value,
-    };
-
-    this.wdService.updateProduct(updatedProduct)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: () => {
+    this.showModal = true;
+  };
+  
+  public handleSave(product: Products): void {
+    if (this.selectedProduct) {
+      // Editar producto
+      this.wdService.updateProduct(product).pipe(takeUntil(this.destroy$)).subscribe(() => {
           this.getProducts();
           this.applyFilters();
-          this.showEditProductForm = false;
         },
+      );
+    } else {
+      // Agregar producto
+      this.wdService.addProduct(
+        product.name,
+        product.category_id,
+        product.price,
+        product.description,
+        product.img_url
+      ).subscribe(() => {
+        this.getProducts();
+        this.applyFilters();
       });
-  }
+    }
+    this.showModal = false;
+  };
+
+  public handleCancel(): void {
+    this.showModal = false;
+  };
 
   public deleteProduct(product_id: number): void {
     this.wdService.deleteProduct(product_id)
@@ -193,5 +141,5 @@ export class ProductsComponent implements OnInit, OnDestroy {
           console.error('Error al eliminar el producto:', err);
         },
       });
-  }
+  };
 }
