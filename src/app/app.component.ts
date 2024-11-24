@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
   standalone: true,
   imports: [RouterOutlet, HttpClientModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'Proyecto_tecno_Web';

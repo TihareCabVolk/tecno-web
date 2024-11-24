@@ -1,19 +1,57 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:3000'; // Cambia esto si tu servidor está en otra dirección
+  private baseUrl = 'http://localhost:3000'; // Cambia esto a la URL de tu servidor
 
   constructor(private http: HttpClient) { }
 
-  // Método para obtener datos (ejemplo)
-  getProducts(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/products`); // Asegúrate de que esta ruta exista en tu servidor
+  registerUser(userData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/user/register`, userData)
+      .pipe(catchError(this.handleError));
   }
 
-  // Otros métodos para interactuar con tu API
+  loginUser(credentials: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/user/login`, credentials)
+      .pipe(catchError(this.handleError));
+  }
+
+  getCategories(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/categoria`)
+      .pipe(catchError(this.handleError));
+  }
+
+  getProducts(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/producto`)
+      .pipe(catchError(this.handleError));
+  }
+
+  getUserById(userId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/user/${userId}`)
+      .pipe(catchError(this.handleError));
+  }
+  /*
+  getPedidosByUserId(userId: number): Observable<Pedido[]> {
+    return this.http.get<Pedido[]>(`${this.baseUrl}/pedidos?user_id=${userId}`)
+        .pipe(catchError(this.handleError));
+  }
+  */
+
+  private handleError(error: HttpErrorResponse) {
+    // Manejo de errores
+    let errorMessage = 'Ocurrió un error desconocido.';
+    if (error.error instanceof ErrorEvent) {
+      // Errores del lado del cliente
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // Errores del lado del servidor
+      errorMessage = `Código de error: ${error.status}, Mensaje: ${error.message}`;
+    }
+    return throwError(errorMessage);
+  }
 }
