@@ -15,7 +15,7 @@
     left: -250%;
     width: 300%;
     height: 100%;
-    background: #7494ec;
+    background: #ff9442;
     border-radius: 100px;
     z-index: 20;
     transition: 1.8s ease-in-out;
@@ -27,4 +27,10 @@
 
 .visibility-delay {
     transition: visibility 0s 1s;
+}
+.bg-pattern {
+    background-image:linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.5)), url('/images/patron.png'); 
+    background-repeat: repeat;
+    background-position: center;
+    background-size: 25vh;
 }

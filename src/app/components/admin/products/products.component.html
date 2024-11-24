@@ -1,4 +1,4 @@
-<main class="flex flex-col gap-4 w-full pr-10 pt-5">
+<main class="flex flex-col gap-4 w-full pr-10 pt-5 mx-6">
   <!-- Sección de búsqueda y agregar producto -->
   <section [formGroup]="filterForm" class="flex gap-2 items-center">
     <!-- Buscador con ícono -->
@@ -30,10 +30,10 @@
 
     <!-- Botón con ícono -->
     <button
-      class="flex-none w-32 p-2 bg-blue-500 text-white rounded flex items-center gap-2 hover:bg-blue-600"
+      class="flex-none w-32 p-2 bg-orange-400 text-white rounded flex justify-center gap-2 hover:bg-orange-500"
       (click)="toggleAddProductForm()"
     >
-      <i class="bx bx-plus text-lg"></i> Agregar
+      <i class="bx bx-plus text-lg"></i>Agregar
     </button>
   </section>
 
@@ -48,10 +48,10 @@
     >
       <form [formGroup]="addProductForm" (ngSubmit)="addProduct()">
         <div class="mb-4">
-          <h2 class="text-xl font-semibold text-gray-800">Agregar Producto</h2>
+          <h2 class="text-2xl font-semibold text-gray-800">Agregar Producto</h2>
         </div>
-        <div class="mb-4">
-          <label for="name" class="block text-gray-700"
+        <div class="mb-6">
+          <label for="name" class="block text-gray-700 mb-2"
             >Nombre del producto</label
           >
           <input
@@ -62,31 +62,43 @@
             placeholder="Nombre del producto"
           />
         </div>
-        <div class="mb-4">
-          <label for="category" class="block text-gray-700">Categoría</label>
-          <select
-            id="category"
-            formControlName="category_id"
-            class="w-full p-2 border rounded"
-          >
-            <option value="" selected>Selecciona una categoría</option>
-            <option *ngFor="let c of categories" [value]="c.category_id">
-              {{ c.name }}
-            </option>
-          </select>
+
+        <div class="flex gap-4">
+          <div class="mb-4 flex-1">
+            <label for="category" class="block text-gray-400 mb-2"
+              >Categoría</label
+            >
+            <select
+              id="category"
+              formControlName="category_id"
+              class="w-full p-2 border rounded"
+            >
+              <option value="" selected>Selecciona una categoría</option>
+              <option *ngFor="let c of categories" [value]="c.category_id">
+                {{ c.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-4 flex-1">
+            <label for="price" class="block text-gray-700 mb-2">Precio</label>
+            <input
+              id="price"
+              formControlName="price"
+              type="number"
+              class="w-full p-2 border rounded"
+              placeholder="Precio del producto"
+              style="
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: textfield;
+              "
+            />
+          </div>
         </div>
+
         <div class="mb-4">
-          <label for="price" class="block text-gray-700">Precio</label>
-          <input
-            id="price"
-            formControlName="price"
-            type="number"
-            class="w-full p-2 border rounded"
-            placeholder="Precio del producto"
-          />
-        </div>
-        <div class="mb-4">
-          <label for="description" class="block text-gray-700"
+          <label for="description" class="block text-gray-700 mb-2"
             >Descripción</label
           >
           <textarea
@@ -97,28 +109,29 @@
           ></textarea>
         </div>
         <div class="mb-4">
-          <label for="image" class="block text-gray-700"
+          <label for="image" class="block text-gray-700 mb-2"
             >URL de la imagen</label
           >
           <input
             id="image"
             formControlName="img_url"
             type="text"
-            class="w-full p-2 border rounded"
+            class="w-full p-2 border rounded mb-3"
             placeholder="URL de la imagen"
           />
         </div>
+
         <div class="flex gap-2">
           <button
             type="submit"
-            class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            class="bg-orange-400 text-white px-4 py-2 rounded hover:bg-orange-500"
           >
             Guardar
           </button>
           <button
             type="button"
             (click)="toggleAddProductForm()"
-            class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+            class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
           >
             Cancelar
           </button>
@@ -129,7 +142,7 @@
 
   <!-- Sección de productos -->
   <section>
-    <h2 class="text-xl font-semibold mb-4">Productos</h2>
+    <h2 class="text-3xl font-bold mb-4">Productos</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <div
@@ -269,7 +282,7 @@
           <button
             type="button"
             (click)="toggleEditProductForm()"
-            class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+            class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
           >
             Cancelar
           </button>

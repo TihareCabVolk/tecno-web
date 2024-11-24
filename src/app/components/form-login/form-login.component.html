@@ -14,7 +14,7 @@
   </div>
 
   <!-- Título -->
-  <h1 class="text-3xl font-semibold font-mcdonalds">Login</h1>
+  <h1 class="text-3xl font-extrabold font-sans text-orange-400">Login</h1>
 
   <!-- Campo de Email -->
   <div class="w-full my-4">
@@ -33,13 +33,13 @@
     <!-- Mensaje de error de Email -->
     <div
       *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
-      class="text-s text-red-500 font-semibold text-start"
+      class="text-s text-red-400 font-semibold text-start"
     >
       <small *ngIf="loginForm.get('email')?.errors?.['required']"
-        >Email is required.</small
+        >Email es requerido.</small
       >
       <small *ngIf="loginForm.get('email')?.errors?.['email']"
-        >Email is not valid.</small
+        >Email no es válido</small
       >
     </div>
   </div>
@@ -63,25 +63,25 @@
       *ngIf="
         loginForm.get('password')?.invalid && loginForm.get('password')?.touched
       "
-      class="text-s text-red-500 font-semibold text-start"
+      class="text-s text-red-400 font-semibold text-start"
     >
       <small *ngIf="loginForm.get('password')?.errors?.['required']"
-        >Password is required.</small
+        >Password es requerida.</small
       >
     </div>
   </div>
 
   <!-- Enlace de Olvidé mi contraseña -->
   <div class="my-2">
-    <a href="#" class="text-sm text-gray-500 hover:text-gray-700"
-      >forgot password?</a
+    <a href="#" class="text-sm text-gray-500 hover:text-gray-800"
+      >¿Se olvidó de su contraseña?</a
     >
   </div>
 
   <!-- Botón de Login -->
   <button
     type="button"
-    class="w-full h-10 rounded-lg font-semibold border-none cursor-pointer text-white bg-blue-500"
+    class="w-full h-10 rounded-lg font-semibold border-none cursor-pointer text-white bg-orange-400"
     (click)="onSubmitLogin()"
   >
     Login
