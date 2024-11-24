@@ -18,7 +18,7 @@
 
     <button
       *ngIf="modo === 'user'"
-      (click)="openCard(producto.id)"
+      (click)="openCard(producto.product_id)"
       title="Add New"
       class="group cursor-pointer outline-none hover:rotate-90 duration-300"
     >
@@ -41,7 +41,7 @@
 
   <!-- Card flotante para detalles del producto -->
   <div
-    *ngIf="productoSeleccionado === producto.id"
+    *ngIf="productoSeleccionado === producto.product_id"
     class="fixed inset-10 bg-white shadow-lg rounded-lg p-6 flex flex-col z-50 overflow-y-auto mx-auto border border-gray-200"
     (clickOutside)="closeCard()"
   >

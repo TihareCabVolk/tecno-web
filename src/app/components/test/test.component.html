@@ -54,7 +54,7 @@
               </div>
             </div>
 
-            @for (item of listaCupones; track item) {
+            @for (item of cupones; track item) {
             <div
               class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6"
             >
@@ -86,7 +86,7 @@
                     <div class="flex flex-col items-center gap-4">
                       <button
                         title="Eliminar"
-                        (click)="eliminarItem($index)"
+                        (click)="deleteCupon($index)"
                         class="group relative flex h-14 w-14 flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-red-800 bg-red-400 hover:bg-red-600"
                       >
                         <svg
@@ -190,7 +190,7 @@
                         <p
                           class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-1/2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                         >
-                          {{ item.fechaInicio | date : "MM/dd/yyyy" }}
+                          {{ item.fecha_inicio | date : "MM/dd/yyyy" }}
                         </p>
                         <p text="text-lg">📅</p>
                       </div>
@@ -206,7 +206,7 @@
                         <p
                           class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-1/2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                         >
-                          {{ item.fechaTermino | date : "MM/dd/yyyy" }}
+                          {{ item.fecha_termino | date : "MM/dd/yyyy" }}
                         </p>
                         <p text="text-lg">📅</p>
                       </div>
@@ -283,7 +283,7 @@
                       <input
                         id="inicio"
                         type="date"
-                        [(ngModel)]="fechaInicio"
+                        [(ngModel)]="fecha_inicio"
                         #fechaInicioRef="ngModel"
                         required
                         class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-1/2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
@@ -307,7 +307,7 @@
                       <input
                         id="termino"
                         type="date"
-                        [(ngModel)]="fechaTermino"
+                        [(ngModel)]="fecha_termino"
                         #fechaTerminoRef="ngModel"
                         required
                         class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-1/2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
@@ -381,12 +381,11 @@
                     <div class="text-center">
                       <button
                         (click)="
-                          actualizar(
-                            item,
+                          editCupon(
                             nombreCupon,
                             descuentoCupon,
-                            fechaInicio,
-                            fechaTermino
+                            fecha_inicio,
+                            fecha_termino
                           )
                         "
                         class="text-xl w-32 h-12 rounded bg-orange-400 text-white relative overflow-hidden group z-10 hover:text-white duration-1000"
@@ -476,7 +475,7 @@
         <input
           id="inicio"
           type="date"
-          [(ngModel)]="fechaInicio"
+          [(ngModel)]="fecha_inicio"
           #fechaInicioRef="ngModel"
           required
           class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-1/2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
@@ -493,7 +492,7 @@
         <input
           id="termino"
           type="date"
-          [(ngModel)]="fechaTermino"
+          [(ngModel)]="fecha_termino"
           #fechaTerminoRef="ngModel"
           required
           class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-1/2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
@@ -561,12 +560,7 @@
       <div class="text-center">
         <button
           (click)="
-            agregarProducto(
-              nombreCupon,
-              descuentoCupon,
-              fechaInicio,
-              fechaTermino
-            )
+            addCupon(nombreCupon, descuentoCupon, fecha_inicio, fecha_termino)
           "
           class="text-xl w-32 h-12 rounded bg-orange-400 text-white relative overflow-hidden group z-10 hover:text-white duration-1000"
         >

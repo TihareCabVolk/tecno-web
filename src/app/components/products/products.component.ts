@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Input, inject } from '@angular/core';
-import { Product } from '../../models/Products';
+import { Products } from '../../models/Products';
 import { CarritoService } from '../../services/carrito.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class ProductsComponent implements OnInit {
 
   constructor() {}
 
-  @Input() products: Product[] = [];
+  @Input() products: Products[] = [];
   @Input() modo: string = '';
 
   public productoSeleccionado: number = 0;
@@ -30,7 +30,7 @@ export class ProductsComponent implements OnInit {
     this.productoSeleccionado = 0;
   }
 
-  agregarProducto(item: Product) {
+  agregarProducto(item: Products) {
     this.carritoService.agregar(item);
     this.closeCard(); // Cerrar el card flotante
   }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CategoryComponent } from '../../components/category/category.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ProductsComponent } from '../../components/products/products.component';
-import { Product } from '../../models/Products';
+import { Products } from '../../models/Products';
 import { Category } from '../../models/category';
 import { WcdonaldsService } from '../../services/wcdonalds.service';
 
@@ -22,7 +22,7 @@ import { WcdonaldsService } from '../../services/wcdonalds.service';
 export class CatalogoComponent implements OnInit {
   constructor(private wdService: WcdonaldsService) {}
 
-  public products: Product[] = [];
+  public products: Products[] = [];
   public categories: Category[] = [];
 
   public selectedCategory: number = 1;

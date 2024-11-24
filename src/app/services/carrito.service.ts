@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Carrito } from '../models/carrito';
-import { Product } from '../models/Products';
+import { Products } from '../models/Products';
 
 @Injectable({
   providedIn: 'root',
@@ -22,11 +22,11 @@ export class CarritoService {
     return this.listCarrito;
   }
 
-  agregar(producto: Product, cantidad: number = 1) {
+  agregar(producto: Products, cantidad: number = 1) {
     this.obtenerSession();
     //si existe aumenta el valor
     const index = this.listCarrito.findIndex(
-      (item) => item.producto.id === producto.id
+      (item) => item.producto.product_id === producto.product_id
     );
 
     //no existe

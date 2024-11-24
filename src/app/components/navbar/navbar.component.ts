@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, inject, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  inject,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Carrito } from '../../models/carrito';
 import { CarritoService } from '../../services/carrito.service';
@@ -9,7 +17,6 @@ import { FormsModule } from '@angular/forms';
 import { CarritoListarComponent } from '../pay/carrito-listar.component';
 import { ChangeDetectorRef } from '@angular/core';
 import { CartComponent } from '../cart/cart.component';
-
 
 @Component({
   selector: 'app-navbar',
@@ -57,7 +64,7 @@ export class NavbarComponent implements OnInit {
   public carritoService = inject(CarritoService);
   listCarrito: Carrito[] = [];
 
-  constructor(public router: Router, private cdr: ChangeDetectorRef) { }
+  constructor(public router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     initFlowbite();

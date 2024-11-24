@@ -12,9 +12,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { initFlowbite } from 'flowbite';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { VisibilidadElementosService } from '../../services/visibilidad-elementos.service';
-import { CuponesService } from '../../services/cupones.service';
+import { AuthService } from '../../services/auth.service';
 import { Cupon } from '../../models/cupon';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-cart-listar',
@@ -24,16 +24,19 @@ import { Cupon } from '../../models/cupon';
   styleUrl: './carrito-listar.component.scss',
 })
 export class CarritoListarComponent implements OnInit {
-  public carritoService = inject(CarritoService);
-  private estadoService = inject(VisibilidadElementosService);
-  public cuponesService = inject(CuponesService);
+  constructor(
+    private baseDatos: AuthService,
+    public carritoService: CarritoService
+  ) {}
 
   public listCarrito: Carrito[] = [];
-  public listaCupones: Cupon[] = [];
 
   public botonDelivery: boolean = true;
   public botonRetiro: boolean = true;
   public isModalVisible: boolean = false;
+
+  public isVisibleMetodoPago: boolean = false;
+  public isVisiblePago: boolean = false;
 
   public descuento: number = 0;
   public codigooCupon: string = ''; // Variable para almacenar el código del cupon
@@ -47,25 +50,39 @@ export class CarritoListarComponent implements OnInit {
   ngOnInit(): void {
     initFlowbite();
     this.getListCarrito();
-    this.cuponesService.getCupon();
-    this.estadoService.setMostrar(false);
+    this.getCupones();
   }
 
-  verificar(codeCupon: string) {
-    this.listaCupones = this.cuponesService.getCupon(); // Obtener la lista de cupones
+  public cupones: Cupon[] = [];
+  //Obtener cupones
+  private getCupones(): void {
+    this.baseDatos.getAllCupones().subscribe({
+      next: (data: Cupon[]) => {
+        console.log('Cupones obtenidos:', data);
+        this.cupones = data;
+      },
+      error: (err) => {
+        console.error('Error al obtener los cupones:', err.message);
+      },
+    });
 
+    console.log('Lista de cupones', this.cupones);
+  }
+
+  //obtener lista de cupones
+  verificar(codeCupon: string) {
     // Buscar el cupón con el código proporcionado
-    const cuponEncontrado = this.listaCupones.find(
+    const cuponEncontrado = this.cupones.find(
       (item) => item.codigo === codeCupon
     );
 
     if (cuponEncontrado) {
       const fechaActual = new Date();
-      const fechaInicio = new Date(cuponEncontrado.fechaInicio);
-      const fechaTermino = new Date(cuponEncontrado.fechaTermino);
+      const fechaInicio = new Date(cuponEncontrado.fecha_inicio);
+      const fechaTermino = new Date(cuponEncontrado.fecha_termino);
 
       if (fechaInicio <= fechaActual && fechaTermino >= fechaActual) {
-        this.descuento = cuponEncontrado.descuento; // Aplicar el descuento
+        this.descuento = cuponEncontrado.descuento;
       } else {
         alert('El cupón ingresado no es válido en la fecha actual.');
         this.descuento = 0;
@@ -79,9 +96,10 @@ export class CarritoListarComponent implements OnInit {
   reseteo() {
     this.descuento = 0;
   }
-  //Obetener la lista de carrito
+  //Obtener la lista de carrito
   getListCarrito() {
     this.listCarrito = this.carritoService.getCarrito();
+    console.log(this.listCarrito);
   }
   //Eliminar un item
   eliminarItem(index: number) {
@@ -135,5 +153,74 @@ export class CarritoListarComponent implements OnInit {
       return (this.retiroVisible = true);
     } else this.botonRetiro = !this.botonRetiro;
     return (this.retiroVisible = false);
+  }
+
+  public metodoPagoVisible(): boolean {
+    return (this.isVisibleMetodoPago = true);
+  }
+
+  public metodoPagoNoVisible(): boolean {
+    return (this.isVisibleMetodoPago = false);
+  }
+
+  //Aca tendria que obtener el user_id y darselo
+  public pagoVisible(): void {
+    const total =
+      this.carritoService.total() * 100 -
+      this.carritoService.total() * 100 * (this.descuento / 100);
+
+    // Agregar la orden principal
+    this.baseDatos.addOrder('2024-11-24', total, 2).subscribe({
+      next: () => {
+        // Obtener el ID de la última orden agregada
+        this.baseDatos.getUltima().subscribe({
+          next: (ultimaOrdenId: number) => {
+            console.log('Última orden ID:', ultimaOrdenId);
+
+            // Guardar la orden relacional para cada elemento del carrito
+            const observables = this.listCarrito.map((item) =>
+              this.baseDatos.addOrderRelacion(
+                ultimaOrdenId,
+                item.producto.product_id,
+                item.cantidad
+              )
+            );
+
+            // Esperar a que todas las órdenes relacionales se completen
+            forkJoin(observables).subscribe({
+              next: () => {
+                console.log('Todas las órdenes relacionales fueron agregadas.');
+                this.isVisiblePago = true; // Solo ahora actualizamos el estado
+              },
+              error: (err) => {
+                console.error(
+                  'Error al agregar las órdenes relacionales:',
+                  err
+                );
+              },
+            });
+          },
+          error: (err) => {
+            console.error('Error al obtener la última orden:', err.message);
+          },
+        });
+      },
+      error: (err) => {
+        console.error('Error al agregar la orden principal:', err.message);
+      },
+    });
+  }
+
+  public pagoNoVisible(): boolean {
+    this.isModalVisible = false;
+    return (this.isVisiblePago = false);
+  }
+
+  // Cerrar la ventana flotante con un click fuera de ella
+  public cerrarModalConClick(event: MouseEvent): boolean {
+    if (event.target === event.currentTarget) {
+      return (this.isModalVisible = false);
+    }
+    return this.isModalVisible;
   }
 }
