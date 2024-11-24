@@ -48,19 +48,7 @@
 
         <!-- Categoria Ofertas -->
         @if (producto.category_id == 1) {
-        <div class="checkbox-wrapper">
-          <input checked="" type="checkbox" class="check" id="check1-61">
-          <label for="check1-61" class="label flex items-center">
-            <svg width="45" height="45" viewBox="0 0 95 95">
-              <rect x="30" y="20" width="50" height="50" stroke="black" fill="none"></rect>
-              <g transform="translate(0,-952.36222)">
-                <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4"
-                  stroke="black" stroke-width="3" fill="none" class="path1"></path>
-              </g>
-            </svg>
-            <span class="font-semibold">a</span>
-          </label>
-        </div>
+
         }
         <!-- Categoria Hamburguesas -->
         @if (producto.category_id == 2) {
@@ -105,9 +93,9 @@
         <div class="flex-row">
           <span class="font-semibold py-3">Tamaños de porción disponibles:</span>
           <div class="btn-group py-5">
-            <button class="btn left" type="button">Pequeño</button>
-            <button class="btn middle" type="button">Mediano</button>
-            <button class="btn right" type="button">Grande</button>
+            <button class="btn left" type="button" value="0">Pequeño</button>
+            <button class="btn middle" type="button" value="1500">Mediano</button>
+            <button class="btn right" type="button" value="3000">Grande</button>
           </div>
         </div>
         }
@@ -134,9 +122,9 @@
         <div class="flex-row">
           <span class="font-semibold py-3">Tamaños disponibles:</span>
           <div class="btn-group py-5">
-            <button class="btn left" type="button">Pequeño</button>
-            <button class="btn middle" type="button">Mediano</button>
-            <button class="btn right" type="button">Familiar</button>
+            <button class="btn left" type="button" value="0">Pequeño</button>
+            <button class="btn middle" type="button" value="2500">Mediano</button>
+            <button class="btn right" type="button" value="5000">Familiar</button>
           </div>
         </div>
         }
@@ -163,9 +151,9 @@
         <div class="flex-row">
           <span class="font-semibold py-3">Tamaños de porción disponibles:</span>
           <div class="btn-group py-5">
-            <button class="btn left" type="button">Pequeño</button>
-            <button class="btn middle" type="button">Mediano</button>
-            <button class="btn right" type="button">Grande</button>
+            <button class="btn left" type="button" value="0">Pequeño</button>
+            <button class="btn middle" type="button" value="500">Mediano</button>
+            <button class="btn right" type="button" value="1000">Grande</button>
           </div>
         </div>
         }
@@ -173,9 +161,9 @@
         @if (producto.category_id == 6) {
         <span class="justify-center font-semibold py-3">Tamaños disponibles:</span>
         <div class="btn-group">
-          <button class="btn left" type="button">Pequeño</button>
-          <button class="btn middle" type="button">Mediano</button>
-          <button class="btn right" type="button">Grande</button>
+          <button class="btn left" type="button" value="0">Pequeño</button>
+          <button class="btn middle" type="button" value="500">Mediano</button>
+          <button class="btn right" type="button" value="1000">Grande</button>
         </div>
         }
       </div>
