@@ -1,4 +1,4 @@
-import { Products } from './Products';
+import { Products } from '../interfaces/Products';
 
 export class Carrito {
   producto!: Products;

@@ -6,7 +6,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { Cupon } from '../models/cupon';
-import { Orders } from '../models/Orden';
+import { Orders } from '../interfaces/Orden';
 
 @Injectable({
   providedIn: 'root',
