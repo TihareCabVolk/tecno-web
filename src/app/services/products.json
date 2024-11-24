@@ -5,7 +5,8 @@
     "description": "Descripción del producto 1, con detalles únicos.",
     "price": 15,
     "image_url": "https://example.com/images/producto-1.jpg",
-    "category_id": 1
+    "category_id": 1,
+    "opcionesSeleccionadas": []
   },
   {
     "id": 2,
@@ -13,7 +14,8 @@
     "description": "Descripción del producto 2, con detalles únicos.",
     "price": 16,
     "image_url": "https://example.com/images/producto-2.jpg",
-    "category_id": 2
+    "category_id": 2,
+    "opcionesSeleccionadas": []
   },
   {
     "id": 3,
@@ -21,7 +23,8 @@
     "description": "Descripción del producto 3, con detalles únicos.",
     "price": 17,
     "image_url": "https://example.com/images/producto-3.jpg",
-    "category_id": 3
+    "category_id": 3,
+    "opcionesSeleccionadas": []
   },
   {
     "id": 4,
@@ -29,7 +32,8 @@
     "description": "Descripción del producto 4, con detalles únicos.",
     "price": 1.8,
     "image_url": "https://example.com/images/producto-4.jpg",
-    "category_id": 4
+    "category_id": 4,
+    "opcionesSeleccionadas": []
   },
   {
     "id": 5,

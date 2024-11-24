@@ -2,12 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, Input, inject } from '@angular/core';
 import { Product } from '../../models/Products';
 import { CarritoService } from '../../services/carrito.service';
+import { NgModel } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
 })
@@ -19,16 +21,52 @@ export class ProductsComponent implements OnInit {
   @Input() products: Product[] = [];
   @Input() modo: string = '';
 
-  public productoSeleccionado: number = 0;
+  opcionesAHamburguresa = [
+    { id: 'checkQuesoH', texto: 'Extra queso', precioExtra: '$' + 1000, checked: false },
+    { id: 'checkPapasH', texto: 'Papas fritas', precioExtra: '$' + 1000, checked: false }
+  ]
+
+  opcionesAPizzas = [
+    { id: 'checkExtraQueso', texto: 'Extra queso', precioExtra: '$' + 1000, checked: false },
+    { id: 'checkRelleno', texto: 'Relleno de queso', precioExtra: '$' + 1000, checked: false }
+  ]
+
+  opcionesAPostres = [
+    { id: 'checkSalsaChocolate', texto: 'Salsa de chocolate', precioExtra: '$' + 1000, checked: false },
+    { id: 'checkCoberturaChocolate', texto: 'Cobertura de Chocolate', precioExtra: '$' + 1000, checked: false }
+  ]
+
+  productoSeleccionado: Product = {
+    id: 0,
+    name: '',
+    description: '',
+    image_url: '',
+    category_id: 0,
+    price: 0,
+    opcionesSeleccionadas: []  // Se inicializa vacío
+  };
+
+  // Este método actualiza las opciones seleccionadas para el producto
+  actualizarOpcionesSeleccionadas(opcion: any): void {
+    if (opcion.checked) {
+      // Si la opción está seleccionada, la agregamos a opcionesSeleccionadas
+      this.productoSeleccionado.opcionesSeleccionadas?.push(opcion);
+    } else {
+      // Si no está seleccionada, la eliminamos de las opcionesSeleccionadas
+      this.productoSeleccionado.opcionesSeleccionadas = this.productoSeleccionado.opcionesSeleccionadas?.filter(o => o.id !== opcion.id);
+    }
+  }
+
+  // productoSeleccionado: number = 0;
 
   public ngOnInit(): void { }
 
   openCard(id: number): void {
-    this.productoSeleccionado = id;
+    this.productoSeleccionado = this.products.find(p => p.id === id)!; // Asignar el producto seleccionado
   }
 
   closeCard(): void {
-    this.productoSeleccionado = 0;
+    this.productoSeleccionado = { id: 0, name: '', category_id: 0, price: 0, description: '', image_url: '', opcionesSeleccionadas: [] };
   }
 
   agregarProducto(item: Product) {
