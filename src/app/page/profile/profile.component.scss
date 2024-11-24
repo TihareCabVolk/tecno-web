@@ -31,15 +31,16 @@
     justify-content: flex-start;
     height: auto;
     margin-left: 250px;
-    margin-top: 0;
+    margin-top: 20px;
     padding: 10px;
 }
 
 .profile-content, .pedido-content, .cupones-content {
     margin: 10px 0;
-    padding: 10px;
+    padding: 20px;
     width: 80%;
     border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .profile-content {
@@ -55,4 +56,8 @@
 .cupones-content {
     background-color: #3B82F6;
     color: white;
+}
+
+app-navbar {
+    margin-top: 200px; /* Ajusta este valor según sea necesario */
 }
