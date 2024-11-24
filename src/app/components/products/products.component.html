@@ -24,7 +24,7 @@
 
   <!-- Card flotante para detalles del producto -->
 
-  <div *ngIf="productoSeleccionado === producto.id"
+  <div *ngIf="productoSeleccionado.id === producto.id"
     class="fixed inset-10 bg-white shadow-lg rounded-lg p-6 flex flex-col z-50 overflow-y-auto mx-auto border border-gray-200"
     (clickOutside)="closeCard()">
     <div>
@@ -61,7 +61,6 @@
             <span class="font-semibold">a</span>
           </label>
         </div>
-
         }
         <!-- Categoria Hamburguesas -->
         @if (producto.category_id == 2) {
