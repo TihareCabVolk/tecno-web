@@ -16,6 +16,10 @@ import { VisibilidadElementosService } from '../../services/visibilidad-elemento
 import { CuponesService } from '../../services/cupones.service';
 import { Cupon } from '../../models/cupon';
 import { trigger, transition, style, animate } from '@angular/animations'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { numberCountValidator } from '../../services/number-count.validator';
+import { ReactiveFormsModule } from '@angular/forms';
+import { nameValidator } from '../../services/name-validator';
 
 import { AfterViewInit } from '@angular/core';
 import { from } from 'rxjs';
@@ -23,7 +27,7 @@ import { from } from 'rxjs';
 @Component({
   selector: 'app-cart-listar',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarComponent],
+  imports: [CommonModule, FormsModule, NavbarComponent, ReactiveFormsModule],
   templateUrl: './carrito-listar.component.html',
   styleUrl: './carrito-listar.component.scss',
   animations: [
@@ -56,16 +60,39 @@ export class CarritoListarComponent implements OnInit {
   public descuento: number = 0;
   public codigooCupon: string = ''; // Variable para almacenar el código del cupon
 
+
+
   @Input() isVisible: boolean = false;
   @Output() close = new EventEmitter<void>();
   @Input() deliveryVisible: boolean = false;
   @Input() retiroVisible: boolean = false;
+
+  constructor(private fb: FormBuilder) { }
+  public cardForm!: FormGroup;
+
 
   public ngOnInit(): void {
     initFlowbite();
     this.getListCarrito();
     this.cuponesService.getCupon();
     this.estadoService.setMostrar(false);
+
+    this.cardForm = this.fb.group({
+      cardholderName: [
+        '', // Valor inicial vacío
+        [
+          Validators.required, // Campo obligatorio
+          nameValidator() // Validador para nombre (solo letras y espacios)
+        ]
+      ],
+      cardNumber: [
+        '',
+        [
+          Validators.required,
+          numberCountValidator(16)
+        ]
+      ]
+    });
   }
 
   verificar(codeCupon: string) {
@@ -90,6 +117,14 @@ export class CarritoListarComponent implements OnInit {
     } else {
       alert('El cupón ingresado no existe.');
       this.descuento = 0;
+    }
+  }
+
+  onSubmit() {
+    if (this.cardForm.valid) {
+      console.log('Formulario válido', this.cardForm.value);
+    } else {
+      console.log('Formulario no válido');
     }
   }
 
@@ -154,18 +189,22 @@ export class CarritoListarComponent implements OnInit {
     else this.botonRetiro = !this.botonRetiro; return this.retiroVisible = false;
   }
 
+  // Se hace visible el metodo de pago
   public metodoPagoVisible(): boolean {
     return this.isVisibleMetodoPago = true;
   }
 
+  // Se hace no visible el metodo de pago
   public metodoPagoNoVisible(): boolean {
     return this.isVisibleMetodoPago = false;
   }
 
+  // Se hace visible el pago
   public pagoVisible(): boolean {
     return this.isVisiblePago = true;
   }
 
+  // Se hace no visible el pago
   public pagoNoVisible(): boolean {
     this.isModalVisible = false;
     return this.isVisiblePago = false;

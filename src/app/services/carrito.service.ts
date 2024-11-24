@@ -6,6 +6,7 @@ import { Product } from '../models/Products';
 @Injectable({
   providedIn: 'root',
 })
+
 export class CarritoService {
   private listCarrito: Carrito[] = [];
   private carritoSubject = new BehaviorSubject<Carrito[]>(this.listCarrito); // Observable para los cambios en el carrito

@@ -247,26 +247,37 @@
         <div class="modal">
           <form class="form">
             <div class="credit-card-info--form">
-              <div class="input_container">
-                <label for="password_field" class="input_label">Nombre del representante de la tarjeta</label>
-                <input id="password_field" class="input_field" type="text" name="input-name" title="Inpit title"
-                  placeholder="Ingresa el nombre completo">
-              </div>
-              <div class="input_container">
-                <label for="password_field" class="input_label">Número de tarjeta</label>
-                <input id="password_field" class="input_field" type="number" name="input-name" title="Inpit title"
-                  placeholder="0000 0000 0000 0000">
-              </div>
-              <div class="input_container">
-                <label for="password_field" class="input_label">Fecha de expiración / CVV</label>
-                <div class="split">
-                  <input id="password_field" class="input_field" type="text" name="input-name" title="Expiry Date"
-                    placeholder="01/23">
-                  <input id="password_field" class="input_field" type="number" name="cvv" title="CVV" placeholder="CVV">
+              <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+                <div class="input_container">
+                  <label for="password_field" class="input_label">Nombre del representante de la tarjeta</label>
+                  <input id="password_field" class="input_field" type="text" name="input-name" title="Inpit title"
+                    placeholder="Ingresa el nombre completo" id="cardholderName" class="input_field" type="text"
+                    formControlName="cardholderName" placeholder="Ingresa el nombre completo">
                 </div>
-              </div>
+                <div class="input_container">
+                  <label for="password_field" class="input_label">Número de tarjeta</label>
+                  <label class="campo_obligatorio">Este campo es obligatorio</label>
+                  <input id="password_field" class="input_field" type="text" name="input-name" title="Inpit title"
+                    id="cardNumber" formControlName="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19">
+                </div>
+                <div
+                  *ngIf="cardForm.get('cardNumber')?.touched && cardForm.get('cardNumber')?.hasError('invalidNumberCount')">
+                  <p>El número de tarjeta debe tener exactamente 16 dígitos.</p>
+                </div>
+                <div *ngIf="cardForm.get('cardNumber')?.touched && cardForm.get('cardNumber')?.hasError('required')">
+                </div>
+                <div class="input_container">
+                  <label for="password_field" class="input_label">Fecha de expiración / CVV</label>
+                  <div class="split">
+                    <input id="password_field" class="input_field" type="text" name="input-name" title="Expiry Date"
+                      placeholder="01/23">
+                    <input id="password_field" class="input_field" type="number" name="cvv" title="CVV"
+                      placeholder="CVV">
+                  </div>
+                </div>
+              </form>
+              <button class="purchase--btn" [disabled]="cardForm.invalid" (click)="pagoVisible()">Comprar</button>
             </div>
-            <button class="purchase--btn" (click)="pagoVisible()">Comprar</button>
             <div class="separator">
               <hr class="line">
               <p>O paga utilizando e-pay</p>
