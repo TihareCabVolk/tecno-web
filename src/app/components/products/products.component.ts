@@ -43,26 +43,22 @@ export class ProductsComponent implements OnInit {
     image_url: '',
     category_id: 0,
     price: 0,
-    opcionesSeleccionadas: []  // Se inicializa vacío
+    opcionesSeleccionadas: []
   };
 
-  // Este método actualiza las opciones seleccionadas para el producto
   actualizarOpcionesSeleccionadas(opcion: any): void {
     if (opcion.checked) {
-      // Si la opción está seleccionada, la agregamos a opcionesSeleccionadas
       this.productoSeleccionado.opcionesSeleccionadas?.push(opcion);
     } else {
-      // Si no está seleccionada, la eliminamos de las opcionesSeleccionadas
       this.productoSeleccionado.opcionesSeleccionadas = this.productoSeleccionado.opcionesSeleccionadas?.filter(o => o.id !== opcion.id);
     }
   }
 
-  // productoSeleccionado: number = 0;
 
   public ngOnInit(): void { }
 
   openCard(id: number): void {
-    this.productoSeleccionado = this.products.find(p => p.id === id)!; // Asignar el producto seleccionado
+    this.productoSeleccionado = this.products.find(p => p.id === id)!;
   }
 
   closeCard(): void {
@@ -71,6 +67,6 @@ export class ProductsComponent implements OnInit {
 
   agregarProducto(item: Product) {
     this.carritoService.agregar(item);
-    this.closeCard(); // Cerrar el card flotante
+    this.closeCard();
   }
 }
