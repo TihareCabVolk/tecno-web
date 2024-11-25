@@ -1,28 +1,18 @@
 export class Orden {
-    id: number;
-    cliente: number;
-    producto: number;
-    cantidad: number;
-    total: number;
-    estado: string; 
-    fecha: string;   
-  
-    constructor(
-      id: number,
-    cliente: number,
-    producto: number,
-    cantidad: number,
-    total: number,
-    estado: string,
-    fecha: string
-    ) {
-      this.id = id;
-      this.cliente = cliente;
-      this.producto = producto;
-      this.cantidad = cantidad;
-      this.total = total;
-      this.estado = estado;
-      this.fecha = fecha;
-    }
+  order_id: number;
+  user_id: number;
+  total_price: number;
+  date: string;
+
+  constructor(
+    order_id: number,
+    user_id: number,
+    total_price: number,
+    date: string
+  ) {
+    this.order_id = order_id;
+    this.user_id = user_id;
+    this.total_price = total_price;
+    this.date = date;
   }
-  
+}
