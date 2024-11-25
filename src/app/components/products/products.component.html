@@ -14,33 +14,19 @@
     <span class="text-xl font-bold text-orange-600"> ${{ p.price }} </span>
     <!-- Botón "+" solo aparece en modo "user" -->
     <button
-      (click)="openCard(p.product_id)"
+      (click)="toggleProduct(p)"
       class="w-8 h-8 font-semibold text-white bg-orange-500 rounded-full hover:bg-orange-600 flex items-center justify-center"
     >
       +
     </button>
   </div>
-
-  <!-- Card flotante para detalles del producto -->
-  <div
-    *ngIf="productoSeleccionado === p.product_id"
-    class="fixed inset-10 bg-white shadow-lg rounded-lg p-6 flex flex-col z-50 overflow-y-auto mx-auto border border-gray-200"
-    (clickOutside)="closeCard()"
-  >
-    <h3 class="text-xl font-bold mb-2 text-gray-800">{{ p.name }}</h3>
-    <p class="text-gray-700 mb-4">{{ p.description }}</p>
-    <button
-      class="mt-auto px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition-colors"
-      (click)="agregarAlPedido(p.product_id)"
-    >
-      Agregar al pedido
-    </button>
-    <button
-      class="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
-      (click)="closeCard()"
-    >
-      ✕
-    </button>
-  </div>
 </div>
 }
+
+<!-- Modal de producto -->
+<app-product-order-modal
+  *ngIf="showModal"
+  [productSelected]="productSelected"
+  (save)="handleSave($event)"
+  (cancel)="handleCancel()"
+></app-product-order-modal>

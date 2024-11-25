@@ -1,0 +1,72 @@
+<div
+  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+>
+  <div
+    class="bg-white rounded-lg shadow-lg w-full max-w-4xl p-6 flex space-x-8"
+  >
+    <!-- Sección izquierda: Detalles del producto -->
+    <div class="flex flex-col items-center space-y-4 w-1/2">
+      <img
+        src="https://img.freepik.com/vector-gratis/dibujado-mano-diseno-plano-poke-bowl-comida-ilustracion_23-2149310125.jpg"
+        alt="{{ productSelected?.name }}"
+        class="object-cover w-40 h-40 rounded-lg"
+      />
+      <h3 class="text-lg font-semibold">{{ productSelected?.name }}</h3>
+      <p class="text-gray-600 text-center">
+        {{ productSelected?.description }}
+      </p>
+      <span class="text-xl font-bold text-orange-600">
+        ${{ productSelected?.price }}
+      </span>
+    </div>
+
+    <!-- Sección derecha: Personalización -->
+    <div class="flex flex-col space-y-4 w-1/2">
+      <h4 class="text-lg font-semibold">Sección de personalización</h4>
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <label for="extraQueso" class="text-gray-800">Extra queso</label>
+          <div class="flex items-center">
+            <span class="text-gray-600">$1000</span>
+            <input
+              type="checkbox"
+              id="extraQueso"
+              class="ml-2 w-5 h-5 text-orange-500 focus:ring-orange-400"
+            />
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <label for="papasFritas" class="text-gray-800">Papas fritas</label>
+          <div class="flex items-center">
+            <span class="text-gray-600">$1000</span>
+            <input
+              type="checkbox"
+              id="papasFritas"
+              class="ml-2 w-5 h-5 text-orange-500 focus:ring-orange-400"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Total -->
+      <div class="text-right">
+        <span class="text-lg font-bold">Total: $0</span>
+      </div>
+
+      <!-- Botones -->
+      <div class="flex justify-between w-full mt-4">
+        <button
+          (click)="close()"
+          class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg"
+        >
+          Cancelar
+        </button>
+        <button
+          class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600"
+        >
+          Agregar al pedido
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
