@@ -185,7 +185,6 @@ export class ProductsComponent implements OnInit {
 
   agregarProducto(item: Product) {
     console.log('Opciones seleccionadas ' + item.opcionesSeleccionadas);
-    item.price = this.calcularTotal();
     this.carritoService.agregar(item);
     this.closeCard();
   }
