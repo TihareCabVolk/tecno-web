@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
 import { Carrito } from '../../models/carrito';
 import { CarritoService } from '../../services/carrito.service';
 import { NavigationEnd, RouterLink } from '@angular/router';
@@ -18,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { CarritoListarComponent } from '../pay/carrito-listar.component';
 import { ChangeDetectorRef } from '@angular/core';
 import { CartComponent } from '../cart/cart.component';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-navbar',
@@ -37,30 +37,15 @@ export class NavbarComponent implements OnInit {
   public isOpen: boolean = false;
   public isOpenCart: boolean = false;
   public cantProduct: number = 1;
-
-  constructor(private auth: AuthService, private router: Router) {}
-
-  ngOnInit(): void {
-    // Suscribirse al estado de autenticación para mantener actualizado el navbar
-    this.auth.isAuthenticated().subscribe((data: boolean) => {
-      this.isLoggedIn = data;
-    });
-  }
+  public isLoggedIn: boolean = false;
+  private authService = inject(AuthService);
 
   /**
    * Navegar al login
    */
-  public access(): void {
-    this.router.navigate(['/login']);
-  }
 
-  /**
-   * Cerrar sesión y redirigir al login
-   */
-  public logout(): void {
-    this.auth.logout();
-    this.router.navigate(['/login']);
-  }
+
+
 
   /**
    * Alternar el menú desplegable
@@ -92,7 +77,9 @@ export class NavbarComponent implements OnInit {
   public carritoService = inject(CarritoService);
   listCarrito: Carrito[] = [];
 
-  constructor(public router: Router, private cdr: ChangeDetectorRef) {}
+
+
+
 
   ngOnInit(): void {
     initFlowbite();
@@ -102,13 +89,6 @@ export class NavbarComponent implements OnInit {
       this.listCarrito = carrito; // Se actualiza automáticamente con cada cambio en el carrito
     });
 
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.mostrar = event.url !== '/carrito';
-        console.log('Navegando a:', event.url, this.mostrar);
-        this.cdr.detectChanges(); // Fuerza la detección de cambios
-      }
-    });
   }
 
   getListCarrito() {
