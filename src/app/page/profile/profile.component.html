@@ -1,4 +1,4 @@
-<app-navbar class="sticky top-0 py-5 bg-white shadow-lg z-50"></app-navbar>
+<p>profile works! header por importar </p>
 
 <div class="sidebar mt-16">
     <aside class="w-64 bg-[#E5E7EB] p-4 fixed h-full shadow-md">
@@ -21,14 +21,13 @@
 
 <div class="content-container">
     <div class="profile-content p-6 bg-white rounded-lg shadow-md" *ngIf="selectedOption === 'perfil'">
-        <div class="flex items-center mb-4">
-            <img src="https://via.placeholder.com/100" alt="User Avatar" class="rounded-full border-2 border-[#F97316] mr-4" />
-            <h2 class="text-3xl font-bold text-gray-800">Usuario: Juan Pérez</h2>
+        <div>
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Usuario: Juan Pérez</h2>
+            <p class="text-lg text-gray-600 mb-2">Correo: <span class="font-medium">juan.perez&#64;example.com</span></p>
+            <p class="text-lg text-gray-600 mb-2">Teléfono: <span class="font-medium">+123 456 7890</span></p>
+            <p class="text-lg text-gray-600 mb-4">Dirección: <span class="font-medium">Calle Falsa 123, Ciudad Imaginaria</span></p>
         </div>
-        <p class="text-lg text-gray-800 mb-2">Correo: <span class="font-medium">juan.perez&#64;example.com</span></p>
-        <p class="text-lg text-gray-800 mb-2">Teléfono: <span class="font-medium">+56 9 1234 5678</span></p>
-        <p class="text-lg text-gray-800 mb-4">Dirección: <span class="font-medium">Avenida Siempre Viva 123, Ciudad de Springfield</span></p>
-        <div *ngIf="errorMessage" class="error text-red-800">{{ errorMessage }}</div>
+        <div *ngIf="errorMessage" class="error text-red-500">{{ errorMessage }}</div>
         <p>{{ getContent() }}</p> 
     </div>
     <div class="pedido-content" *ngIf="selectedOption === 'pedidos'">
@@ -55,13 +54,13 @@
             <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                 <div class="shrink-0 md:order-1 flex flex-col items-start">
                     <img class="h-10 w-10 dark:hidden" src="https://cupon.cl/static/shop/49316/logo/cupon_easy.png" alt="Cupon Image" />
-                    <p class="text-8xl font-medium text-gray-900 hover:scale-105 dark:text-white">
+                    <p class="text-8xl font-medium text-gray-900 hover:scale-105 dark:text-white" contenteditable="true">
                         20%
                     </p>
                 </div>
                 <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
                     <div class="flex items-center justify-center h-full">
-                        <p class="text-4xl font-medium text-gray-900 hover:scale-105 dark:text-white">
+                        <p class="text-4xl font-medium text-gray-900 hover:scale-105 dark:text-white" contenteditable="true">
                             Nombre del Cupón
                         </p>
                     </div>
