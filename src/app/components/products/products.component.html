@@ -76,9 +76,9 @@
         <div class="flex-row">
           <span class="font-semibold py-3">Tamaños de porción disponibles:</span>
           <div class="btn-group py-5">
-            <button class="btn left" type="button" value="0">Pequeño</button>
-            <button class="btn middle" type="button" value="1500">Mediano</button>
-            <button class="btn right" type="button" value="3000">Grande</button>
+            <button class="btn left" type="button" [(ngModel)]="tamanoSeleccionado" [value]="0">Pequeño</button>
+            <button class="btn middle" type="button" [(ngModel)]="tamanoSeleccionado" [value]="1500">Mediano</button>
+            <button class="btn right" type="button" [(ngModel)]="tamanoSeleccionado" [value]="3000">Grande</button>
           </div>
         </div>
         }
@@ -105,9 +105,9 @@
         <div class="flex-row">
           <span class="font-semibold py-3">Tamaños disponibles:</span>
           <div class="btn-group py-5">
-            <button class="btn left" type="button" value="0">Pequeño</button>
-            <button class="btn middle" type="button" value="2500">Mediano</button>
-            <button class="btn right" type="button" value="5000">Familiar</button>
+            <button class="btn left" type="button" [(ngModel)]="tamanoSeleccionado" [value]="0">Pequeño</button>
+            <button class="btn middle" type="button" [(ngModel)]="tamanoSeleccionado" [value]="2500">Mediano</button>
+            <button class="btn right" type="button" [(ngModel)]="tamanoSeleccionado" [value]="5000">Familiar</button>
           </div>
         </div>
         }
@@ -134,9 +134,9 @@
         <div class="flex-row">
           <span class="font-semibold py-3">Tamaños de porción disponibles:</span>
           <div class="btn-group py-5">
-            <button class="btn left" type="button" value="0">Pequeño</button>
-            <button class="btn middle" type="button" value="500">Mediano</button>
-            <button class="btn right" type="button" value="1000">Grande</button>
+            <button class="btn left" type="button" [(ngModel)]="tamanoSeleccionado" [value]="0">Pequeño</button>
+            <button class="btn middle" type="button" [(ngModel)]="tamanoSeleccionado" [value]="500">Mediano</button>
+            <button class="btn right" type="button" [(ngModel)]="tamanoSeleccionado" [value]="1000">Grande</button>
           </div>
         </div>
         }
@@ -144,9 +144,9 @@
         @if (producto.category_id == 6) {
         <span class="justify-center font-semibold py-3">Tamaños disponibles:</span>
         <div class="btn-group">
-          <button class="btn left" type="button" value="0">Pequeño</button>
-          <button class="btn middle" type="button" value="500">Mediano</button>
-          <button class="btn right" type="button" value="1000">Grande</button>
+          <button class="btn left" type="button" [(ngModel)]="tamanoSeleccionado" [value]="0">Pequeño</button>
+          <button class="btn middle" type="button" [(ngModel)]="tamanoSeleccionado" [value]="500">Mediano</button>
+          <button class="btn right" type="button" [(ngModel)]="tamanoSeleccionado" [value]="1000">Grande</button>
         </div>
         }
       </div>
