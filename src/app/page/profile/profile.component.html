@@ -1,302 +1,120 @@
-<div class="sidebar">
-  <aside class="w-64 bg-[#E5E7EB] p-4 fixed h-full shadow-md flex flex-col">
-    <div class="flex items-center">
-      <a
-        [routerLink]="['/home']"
-        class="text-2xl font-bold font-mcdonalds text-orange-600"
-      >
-        <span class="wc-text">WC</span> Donald's
-      </a>
-    </div>
-    <ul class="mt-8 flex-grow">
-      <li class="mb-4">
-        <a (click)="profileOption('perfil')" class="sidebar-link">Mi Perfil</a>
-      </li>
-      <li class="mb-4">
-        <a (click)="profileOption('pedidos')" class="sidebar-link"
-          >Mis Pedidos</a
-        >
-      </li>
-      <li class="mb-4">
-        <a (click)="profileOption('cupones')" class="sidebar-link"
-          >Mis Cupones</a
-        >
-      </li>
-    </ul>
-    <div class="mt-auto">
-      <img
-        src="/assets/logout.png"
-        alt="Logout"
-        class="logout-icon cursor-pointer"
-      />
-    </div>
-  </aside>
+<app-navbar class="sticky top-0 py-5 bg-white shadow-lg z-50"></app-navbar>
+
+<div class="sidebar mt-16">
+    <aside class="w-64 bg-[#E5E7EB] p-4 fixed h-full shadow-md">
+        <ul>
+            <li class="mb-4">
+                <a (click)="profileOption('perfil')" class="sidebar-link">Mi Perfil</a>
+            </li>
+            <li class="mb-4">
+                <a (click)="profileOption('pedidos')" class="sidebar-link">Mis Pedidos</a>
+            </li>
+            <li class="mb-4">
+                <a (click)="profileOption('cupones')" class="sidebar-link">Mis Cupones</a>
+            </li>
+            <li class="absolute bottom-20">
+                <img src="/assets/logout.png" alt="Logout" class="logout-icon" />
+            </li>
+        </ul>
+    </aside>
 </div>
 
 <div class="content-container">
-  <div
-    class="profile-content p-6 bg-white rounded-lg shadow-md"
-    *ngIf="selectedOption === 'perfil'"
-  >
-    <div class="flex items-center mb-4">
-      <img
-        src="https://via.placeholder.com/100"
-        alt="User Avatar"
-        class="rounded-full border-2 border-[#F97316] mr-4"
-      />
-      <h2 class="text-3xl font-bold text-gray-800">Usuario: Juan Pérez</h2>
+    <div class="profile-content p-6 bg-white rounded-lg shadow-md" *ngIf="selectedOption === 'perfil'">
+        <div class="flex items-center mb-4">
+            <img src="https://via.placeholder.com/100" alt="User Avatar" class="rounded-full border-2 border-[#F97316] mr-4" />
+            <h2 class="text-3xl font-bold text-gray-800">Usuario: Juan Pérez</h2>
+        </div>
+        <p class="text-lg text-gray-800 mb-2">Correo: <span class="font-medium">juan.perez&#64;example.com</span></p>
+        <p class="text-lg text-gray-800 mb-2">Teléfono: <span class="font-medium">+56 9 1234 5678</span></p>
+        <p class="text-lg text-gray-800 mb-4">Dirección: <span class="font-medium">Avenida Siempre Viva 123, Ciudad de Springfield</span></p>
+        <div *ngIf="errorMessage" class="error text-red-800">{{ errorMessage }}</div>
+        <p>{{ getContent() }}</p> 
     </div>
-    <p class="text-lg text-gray-800 mb-2">
-      Correo: <span class="font-medium">juan.perez&#64;example.com</span>
-    </p>
-    <p class="text-lg text-gray-800 mb-2">
-      Teléfono: <span class="font-medium">+56 9 1234 5678</span>
-    </p>
-    <p class="text-lg text-gray-800 mb-4">
-      Dirección:
-      <span class="font-medium"
-        >Avenida Siempre Viva 123, Ciudad de Springfield</span
-      >
-    </p>
-    <div *ngIf="errorMessage" class="error text-red-800">
-      {{ errorMessage }}
+    <div class="pedido-content" *ngIf="selectedOption === 'pedidos'">
+        <h2 class="text-2xl font-bold text-white mb-4">Mis Pedidos</h2>
+        <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+        <div class="bg-[#F97316] p-4 rounded-lg shadow-md mb-4 transition-transform transform hover:scale-105">
+            <div class="flex justify-between items-center border-b pb-2">
+                <h3 class="text-lg font-semibold text-white">Pedido ID: 100</h3>
+                <span class="text-sm text-white">Fecha: 2023-10-01</span>
+            </div>
+            <div class="mt-2">
+                <p class="text-lg font-bold text-white">Precio Total: <span class="text-green-200">$10.00</span></p>
+            </div>
+            <div class="mt-2">
+                <button (click)="openModal()" class="bg-white text-[#F97316] py-1 px-3 rounded hover:bg-gray-200 transition-colors">
+                    Ver Detalles
+                </button>
+            </div>
+        </div>
     </div>
-    <p>{{ getContent() }}</p>
-  </div>
-  <div class="pedido-content" *ngIf="selectedOption === 'pedidos'">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6">Mis Pedidos</h2>
-    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-
-    <!-- Pedido en preparación -->
-    <div class="bg-white rounded-lg shadow-md mb-4 overflow-hidden">
-      <div class="flex">
-        <div class="w-24 bg-gray-100 flex items-center justify-center border-r">
-          <button
-            (click)="openModal()"
-            class="text-indigo-700 font-bold hover:underline"
-          >
-            Ver<br />detalles
-          </button>
-        </div>
-        <div class="flex-1 p-4 bg-[#F97316]">
-          <div class="flex justify-between items-center">
-            <h3 class="text-xl font-bold text-white">Pedido nº 100</h3>
-            <span class="px-3 py-1 bg-red-500 text-white rounded-full text-sm"
-              >en preparación</span
-            >
-          </div>
-          <div class="mt-2">
-            <label class="font-semibold text-sm text-white pb-1 block"
-              >Fecha Pedido</label
-            >
-            <div
-              class="border rounded-lg px-3 h-8 bg-white text-sm w-32 flex items-center justify-between"
-            >
-              <span class="text-gray-600">dd-mm-aaaa</span>
-              <img
-                src="/images/calendar-icon.png"
-                alt="calendar"
-                class="w-4 h-4"
-              />
+    <div class="cupones-content" *ngIf="selectedOption === 'cupones'">
+        <h2 class="text-2xl font-bold text-white mb-4">Mis Cupones</h2>
+        <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-8 mx-auto max-w-4xl">
+            <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
+                <div class="shrink-0 md:order-1 flex flex-col items-start">
+                    <img class="h-10 w-10 dark:hidden" src="https://cupon.cl/static/shop/49316/logo/cupon_easy.png" alt="Cupon Image" />
+                    <p class="text-8xl font-medium text-gray-900 hover:scale-105 dark:text-white">
+                        20%
+                    </p>
+                </div>
+                <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
+                    <div class="flex items-center justify-center h-full">
+                        <p class="text-4xl font-medium text-gray-900 hover:scale-105 dark:text-white">
+                            Nombre del Cupón
+                        </p>
+                    </div>
+                    <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
+                            <label class="font-semibold text-sm text-gray-600 pb-1 block" for="desde">Desde</label>
+                            <input class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500 text-black" type="date" id="desde" />
+                        </div>
+                        <div>
+                            <label class="font-semibold text-sm text-gray-600 pb-1 block" for="hasta">Hasta</label>
+                            <input class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500 text-black" type="date" id="hasta" />
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between md:order-3 md:justify-end">
+                    <div class="text-end md:order-4 md:w-32">
+                        <div class="flex items-center gap-4">
+                            <button (click)="openCouponModal()" class="text-blue-600 font-bold hover:underline">
+                                Ver detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-
-    <!-- Pedido en reparto -->
-    <div class="bg-white rounded-lg shadow-md mb-4 overflow-hidden">
-      <div class="flex">
-        <div class="w-24 bg-gray-100 flex items-center justify-center border-r">
-          <button
-            (click)="openModal()"
-            class="text-indigo-700 font-bold hover:underline"
-          >
-            Ver<br />detalles
-          </button>
-        </div>
-        <div class="flex-1 p-4 bg-[#F97316]">
-          <div class="flex justify-between items-center">
-            <h3 class="text-xl font-bold text-white">Pedido nº 100</h3>
-            <span
-              class="px-3 py-1 bg-yellow-400 text-gray-800 rounded-full text-sm"
-              >en reparto</span
-            >
-          </div>
-          <div class="mt-2">
-            <label class="font-semibold text-sm text-white pb-1 block"
-              >Fecha Pedido</label
-            >
-            <div
-              class="border rounded-lg px-3 h-8 bg-white text-sm w-32 flex items-center justify-between"
-            >
-              <span class="text-gray-600">dd-mm-aaaa</span>
-              <img
-              src="/images/calendar-icon.png"
-              alt="calendar"
-                class="w-4 h-4"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Pedido entregado -->
-    <div class="bg-white rounded-lg shadow-md mb-4 overflow-hidden">
-      <div class="flex">
-        <div class="w-24 bg-gray-100 flex items-center justify-center border-r">
-          <button
-            (click)="openModal()"
-            class="text-indigo-700 font-bold hover:underline"
-          >
-            Ver<br />detalles
-          </button>
-        </div>
-        <div class="flex-1 p-4 bg-[#F97316]">
-          <div class="flex justify-between items-center">
-            <h3 class="text-xl font-bold text-white">Pedido nº 100</h3>
-            <span class="px-3 py-1 bg-green-500 text-white rounded-full text-sm"
-              >entregado</span
-            >
-          </div>
-          <div class="mt-2">
-            <label class="font-semibold text-sm text-white pb-1 block"
-              >Fecha Pedido</label
-            >
-            <div
-              class="border rounded-lg px-3 h-8 bg-white text-sm w-32 flex items-center justify-between"
-            >
-              <span class="text-gray-600">dd-mm-aaaa</span>
-              <img
-              src="/images/calendar-icon.png"
-              alt="calendar"
-                class="w-4 h-4"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="cupones-content" *ngIf="selectedOption === 'cupones'">
-    <h2 class="text-2xl font-bold text-white mb-4">Mis Cupones</h2>
-    <div
-      class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-8 mx-auto max-w-4xl"
-    >
-      <div
-        class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0"
-      >
-        <div class="shrink-0 md:order-1 flex flex-col items-start">
-          <p
-            class="text-8xl font-medium text-gray-900 hover:scale-105 dark:text-white"
-          >
-            20%
-          </p>
-        </div>
-        <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
-          <div class="flex items-center justify-center h-full">
-            <p
-              class="text-4xl font-medium text-gray-900 hover:scale-105 dark:text-white"
-            >
-              Nombre del Cupón
-            </p>
-          </div>
-          <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div>
-              <label
-                class="font-semibold text-sm text-gray-600 pb-1 block"
-                for="desde"
-                >Desde</label
-              >
-              <input
-                class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500 text-black"
-                type="date"
-                id="desde"
-              />
-            </div>
-            <div>
-              <label
-                class="font-semibold text-sm text-gray-600 pb-1 block"
-                for="hasta"
-                >Hasta</label
-              >
-              <input
-                class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500 text-black"
-                type="date"
-                id="hasta"
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          class="flex items-center justify-between md:order-3 md:justify-end"
-        >
-          <div class="text-end md:order-4 md:w-32">
-            <div class="flex items-center gap-4">
-              <button
-                (click)="openCouponModal()"
-                class="text-blue-600 font-bold hover:underline"
-              >
-                Ver detalles
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 
 <!-- Modal para mostrar detalles del pedido -->
-<div
-  *ngIf="isModalOpen"
-  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
->
-  <div class="bg-white rounded-lg p-6 max-w-md w-full">
-    <h2 class="text-2xl font-bold mb-4">Detalles del Pedido</h2>
-    <p><strong>Pedido ID:</strong> 100</p>
-    <p><strong>Fecha:</strong> 2023-10-01</p>
-    <p><strong>Precio Total:</strong> $10.00</p>
-    <p>
-      <strong>Descripción:</strong> Este es un pedido de prueba para mostrar los
-      detalles.
-    </p>
-    <button
-      (click)="closeModal()"
-      class="mt-4 bg-red-500 text-white py-2 px-4 rounded"
-    >
-      Cerrar
-    </button>
-  </div>
+<div *ngIf="isModalOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white rounded-lg p-6 max-w-md w-full">
+        <h2 class="text-2xl font-bold mb-4">Detalles del Pedido</h2>
+        <p><strong>Pedido ID:</strong> 100</p>
+        <p><strong>Fecha:</strong> 2023-10-01</p>
+        <p><strong>Precio Total:</strong> $10.00</p>
+        <p><strong>Descripción:</strong> Este es un pedido de prueba para mostrar los detalles.</p>
+        <button (click)="closeModal()" class="mt-4 bg-red-500 text-white py-2 px-4 rounded">Cerrar</button>
+    </div>
 </div>
 
 <!-- Modal para mostrar detalles del cupón -->
-<div
-  *ngIf="isCouponModalOpen"
-  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
->
-  <div class="bg-white rounded-lg p-6 max-w-md w-full">
-    <h2 class="text-2xl font-bold mb-4">Detalles del Cupón</h2>
-    <p><strong>Nombre del Cupón:</strong> Nombre del Cupón</p>
-    <p><strong>Porcentaje de Descuento:</strong> 20%</p>
-    <p>
-      <strong>Código:</strong> <span *ngIf="!showCode">******</span
-      ><span *ngIf="showCode">ABC123</span>
-    </p>
-    <div class="flex justify-between mt-4">
-      <button
-        (click)="closeCouponModal()"
-        class="bg-red-500 text-white py-2 px-4 rounded"
-      >
-        Cerrar
-      </button>
-      <button
-        (click)="toggleCode()"
-        class="bg-green-500 text-white py-2 px-4 rounded"
-      >
-        {{ showCode ? "Ocultar Código" : "Ver Código" }}
-      </button>
+<div *ngIf="isCouponModalOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white rounded-lg p-6 max-w-md w-full">
+        <h2 class="text-2xl font-bold mb-4">Detalles del Cupón</h2>
+        <p><strong>Nombre del Cupón:</strong> Nombre del Cupón</p>
+        <p><strong>Porcentaje de Descuento:</strong> 20%</p>
+        <p><strong>Código:</strong> <span *ngIf="!showCode">******</span><span *ngIf="showCode">ABC123</span></p>
+        <div class="flex justify-between mt-4">
+            <button (click)="closeCouponModal()" class="bg-red-500 text-white py-2 px-4 rounded">Cerrar</button>
+            <button (click)="toggleCode()" class="bg-green-500 text-white py-2 px-4 rounded">
+                {{ showCode ? 'Ocultar Código' : 'Ver Código' }}
+            </button>
+        </div>
     </div>
-  </div>
 </div>
+

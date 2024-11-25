@@ -31,7 +31,7 @@
     justify-content: flex-start;
     height: auto;
     margin-left: 250px;
-    margin-top: 0;
+    margin-top: 20px;
     padding: 10px;
 }
 
@@ -58,6 +58,6 @@
     color: white;
 }
 
-.wc-text {
-  color: #fbcd15;
+app-navbar {
+    margin-top: 200px; /* Ajusta este valor según sea necesario */
 }
