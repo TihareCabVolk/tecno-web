@@ -10,7 +10,7 @@ import { ProductoService } from '../../services/producto.service';
 @Component({
   selector: 'app-pedido-perso',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ProductsComponent],
   templateUrl: './pedido-perso.component.html',
   styleUrl: './pedido-perso.component.scss'
 })
@@ -20,7 +20,6 @@ export class PedidoPersoComponent implements OnInit {
 
   @Input() products: Product[] = [];
   @Input() modo: string = '';
-  @Input() producto: Product | null = null;
   @Output() close = new EventEmitter<void>();
 
   public tamanoSeleccionado: number = 0;

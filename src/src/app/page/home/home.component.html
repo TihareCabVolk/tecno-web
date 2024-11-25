@@ -1,0 +1,113 @@
+<div class="min-h-screen flex flex-col bg-white" id="catalogo">
+  <app-navbar class="sticky top-0 py-5 bg-white shadow-lg z-50"></app-navbar>
+
+  <main class="container w-4/5 mx-auto my-10">
+    <app-carosuel></app-carosuel>
+
+    <section
+      class="container mx-auto py-12 grid gap-8 md:grid-cols-3 text-center"
+    >
+      <div class="flex flex-col items-center">
+        <img src="images/delivery.gif" alt="Opción 1" class="w-28 h-28 mb-4" />
+        <h3 class="text-lg font-semibold text-gray-800">
+          Pide a casa o recoge tu pedido en el restaurante que prefieras
+        </h3>
+      </div>
+      <div class="flex flex-col items-center">
+        <img src="images/ofert.gif" alt="Opción 2" class="w-28 h-28 mb-4" />
+        <h3 class="text-lg font-semibold text-gray-800">
+          Disfruta de grandes descuentos y beneficios solo por registrarte
+        </h3>
+      </div>
+      <div class="flex flex-col items-center">
+        <img src="images/family.gif" alt="Opción 3" class="w-28 h-28 mb-4" />
+        <h3 class="text-lg font-semibold text-gray-800">
+          La experiencia WcDonald's 100% pensada para ti y para los tuyos
+        </h3>
+      </div>
+    </section>
+
+    <section
+      class="relative bg-cover bg-center rounded-3xl overflow-hidden"
+      style="background-image: url('images/bg-msg.jpg'); height: 400px"
+    >
+      <div
+        class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white"
+      >
+        <h2 class="text-4xl font-bold">Pedir por la App es más fácil</h2>
+        <p class="text-xl font-semibold mt-2">
+          <span class="text-pink-500">Cuando quieras,</span>
+          <span class="text-red-500">como quieras.</span>
+        </p>
+      </div>
+    </section>
+
+    <section class="container mx-auto my-16">
+      <h2 class="text-4xl font-bold text-[#F97316] mb-1 text-center">
+        Sobre WC Donalds
+      </h2>
+      <p class="text-gray-600 text-sm text-center">
+        Sirviendo sonrisas y sabor desde siempre
+      </p>
+
+      <!-- Grid de información -->
+      <div class="grid md:grid-cols-2 gap-12 items-center mt-10">
+        <!-- Columna de imagen -->
+        <div class="rounded-lg overflow-hidden shadow-2xl">
+          <img
+            src="images/about-us.jpeg"
+            alt="WC Donalds Restaurant"
+            class="w-full h-auto object-cover"
+          />
+        </div>
+
+        <!-- Columna de texto -->
+        <div class="space-y-6">
+          <h3 class="text-2xl font-semibold text-gray-800">Nuestra Historia</h3>
+          <p class="text-gray-600">
+            En WC Donalds, nos enorgullece servir las mejores Hamburguesas desde
+            hace más 1 mes. Comenzamos como una pequeña idea y hoy somos parte
+            de la vida de millones de Utainos.
+          </p>
+
+          <!-- Valores corporativos -->
+          <div class="grid grid-cols-2 gap-4 mt-8">
+            <div class="p-4 bg-white rounded-lg shadow-md">
+              <h4 class="text-xl font-semibold text-[#F97316] mb-2">Calidad</h4>
+              <p class="text-gray-600">Ingredientes frescos y seleccionados</p>
+            </div>
+            <div class="p-4 bg-white rounded-lg shadow-md">
+              <h4 class="text-xl font-semibold text-[#F97316] mb-2">
+                Servicio
+              </h4>
+              <p class="text-gray-600">Atención rápida y amigable</p>
+            </div>
+            <div class="p-4 bg-white rounded-lg shadow-md">
+              <h4 class="text-xl font-semibold text-[#F97316] mb-2">
+                Comunidad
+              </h4>
+              <p class="text-gray-600">Comprometidos con la sociedad</p>
+            </div>
+            <div class="p-4 bg-white rounded-lg shadow-md">
+              <h4 class="text-xl font-semibold text-[#F97316] mb-2">
+                Innovación
+              </h4>
+              <p class="text-gray-600">Siempre evolucionando</p>
+            </div>
+          </div>
+
+          <!-- Botón CTA -->
+          <div class="mt-8">
+            <button
+              class="bg-[#F97316] text-white px-8 py-3 rounded-full hover:bg-red-700 transition-colors"
+            >
+              Conoce más
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <app-footer></app-footer>
+</div>
