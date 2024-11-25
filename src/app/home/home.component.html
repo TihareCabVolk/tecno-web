@@ -1,0 +1,25 @@
+<div class="container mx-auto mt-4 px-4">
+  <h4 class="text-lg font-semibold">Catálogo</h4>
+  <hr class="my-4 border-gray-300" />
+
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+  >
+    @for(item of productos; track item.product_id){
+    <div class="p-4">
+      <img alt="" class="w-full h-48 object-cover mb-4" />
+      <p class="font-bold text-gray-800 text-base">{{ item.name }}</p>
+      <div class="flex justify-between items-center mt-4">
+        <button
+          (click)="agregarProducto(item)"
+          class="text-white bg-gray-800 hover:bg-gray-900 text-xs font-semibold py-1 px-2 rounded flex items-center"
+        >
+          <i class="fa fa-shopping-cart mr-1"></i> Agregar al carrito
+        </button>
+
+        <small class="text-gray-600 font-semibold">CLP ${{ item.price }}</small>
+      </div>
+    </div>
+    }
+  </div>
+</div>

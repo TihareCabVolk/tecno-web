@@ -1,75 +1,138 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, Observable, of, tap, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
+import { Cupon } from '../models/cupon';
+import { Orders } from '../interfaces/Orden';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   private api = 'http://localhost:3000';
-  private isLoggedInSubject = new BehaviorSubject<boolean>(this.checkToken());
-
   constructor(private http: HttpClient) {}
 
-  /**
-   * Método para el inicio de sesión.
-   */
-  public login(email: string, password: string): Observable<{ message: string, user?: any }> {
+  public getAllCupones(): Observable<Cupon[]> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const body = { email, password };
 
-    return this.http.post<{ message: string, user?: any }>(`${this.api}/user/login`, body, { headers }).pipe(
-      tap(() => {
-        // Al iniciar sesión, guarda el token y emite el cambio de estado
-        sessionStorage.setItem('token', 'true');
-        this.isLoggedInSubject.next(true);
+    return this.http.post<Cupon[]>(`${this.api}/cupones`, { headers }).pipe(
+      map((response) => {
+        return response;
       }),
       catchError((error: HttpErrorResponse) => throwError(() => error))
     );
   }
 
-  /**
-   * Método para el registro de usuario.
-   */
-  public register(username: string, email: string, password: string): Observable<{message: string, user?: any}> {
+  public addCupon(
+    codigo: string,
+    nombre: string,
+    descuento: number,
+    fecha_inicio: string,
+    fecha_termino: string
+  ): Observable<{ message: string }> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const body = { username, email, password };
+    const body = { codigo, nombre, descuento, fecha_inicio, fecha_termino };
 
-    return this.http.post<{ message: string, user?: any }>(`${this.api}/user/register`, body, { headers }).pipe(
-      tap(() => {
-        // Después de registrarse, iniciar sesión automáticamente
-        sessionStorage.setItem('token', 'true');
-        this.isLoggedInSubject.next(true);
-      }),
-      catchError((error: HttpErrorResponse) => throwError(() => error))
-    );
+    console.log(body);
+
+    return this.http
+      .post<{ message: string }>(`${this.api}/cupones/add`, body, { headers })
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError((error: HttpErrorResponse) => throwError(() => error))
+      );
   }
 
-  /**
-   * Método para cerrar sesión.
-   */
-  public logout(): void {
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('user');
-    this.isLoggedInSubject.next(false);
+  public deleteCupon(codigo: string): Observable<{ message: string }> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { codigo };
+
+    return this.http
+      .post<{ message: string }>(`${this.api}/cupones/delete`, body, {
+        headers,
+      })
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError((error: HttpErrorResponse) => throwError(() => error))
+      );
   }
 
-  /**
-   * Devuelve un observable que emite el estado de autenticación.
-   */
-  public isAuthenticated(): Observable<boolean> {
-    return this.isLoggedInSubject.asObservable();
+  public updateCupon(cupon: Cupon): Observable<{ message: string }> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { ...cupon };
+
+    return this.http
+      .post<{ message: string }>(`${this.api}/cupones/edit`, body, { headers })
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError((error: HttpErrorResponse) => throwError(() => error))
+      );
   }
 
-  /**
-   * Verifica si hay un token en el almacenamiento.
-   */
-  private checkToken(): boolean {
-    if (typeof sessionStorage !== 'undefined') {
-      return !!sessionStorage.getItem('token');
-    }
-    return false;
+  public addOrder(
+    date: string,
+    total_price: number,
+    user_id: number
+  ): Observable<{ message: string }> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { date, total_price, user_id };
+
+    console.log(body);
+
+    return this.http
+      .post<{ message: string }>(`${this.api}/orders/add`, body, { headers })
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError((error: HttpErrorResponse) => throwError(() => error))
+      );
   }
 
+  public addOrderRelacion(
+    order_id: number,
+    product_id: number,
+    quantity: number
+  ): Observable<{ message: string }> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { order_id, product_id, quantity };
+
+    console.log(body);
+
+    return this.http
+      .post<{ message: string }>(`${this.api}/orders/addRelacion`, body, {
+        headers,
+      })
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError((error: HttpErrorResponse) => throwError(() => error))
+      );
+  }
+
+  public getUltima(): Observable<number> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http
+      .post<number>(`${this.api}/orders/ultima`, {}, { headers })
+      .pipe(
+        map((response) => {
+          if (response === null) {
+            throw new Error('No se encontró ninguna orden.');
+          }
+          return response;
+        }),
+        catchError((error: HttpErrorResponse) => throwError(() => error))
+      );
+  }
 }

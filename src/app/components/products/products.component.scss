@@ -1,0 +1,123 @@
+.modal-body {
+    display: flex;
+    gap: 20px;
+}
+
+.modal-section {
+    padding: 20px;
+}
+
+.left-section {
+    flex: 1;
+    max-width: 100%;
+}
+
+.right-section {
+    flex: 2;
+    max-width: 100%;
+}
+
+.border-imag {
+    height: 200px;
+    width: 200px;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+    visibility: hidden;
+    display: none;
+}
+
+.checkbox-wrapper *,
+.checkbox-wrapper ::after,
+.checkbox-wrapper ::before {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.checkbox-wrapper {
+    position: relative;
+    display: block;
+    overflow: hidden;
+
+}
+
+.checkbox-wrapper .label {
+    cursor: pointer;
+}
+
+.checkbox-wrapper .check {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    opacity: 0;
+}
+
+.checkbox-wrapper .label svg {
+    vertical-align: middle;
+}
+
+.checkbox-wrapper .path1 {
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    -webkit-transition: .5s stroke-dashoffset;
+    transition: .5s stroke-dashoffset;
+    opacity: 0;
+}
+
+.checkbox-wrapper .check:checked+label svg g path {
+    stroke-dashoffset: 0;
+    opacity: 1;
+}
+
+.btn {
+    font: inherit;
+    background-color: #f0f0f0;
+    border: 0;
+    color: #242424;
+    font-size: 1.15rem;
+    padding: 0.375em 1em;
+    text-shadow: 0 0.0625em 0 #fff;
+    box-shadow: inset 0 0.0625em 0 0 #f4f4f4, 0 0.0625em 0 0 #efefef,
+        0 0.125em 0 0 #ececec, 0 0.25em 0 0 #e0e0e0, 0 0.3125em 0 0 #dedede,
+        0 0.375em 0 0 #dcdcdc, 0 0.425em 0 0 #cacaca, 0 0.425em 0.5em 0 #cecece;
+    transition: 0.23s ease;
+    cursor: pointer;
+    font-weight: bold;
+    margin: -1px;
+}
+
+.middle {
+    border-radius: 0px;
+}
+
+.right {
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+}
+
+.left {
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+}
+
+.btn:active {
+    translate: 0 0.225em;
+    box-shadow: inset 0 0.03em 0 0 #f4f4f4, 0 0.03em 0 0 #efefef,
+        0 0.0625em 0 0 #ececec, 0 0.125em 0 0 #e0e0e0, 0 0.125em 0 0 #dedede,
+        0 0.2em 0 0 #dcdcdc, 0 0.225em 0 0 #cacaca, 0 0.225em 0.375em 0 #cecece;
+    letter-spacing: 0.1em;
+    color: rgb(231, 120, 29);
+}
+
+.btn:focus {
+    color: rgb(231, 120, 29);
+}
+
+.flex-container {
+    display: inline-flex;
+    gap: 20px;
+}
