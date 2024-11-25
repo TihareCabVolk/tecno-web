@@ -58,7 +58,7 @@ export class ProductsComponent implements OnInit {
     { idT: 'grandeBebida', tamanoPrecio: 1000, check: false }
   ]
 
-  productoSeleccionado: Product = {
+  public productoSeleccionado: Product = {
     id: 0,
     name: '',
     description: '',
@@ -160,13 +160,17 @@ export class ProductsComponent implements OnInit {
     return total + this.productoSeleccionado.price * 100;
   }
 
-  // Actualiza las opciones seleccionadas del producto
+  // Actualizar opciones seleccionadas del producto
   public actualizarOpcionesSeleccionadas(opcion: any): void {
-    if (opcion.checked) {
-      this.productoSeleccionado.opcionesSeleccionadas?.push(opcion);
-    } else {
-      this.productoSeleccionado.opcionesSeleccionadas = this.productoSeleccionado.opcionesSeleccionadas?.filter(o => o.id !== opcion.id);
+    if (!this.productoSeleccionado.opcionesSeleccionadas) {
+      this.productoSeleccionado.opcionesSeleccionadas = [];
     }
+    if (opcion.checked) {
+      this.productoSeleccionado.opcionesSeleccionadas.push(opcion);
+    } else {
+      this.productoSeleccionado.opcionesSeleccionadas = this.productoSeleccionado.opcionesSeleccionadas.filter(o => o.id !== opcion.id && o.idT !== opcion.idT);
+    }
+    console.log('Opciones seleccionadas actualizadas: ', this.productoSeleccionado.opcionesSeleccionadas);
   }
 
   public ngOnInit(): void { }
@@ -180,9 +184,8 @@ export class ProductsComponent implements OnInit {
   }
 
   agregarProducto(item: Product) {
+    console.log('Opciones seleccionadas ' + item.opcionesSeleccionadas);
     item.price = this.calcularTotal();
-    item.opcionesSeleccionadas = this.productoSeleccionado.opcionesSeleccionadas;
-    console.log('asdbfghadsgfjhas ' + item.opcionesSeleccionadas);
     this.carritoService.agregar(item);
     this.closeCard();
   }
