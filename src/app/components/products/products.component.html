@@ -75,10 +75,10 @@
         <div class="py-4"></div>
         <div class="flex-row">
           <span class="font-semibold py-3">Tamaños de porción disponibles:</span>
-          <div class="btn-group py-5">
-            <button class="btn left" type="button" [(ngModel)]="tamanoSeleccionado" [value]="0">Pequeño</button>
-            <button class="btn middle" type="button" [(ngModel)]="tamanoSeleccionado" [value]="1500">Mediano</button>
-            <button class="btn right" type="button" [(ngModel)]="tamanoSeleccionado" [value]="3000">Grande</button>
+          <div class="flex btn-group py-5">
+            <button class="btn left" type="button" (click)="seleccionarTamano('pequeno')">Pequeño</button>
+            <button class="btn middle" type="button" (click)="seleccionarTamano('mediano')">Mediano</button>
+            <button class="btn right" type="button" (click)="seleccionarTamano('grande')">Grande</button>
           </div>
         </div>
         }
@@ -101,13 +101,14 @@
             </div>
           </label>
         </div>
-        <div class="py-4"></div>
-        <div class="flex-row">
-          <span class="font-semibold py-3">Tamaños disponibles:</span>
-          <div class="btn-group py-5">
-            <button class="btn left" type="button" [(ngModel)]="tamanoSeleccionado" [value]="0">Pequeño</button>
-            <button class="btn middle" type="button" [(ngModel)]="tamanoSeleccionado" [value]="2500">Mediano</button>
-            <button class="btn right" type="button" [(ngModel)]="tamanoSeleccionado" [value]="5000">Familiar</button>
+        <div class="py-4">
+          <div class="flex-row">
+            <span class="font-semibold py-3">Tamaños disponibles:</span>
+            <div class="flex btn-group py-5">
+              <button class="btn left" type="button" (click)="seleccionarTamano('pequenoPizza')">Pequeño</button>
+              <button class="btn middle" type="button" (click)="seleccionarTamano('medianoPizza')">Mediano</button>
+              <button class="btn right" type="button" (click)="seleccionarTamano('familiarPizza')">Grande</button>
+            </div>
           </div>
         </div>
         }
@@ -133,27 +134,27 @@
         <div class="py-4"></div>
         <div class="flex-row">
           <span class="font-semibold py-3">Tamaños de porción disponibles:</span>
-          <div class="btn-group py-5">
-            <button class="btn left" type="button" [(ngModel)]="tamanoSeleccionado" [value]="0">Pequeño</button>
-            <button class="btn middle" type="button" [(ngModel)]="tamanoSeleccionado" [value]="500">Mediano</button>
-            <button class="btn right" type="button" [(ngModel)]="tamanoSeleccionado" [value]="1000">Grande</button>
+          <div class="flex btn-group py-5">
+            <button class="btn left" type="button" (click)="seleccionarTamano('pequenoPostre')">Pequeño</button>
+            <button class="btn middle" type="button" (click)="seleccionarTamano('medianoPostre')">Mediano</button>
+            <button class="btn right" type="button" (click)="seleccionarTamano('grandePostre')">Grande</button>
           </div>
         </div>
         }
         <!-- Categoria Bebidas -->
         @if (producto.category_id == 6) {
         <span class="justify-center font-semibold py-3">Tamaños disponibles:</span>
-        <div class="btn-group">
-          <button class="btn left" type="button" [(ngModel)]="tamanoSeleccionado" [value]="0">Pequeño</button>
-          <button class="btn middle" type="button" [(ngModel)]="tamanoSeleccionado" [value]="500">Mediano</button>
-          <button class="btn right" type="button" [(ngModel)]="tamanoSeleccionado" [value]="1000">Grande</button>
+        <div class="flex btn-group py-5">
+          <button class="btn left" type="button" (click)="seleccionarTamano('pequenoBebida')">Pequeño</button>
+          <button class="btn middle" type="button" (click)="seleccionarTamano('medianoBebida')">Mediano</button>
+          <button class="btn right" type="button" (click)="seleccionarTamano('grandeBebida')">Grande</button>
         </div>
         }
       </div>
     </div>
     <button
       class="mt-auto px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition-colors duration-300"
-      (click)="agregarProducto(producto)">
+      (click)="agregarProducto(productoSeleccionado)">
       Agregar al pedido
     </button>
     <button class="absolute top-2 right-2 text-gray-600 hover:text-gray-800" (click)="closeCard()">

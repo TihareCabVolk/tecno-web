@@ -28,21 +28,36 @@ export class ProductsComponent implements OnInit {
   ]
 
   opcionesAPapas = [
-    { tamanoSeleccionado: 0 }
+    { idT: 'pequeno', texto: 'Pequeño', tamanoPrecio: 0, check: false },
+    { idT: 'mediano', texto: 'Mediano', tamanoPrecio: 500, check: false },
+    { idT: 'grande', texto: 'Grande', tamanoPrecio: 1000, check: false }
   ]
 
   opcionesAPizzas = [
     { id: 'checkExtraQueso', texto: 'Extra queso', precioExtra: '$1000', checked: false },
     { id: 'checkRelleno', texto: 'Relleno de queso', precioExtra: '$1000', checked: false },
   ]
+  opcionesTPizzas = [
+    { idT: 'pequenoPizza', texto: 'Individual', tamanoPrecio: 0, check: false },
+    { idT: 'medianoPizza', texto: 'Mediano', tamanoPrecio: 2500, check: false },
+    { idT: 'familiarPizza', texto: 'Familiar', tamanoPrecio: 5000, check: false }
+  ]
 
   opcionesAPostres = [
+    { tamanoSeleccionado: 0 },
     { id: 'checkSalsaChocolate', texto: 'Salsa de chocolate', precioExtra: '$1000', checked: false },
     { id: 'checkCoberturaChocolate', texto: 'Cobertura de Chocolate', precioExtra: '$1000', checked: false }
   ]
+  opcionesTPostres = [
+    { idT: 'pequenoPostre', texto: 'Pequeño', tamanoPrecio: 0, check: false },
+    { idT: 'medianoPostre', texto: 'Mediano', tamanoPrecio: 500, check: false },
+    { idT: 'familiarPostre', texto: 'Grande', tamanoPrecio: 1000, check: false }
+  ]
 
   opcionesABebidas = [
-    { tamanoSeleccionado: 0 }
+    { idT: 'pequenoBebida', tamanoPrecio: 0, check: false },
+    { idT: 'medianoBebida', tamanoPrecio: 500, check: false },
+    { idT: 'grandeBebida', tamanoPrecio: 1000, check: false }
   ]
 
   productoSeleccionado: Product = {
@@ -55,6 +70,50 @@ export class ProductsComponent implements OnInit {
     opcionesSeleccionadas: []
   };
 
+  public seleccionarTamano(tamano: string): void {
+
+
+    this.opcionesAPapas.forEach(opcion => {
+      opcion.check = false;
+      const opcionSeleccionada = this.opcionesAPapas.find(opcion => opcion.idT === tamano);
+      if (opcionSeleccionada) {
+        opcionSeleccionada.check = true;
+        this.tamanoSeleccionado = opcionSeleccionada.tamanoPrecio;
+      }
+    });
+
+    this.opcionesTPizzas.forEach(opcion => {
+      opcion.check = false;
+      const opcionSeleccionada = this.opcionesTPizzas.find(opcion => opcion.idT === tamano);
+      if (opcionSeleccionada) {
+        opcionSeleccionada.check = true;
+        this.tamanoSeleccionado = opcionSeleccionada.tamanoPrecio;
+      }
+    });
+
+    this.opcionesTPostres.forEach(opcion => {
+      opcion.check = false;
+      const opcionSeleccionada = this.opcionesTPostres.find(opcion => opcion.idT === tamano);
+      if (opcionSeleccionada) {
+        opcionSeleccionada.check = true;
+        this.tamanoSeleccionado = opcionSeleccionada.tamanoPrecio;
+      }
+    });
+
+    this.opcionesABebidas.forEach(opcion => {
+      opcion.check = false;
+      const opcionSeleccionada = this.opcionesABebidas.find(opcion => opcion.idT === tamano);
+      if (opcionSeleccionada) {
+        opcionSeleccionada.check = true;
+        this.tamanoSeleccionado = opcionSeleccionada.tamanoPrecio;
+      }
+    });
+
+
+
+
+  }
+
   public calcularTotal() {
     let total = this.tamanoSeleccionado;
 
@@ -66,15 +125,21 @@ export class ProductsComponent implements OnInit {
     });
 
     // Sumar el precio de las opciones de papas
-    if (this.opcionesAPapas[0].tamanoSeleccionado > 0) {
-      total += this.opcionesAPapas[0].tamanoSeleccionado;
-    }
+    this.opcionesAPapas.forEach(opcion => {
+      if (opcion.check) {
+        total += opcion.tamanoPrecio;
+      }
+    });
 
     // Sumar el precio de las opciones de pizzas
     this.opcionesAPizzas.forEach(opcion => {
       if (opcion.checked) {
         total += parseInt(opcion.precioExtra.replace('$', ''));
-        total += this.productoSeleccionado.price;
+      }
+    });
+    this.opcionesTPizzas.forEach(opcion => {
+      if (opcion.check) {
+        total += opcion.tamanoPrecio;
       }
     });
 
@@ -82,23 +147,24 @@ export class ProductsComponent implements OnInit {
     this.opcionesAPostres.forEach(opcion => {
       if (opcion.checked) {
         total += parseInt(opcion.precioExtra.replace('$', ''));
-        total += this.productoSeleccionado.price;
       }
-      if (this.tamanoSeleccionado > 0) {
-        total += this.tamanoSeleccionado;
+    });
+    this.opcionesTPostres.forEach(opcion => {
+      if (opcion.check) {
+        total += opcion.tamanoPrecio;
       }
     });
 
     // Sumar el precio de las opciones seleccionadas de bebidas
-    if (this.opcionesABebidas[0].tamanoSeleccionado > 0) {
-      total += this.opcionesABebidas[0].tamanoSeleccionado;
-      total += this.productoSeleccionado.price;
-    }
-
-    return total;
+    this.opcionesABebidas.forEach(opcion => {
+      if (opcion.check) {
+        total += opcion.tamanoPrecio;
+      }
+    });
+    return total + this.productoSeleccionado.price;
   }
 
-
+  // Actualiza las opciones seleccionadas del producto
   public actualizarOpcionesSeleccionadas(opcion: any): void {
     if (opcion.checked) {
       this.productoSeleccionado.opcionesSeleccionadas?.push(opcion);
