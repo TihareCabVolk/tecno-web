@@ -1,0 +1,47 @@
+<div class="flex">
+  <!-- Sidebar -->
+  <div class="w-64 h-screen bg-orange-500 text-white p-6">
+    <h1 class="text-2xl font-bold mb-6">WC Donald's</h1>
+    <ul>
+      <li><a href="#" class="block py-2 px-4 hover:bg-orange-700 rounded">Mi Perfil</a></li>
+      <li><a href="#" class="block py-2 px-4 hover:bg-orange-700 rounded">Mis Pedidos</a></li>
+    </ul>
+  </div>
+
+  <!-- Contenido Principal -->
+  <div class="flex-1 p-6 bg-gray-100">
+    <!-- Mis Pedidos -->
+    <div class="container mx-auto py-8">
+      <h1 class="text-2xl font-bold text-center mb-6">Mis Pedidos</h1>
+      <!-- Lista de pedidos -->
+      <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+        <!-- Iterar sobre los pedidos -->
+        <div
+          *ngFor="let orden of ordenes"
+          class="flex items-center justify-between bg-orange-100 p-4 rounded-lg"
+        >
+          <!-- Información del pedido -->
+          <div class="flex flex-col">
+            <span class="text-lg font-semibold">Pedido nº {{ orden.id }}</span>
+            <span class="text-sm text-gray-600">Fecha Pedido: {{ orden.fecha }}</span>
+          </div>
+
+          <!-- Estado del pedido -->
+          <div class="flex flex-col items-end">
+            <span
+              class="text-sm font-medium"
+              [ngClass]="{
+                'text-orange-500': orden.estado === 'en preparación',
+                'text-yellow-500': orden.estado === 'en reparto',
+                'text-green-500': orden.estado === 'entregado'
+              }"
+            >
+              {{ orden.estado }}
+            </span>
+            <button class="text-blue-500 mt-2">Ver detalles</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

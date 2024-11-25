@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnInit, Input, inject } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { Component, HostListener, inject, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Carrito } from '../../models/carrito';
 import { CarritoService } from '../../services/carrito.service';
@@ -30,62 +29,13 @@ export class NavbarComponent implements OnInit {
   public isOpen: boolean = false;
   public isOpenCart: boolean = false;
   public cantProduct: number = 1;
-  public isLoggedIn: boolean = false;
-  @Input() mostrar: boolean = true;
-  public carritoService = inject(CarritoService);
-  listCarrito: Carrito[] = [];
 
-  constructor(private router: Router, private auth: AuthService, private cdr: ChangeDetectorRef) { }
-
-
-  ngOnInit(): void {
-    // Suscribirse al estado de autenticación para mantener actualizado el navbar
-    this.auth.isAuthenticated().subscribe((data: boolean) => {
-      this.isLoggedIn = data;
-    });
-    initFlowbite();
-    this.getListCarrito();
-
-    this.carritoService.getObservableCarrito().subscribe((carrito) => {
-      this.listCarrito = carrito; // Se actualiza automáticamente con cada cambio en el carrito
-    });
-
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.mostrar = event.url !== '/carrito';
-        console.log('Navegando a:', event.url, this.mostrar);
-        this.cdr.detectChanges(); // Fuerza la detección de cambios
-      }
-    });
-  }
-
-  /**
-   * Navegar al login
-   */
-  public access(): void {
-    this.router.navigate(['/login']);
-  }
-
-  /**
-   * Cerrar sesión y redirigir al login
-   */
-  public logout(): void {
-    this.auth.logout();
-    this.router.navigate(['/login']);
-  }
-
-  /**
-   * Alternar el menú desplegable
-   */
   @Input() isVisible: boolean = false;
 
   public toggleMenu(): void {
     this.isOpen = !this.isOpen;
   }
 
-  /**
-   * Alternar el carrito de compras
-   */
   public toggleCart(): void {
     this.isOpenCart = !this.isOpenCart;
   }
@@ -103,6 +53,28 @@ export class NavbarComponent implements OnInit {
   }
 
   //Logica del carrito en el navbar o header
+  @Input() mostrar: boolean = true;
+  public carritoService = inject(CarritoService);
+  listCarrito: Carrito[] = [];
+
+  constructor(public router: Router, private cdr: ChangeDetectorRef) { }
+
+  ngOnInit(): void {
+    initFlowbite();
+    this.getListCarrito();
+
+    this.carritoService.getObservableCarrito().subscribe((carrito) => {
+      this.listCarrito = carrito; // Se actualiza automáticamente con cada cambio en el carrito
+    });
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.mostrar = event.url !== '/carrito';
+        console.log('Navegando a:', event.url, this.mostrar);
+        this.cdr.detectChanges(); // Fuerza la detección de cambios
+      }
+    });
+  }
 
   getListCarrito() {
     this.listCarrito = this.carritoService.getCarrito();

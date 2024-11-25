@@ -1,0 +1,40 @@
+.container {
+    max-width: 1200px;
+  }
+  
+  .card {
+    background-color: #f8f8f8;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .card-details {
+    color: #7a7a7a;
+    font-size: 0.875rem;
+  }
+  
+  .card-state {
+    font-weight: 600;
+  }
+  
+  .card-button {
+    background-color: transparent;
+    color: #3182ce;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    border: 1px solid #3182ce;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #3182ce;
+      color: white;
+    }
+  }
+  

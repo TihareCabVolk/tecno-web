@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "cliente": 101,
+      "producto": 201,
+      "cantidad": 2,
+      "total": 19.98,
+      "estado": "en preparación",
+      "fecha": "2024-11-24"
+    },
+    {
+      "id": 2,
+      "cliente": 102,
+      "producto": 202,
+      "cantidad": 1,
+      "total": 12.99,
+      "estado": "en reparto",
+      "fecha": "2024-11-25"
+    }
+  ]
+  

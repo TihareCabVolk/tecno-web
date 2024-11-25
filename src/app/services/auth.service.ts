@@ -15,11 +15,11 @@ export class AuthService {
   /**
    * Método para el inicio de sesión.
    */
-  public login(email: string, password: string): Observable<{ message: string, isAdmin?: boolean }> {
+  public login(email: string, password: string): Observable<{ message: string, user?: any }> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const body = { email, password };
 
-    return this.http.post<{ message: string, isAdmin?: boolean }>(`${this.api}/user/login`, body, { headers }).pipe(
+    return this.http.post<{ message: string, user?: any }>(`${this.api}/user/login`, body, { headers }).pipe(
       tap(() => {
         // Al iniciar sesión, guarda el token y emite el cambio de estado
         sessionStorage.setItem('token', 'true');
@@ -32,11 +32,11 @@ export class AuthService {
   /**
    * Método para el registro de usuario.
    */
-  public register(username: string, email: string, password: string): Observable<{ message: string }> {
+  public register(username: string, email: string, password: string): Observable<{message: string, user?: any}> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const body = { username, email, password };
 
-    return this.http.post<{ message: string }>(`${this.api}/user/register`, body, { headers }).pipe(
+    return this.http.post<{ message: string, user?: any }>(`${this.api}/user/register`, body, { headers }).pipe(
       tap(() => {
         // Después de registrarse, iniciar sesión automáticamente
         sessionStorage.setItem('token', 'true');
@@ -51,6 +51,7 @@ export class AuthService {
    */
   public logout(): void {
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
     this.isLoggedInSubject.next(false);
   }
 
