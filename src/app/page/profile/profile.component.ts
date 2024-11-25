@@ -3,12 +3,12 @@ import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from '../../components/navbar/navbar.component'; // Importar el NavbarComponent
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule, RouterModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
