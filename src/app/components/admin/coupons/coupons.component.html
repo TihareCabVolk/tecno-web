@@ -1,0 +1,75 @@
+<main class="flex flex-col gap-4 w-full pr-10 pt-5 mx-6">
+  <!-- Sección de búsqueda y agregar cupón -->
+  <section [formGroup]="filterForm" class="flex gap-2 items-center">
+    <!-- Buscador con ícono -->
+    <div class="flex-grow bg-gray-200 relative">
+      <i
+        class="bx bx-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+      ></i>
+      <input
+        type="text"
+        formControlName="searchTerm"
+        class="w-full pl-10 p-2 border rounded"
+        placeholder="Buscar cupón"
+      />
+    </div>
+
+    <!-- Botón agregar cupón -->
+    <button
+      class="flex-none w-32 p-2 bg-orange-400 text-white rounded flex justify-center gap-2 hover:bg-orange-500"
+      (click)="toggleAddCoupon()"
+    >
+      <i class="bx bx-plus text-lg"></i>Agregar
+    </button>
+  </section>
+
+  <!-- Sección de cupones -->
+  <section>
+    <h2 class="text-3xl font-bold mb-4">Cupones</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div
+        class="bg-white border rounded-lg shadow p-4 flex items-center gap-4"
+        *ngFor="let coupon of filteredCoupons"
+      >
+        <!-- Detalles del cupón -->
+        <div class="flex-grow">
+          <p class="font-bold text-gray-800">{{ coupon.nombre }}</p>
+          <p class="text-sm text-gray-600">Código: {{ coupon.codigo }}</p>
+          <p class="text-sm text-gray-600">
+            Descuento: {{ coupon.descuento }}%
+          </p>
+          <p class="text-sm text-gray-600">
+            Válido del {{ coupon.fecha_inicio }} al {{ coupon.fecha_termino }}
+          </p>
+        </div>
+
+        <!-- Botones de opciones -->
+        <div class="relative flex flex-col gap-2">
+          <button
+            class="w-full p-2 text-white bg-orange-400 hover:bg-orange-600 rounded flex items-center justify-center gap-2"
+            (click)="toggleEditCoupon(coupon)"
+          >
+            <i class="bx bx-edit text-lg"></i>
+            <span>Editar</span>
+          </button>
+          <button
+            class="w-full p-2 text-white bg-red-500 hover:bg-red-800 rounded flex items-center justify-center gap-2"
+            (click)="deleteCupon(coupon.codigo)"
+          >
+            <i class="bx bx-trash text-lg"></i>
+            <span>Eliminar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <app-coupon-modal
+    *ngIf="showModal"
+    [title]="modalTitle"
+    [coupon]="selectedCoupon"
+    (save)="handleSave($event)"
+    (cancel)="handleCancel()"
+  ></app-coupon-modal>
+</main>

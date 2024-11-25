@@ -1,0 +1,138 @@
+<div class="mt-4" class="min-h-screen flex flex-col bg-gray-100">
+  <!-- Navbar -->
+  <app-navbar class="sticky top-0 py-5 bg-white shadow-lg z-50"></app-navbar>
+  <app-btn-text-product></app-btn-text-product>
+  <main class="container w-4/5 mx-auto my-10">
+    <h2 class="text-3xl font-mcdonalds mb-6 text-orange-600">Categorías</h2>
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <!-- Listado de productos -->
+      <div class="col-span-2 space-y-6">
+        @for (item of carrito.products; track item) {
+        <div
+          class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6"
+        >
+          <div
+            class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0"
+          >
+            <a href="#" class="shrink-0 md:order-1">
+              <img
+                class="h-20 w-20 dark:hidden"
+                src="https://img.freepik.com/vector-gratis/dibujado-mano-diseno-plano-poke-bowl-comida-ilustracion_23-2149310125.jpg"
+                alt="imac image"
+              />
+            </a>
+
+            <div
+              class="flex items-center justify-between md:order-3 md:justify-end"
+            >
+              <div class="flex items-center">
+                <!-- Decrementar -->
+                <button
+                  class="inline-flex h-5 w-5 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700"
+                >
+                  <svg
+                    class="h-2.5 w-2.5 text-gray-900 dark:text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 18 2"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M1 1h16"
+                    />
+                  </svg>
+                </button>
+
+                <p class="w-10 text-center">
+                  {{ item.quantity }}
+                </p>
+
+                <!-- Incrementar -->
+                <button
+                  class="inline-flex h-5 w-5 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700"
+                >
+                  <svg
+                    class="h-2.5 w-2.5 text-gray-900 dark:text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 18 18"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 1v16M1 9h16"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <p class="ml-4 font-bold text-gray-900 dark:text-white">
+                CLP {{ item.price * item.quantity | number : "1.2-2" }}
+              </p>
+            </div>
+
+            <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
+              <a
+                href="#"
+                class="text-base font-medium text-gray-900 hover:underline dark:text-white"
+                >{{ item.name }}</a
+              >
+              <div class="flex items-center gap-4">
+                <button
+                  class="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500"
+                >
+                  <i class="bx bx-trash text-lg"></i>
+                  <span class="ml-2">Eliminar</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+
+      <!-- Resumen del pedido -->
+      <div
+        class="space-y-6 rounded-lg border border-gray-200 bg-white p-6 shadow-md dark:border-gray-700 dark:bg-gray-800"
+      >
+        <h2 class="text-lg font-bold">Resumen del pedido</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between">
+            <span>Precio original:</span>
+            <span>CLP {{ carrito.total_price | number : "1.2-2" }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Descuento:</span>
+            <span class="text-green-600">CLP -</span>
+          </div>
+          <div class="flex justify-between font-bold">
+            <span>Total:</span>
+            <span>CLP</span>
+          </div>
+        </div>
+
+        <!-- Input para ingresar cupón -->
+        <div>
+          <label for="cupon" class="block mb-2 text-sm font-medium"
+            >Ingrese su cupón:</label
+          >
+          <input
+            type="text"
+            id="cupon"
+            class="block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+          />
+          <button
+            class="mt-4 w-full rounded-md bg-orange-500 py-2 text-white hover:bg-orange-600"
+          >
+            Aplicar código
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

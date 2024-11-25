@@ -3,11 +3,12 @@ import { Component, HostListener, OnInit} from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { User } from '../../interfaces/User';
+import { CartComponent } from "../cart/cart.component";
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule, RouterLink, CartComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
@@ -16,8 +17,6 @@ export class NavbarComponent implements OnInit{
   public user!:User;
 
   public isOpen: boolean = false;
-  public isOpenCart: boolean = false;
-  public cantProduct: number = 1;
 
   constructor(private auth: AuthService, private router: Router) {}
 
@@ -53,12 +52,7 @@ export class NavbarComponent implements OnInit{
     this.isOpen = !this.isOpen;
   }
 
-  /**
-   * Alternar el carrito de compras
-   */
-  public toggleCart(): void {
-    this.isOpenCart = !this.isOpenCart;
-  }
+ 
 
   /**
    * Cerrar menús si se hace clic fuera del elemento
@@ -71,7 +65,6 @@ export class NavbarComponent implements OnInit{
 
     if (!isInsideButton && !isInsideDropdown) {
       this.isOpen = false;
-      this.isOpenCart = false;
     }
   }
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Category } from '../../../interfaces/Category';
 import { Products } from '../../../interfaces/Products';
@@ -11,14 +11,14 @@ import { Products } from '../../../interfaces/Products';
   templateUrl: './product-modal.component.html',
   styleUrl: './product-modal.component.scss'
 })
-export class ProductModalComponent {
+export class ProductModalComponent implements OnChanges{
   @Input() title!: string;
   @Input() categories: Category[] = [];
   @Input() product: Products | null = null;
   @Output() save = new EventEmitter<Products>();
   @Output() cancel = new EventEmitter<void>();
 
-  productForm: FormGroup;
+  public productForm: FormGroup;
 
   constructor() {
     this.productForm = new FormGroup({
@@ -30,7 +30,7 @@ export class ProductModalComponent {
     });
   }
 
-  ngOnChanges(): void {
+  public ngOnChanges(): void {
     if (this.product) {
       this.productForm.patchValue(this.product);
     } else {
@@ -44,7 +44,7 @@ export class ProductModalComponent {
     }
   }
 
-  saveProduct(): void {
+  public saveProduct(): void {
     if (this.productForm.invalid) {
       alert('Por favor completa todos los campos requeridos.');
       return;
@@ -53,7 +53,7 @@ export class ProductModalComponent {
     this.save.emit({ ...this.product, ...this.productForm.value });
   }
 
-  cancelModal(): void {
+  public cancelModal(): void {
     this.cancel.emit();
   }
 }

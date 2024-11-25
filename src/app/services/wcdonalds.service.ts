@@ -3,6 +3,7 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Category } from '../interfaces/Category';
 import { Products } from '../interfaces/Products';
+import { Coupon } from '../interfaces/Coupon';
 
 @Injectable({
   providedIn: 'root'
@@ -78,7 +79,7 @@ export class WcdonaldsService {
       ,
       catchError((error: HttpErrorResponse) => throwError(() => error))
     )
-  }
+  };
 
   public getAllProducts():Observable<Products[]>{
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -88,6 +89,46 @@ export class WcdonaldsService {
       ,
       catchError((error: HttpErrorResponse) => throwError(() => error))
     )
-  }
+  };
+  
+  public getAllCupones(): Observable<Coupon[]> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  
+    return this.http.post<Coupon[]>(`${this.api}/cupones`, { headers }).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => throwError(() => error))
+    )
+  };
 
+  public addCupon(codigo: string,nombre: string,descuento: number,fecha_inicio: string,fecha_termino: string): Observable<{ message: string }> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { codigo, nombre, descuento, fecha_inicio, fecha_termino };
+  
+    return this.http.post<{ message: string }>(`${this.api}/cupones/add`, body, { headers }).pipe(
+      map((response) => {return response}),
+      catchError((error: HttpErrorResponse) => throwError(() => error))
+    )
+  };
+
+  public deleteCupon(codigo: string): Observable<{ message: string }> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { codigo };
+
+    return this.http.post<{ message: string }>(`${this.api}/cupones/delete`, body, {headers}).pipe(
+        map((response) => {return response;}),
+        catchError((error: HttpErrorResponse) => throwError(() => error))
+    )
+  };
+
+  public updateCupon(cupon: Coupon): Observable<{ message: string }> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { ...cupon };
+
+    return this.http.post<{ message: string }>(`${this.api}/cupones/edit`, body, { headers }).pipe(
+        map((response) => {return response;}),
+        catchError((error: HttpErrorResponse) => throwError(() => error))
+    )
+  };
 }

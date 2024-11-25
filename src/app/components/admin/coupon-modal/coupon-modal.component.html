@@ -1,0 +1,78 @@
+<div
+  class="fixed inset-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center"
+>
+  <div
+    class="bg-white w-full max-w-2xl p-6 rounded-lg shadow-lg overflow-auto"
+    style="max-height: 90vh"
+  >
+    <form [formGroup]="couponForm" (ngSubmit)="saveCoupon()">
+      <div class="mb-4">
+        <h2 class="text-2xl font-semibold text-gray-800">{{ title }}</h2>
+      </div>
+
+      <div class="mb-4">
+        <label for="nombre" class="block text-gray-700 mb-2">Nombre</label>
+        <input
+          id="nombre"
+          formControlName="nombre"
+          type="text"
+          class="w-full p-2 border rounded"
+          placeholder="Nombre del cupón"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label for="descuento" class="block text-gray-700 mb-2"
+          >Descuento (%)</label
+        >
+        <input
+          id="descuento"
+          formControlName="descuento"
+          type="number"
+          class="w-full p-2 border rounded"
+          placeholder="Descuento en porcentaje"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label for="fecha_inicio" class="block text-gray-700 mb-2"
+          >Fecha de Inicio</label
+        >
+        <input
+          id="fecha_inicio"
+          formControlName="fecha_inicio"
+          type="date"
+          class="w-full p-2 border rounded"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label for="fecha_termino" class="block text-gray-700 mb-2"
+          >Fecha de Término</label
+        >
+        <input
+          id="fecha_termino"
+          formControlName="fecha_termino"
+          type="date"
+          class="w-full p-2 border rounded"
+        />
+      </div>
+
+      <div class="flex gap-2">
+        <button
+          type="submit"
+          class="bg-orange-400 text-white px-4 py-2 rounded hover:bg-orange-500"
+        >
+          Guardar
+        </button>
+        <button
+          type="button"
+          (click)="cancelModal()"
+          class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

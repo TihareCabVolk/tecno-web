@@ -4,8 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CategoryComponent } from "../../components/category/category.component";
 import { ProductsComponent } from "../../components/products/products.component";
 import { WcdonaldsService } from '../../services/wcdonalds.service';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { ActivatedRoute} from '@angular/router';
 import { Products } from '../../interfaces/Products';
 import { FooterComponent } from "../../components/footer/footer.component";
 

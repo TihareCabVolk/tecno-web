@@ -1,0 +1,112 @@
+<!-- Botón del Carrito -->
+<button (click)="toggleCart()" class="relative flex items-center">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="icon icon-tabler icon-tabler-shopping-cart"
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+    <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+    <path d="M17 17h-11v-14h-2" />
+    <path d="M6 5l14 1l-1 7h-13" />
+  </svg>
+  <span
+    *ngIf="carrito.products.length > 0"
+    class="absolute -top-2 -right-2 w-4 h-4 bg-red-600 text-white text-xs font-bold flex items-center justify-center rounded-full"
+  >
+    {{ carrito.products.length }}
+  </span>
+</button>
+
+<!-- Fondo semitransparente -->
+<div
+  *ngIf="show"
+  class="fixed inset-0 z-30 bg-black bg-opacity-50"
+  (click)="toggleCart()"
+></div>
+
+<!-- Drawer -->
+<div
+  [ngClass]="{ 'translate-x-0': show, 'translate-x-full': !show }"
+  class="fixed top-0 right-0 z-40 h-screen w-1/3 bg-white dark:bg-gray-800 transition-transform duration-300 shadow-lg"
+>
+  <button
+    class="absolute top-2.5 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
+    (click)="toggleCart()"
+  >
+    ✕
+  </button>
+
+  <div class="p-4 space-y-6">
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+      Tu Carrito
+    </h3>
+
+    <div *ngIf="carrito.products.length > 0; else emptyCart">
+      <div
+        *ngFor="let item of carrito.products; let i = index"
+        class="flex justify-between items-center border-b pb-2"
+      >
+        <div>
+          <h4 class="text-sm font-medium text-gray-900 dark:text-white">
+            {{ item.name }}
+          </h4>
+          <p class="text-xs text-gray-500">Precio: ${{ item.price }}</p>
+          <div class="flex items-center space-x-2">
+            <button
+              class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 rounded"
+              (click)="disminuirCantidad(i)"
+            >
+              -
+            </button>
+            <span class="text-sm font-medium text-gray-900">{{
+              item.quantity
+            }}</span>
+            <button
+              class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 rounded"
+              (click)="aumentarCantidad(i)"
+            >
+              +
+            </button>
+          </div>
+        </div>
+        <div class="text-right">
+          <p class="text-sm font-bold">${{ item.quantity * item.price }}</p>
+          <button
+            class="text-xs text-red-500 hover:underline"
+            (click)="eliminarProducto(i)"
+          >
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #emptyCart>
+      <p class="text-center text-gray-500">No hay productos en el carrito.</p>
+    </ng-template>
+
+    <div class="border-t pt-3">
+      <div class="flex justify-between">
+        <span class="text-sm font-medium text-gray-700">Total</span>
+        <span class="text-sm font-bold text-gray-900"
+          >${{ carrito.total_price }}</span
+        >
+      </div>
+    </div>
+
+    <button
+      class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Finalizar Compra
+    </button>
+  </div>
+</div>

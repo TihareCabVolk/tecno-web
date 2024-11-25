@@ -5,4 +5,4 @@ export interface Products{
     price: number;
     img_url: string;
     category_id: number;
-}
+};

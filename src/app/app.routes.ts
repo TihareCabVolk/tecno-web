@@ -5,6 +5,9 @@ import { authGuard } from './guards/auth.guard';
 import { CatalogoComponent } from './page/catalogo/catalogo.component';
 import { AdminComponent } from './page/admin/admin.component';
 import { ProductsComponent } from './components/admin/products/products.component';
+import { CouponsComponent } from './components/admin/coupons/coupons.component';
+import { CartComponent } from './components/cart/cart.component';
+import { CarritoListarComponent } from './components/pay/carrito-listar.component';
 
 export const routes: Routes = [
     {
@@ -13,7 +16,7 @@ export const routes: Routes = [
         children: [
           { path: 'products', component: ProductsComponent },
           { path: 'offers', component: CatalogoComponent },
-          { path: 'coupons', component: CatalogoComponent },
+          { path: 'coupons', component: CouponsComponent },
           { path: 'statistics', component: CatalogoComponent },
         ],
       },
@@ -21,5 +24,6 @@ export const routes: Routes = [
     {path:'admin', component:AdminComponent},
     { path: 'login', component:  AuthComponent, canActivate:[authGuard]},
     { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent}
+    { path: 'home', component: HomeComponent},
+    { path: 'cart', component: CarritoListarComponent}
 ];
