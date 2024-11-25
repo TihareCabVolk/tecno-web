@@ -157,6 +157,7 @@ export class ProductsComponent implements OnInit {
         total += opcion.tamanoPrecio;
       }
     });
+
     return total + this.productoSeleccionado.price * 100;
   }
 
@@ -170,7 +171,6 @@ export class ProductsComponent implements OnInit {
     } else {
       this.productoSeleccionado.opcionesSeleccionadas = this.productoSeleccionado.opcionesSeleccionadas.filter(o => o.id !== opcion.id && o.idT !== opcion.idT);
     }
-    console.log('Opciones seleccionadas actualizadas: ', this.productoSeleccionado.opcionesSeleccionadas);
   }
 
   public ngOnInit(): void { }
@@ -185,6 +185,7 @@ export class ProductsComponent implements OnInit {
 
   agregarProducto(item: Product) {
     console.log('Opciones seleccionadas ' + item.opcionesSeleccionadas);
+    this.productoSeleccionado.price = this.calcularTotal();
     this.carritoService.agregar(item);
     this.closeCard();
   }
