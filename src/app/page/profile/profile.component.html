@@ -1,7 +1,10 @@
 <div class="sidebar">
   <aside class="w-64 bg-[#E5E7EB] p-4 fixed h-full shadow-md">
     <div class="flex justify-center">
-      <a routerLink="/home" class="text-4xl font-bold font-mcdonalds text-orange-600 mb-4 block hover:text-orange-500 transition-colors duration-200 cursor-pointer">
+      <a
+        routerLink="/home"
+        class="text-4xl font-bold font-mcdonalds text-orange-600 mb-4 block hover:text-orange-500 transition-colors duration-200 cursor-pointer"
+      >
         <span style="color: #fbcd15">W</span>c Donald's
       </a>
     </div>
@@ -76,65 +79,43 @@
   </div>
   <div class="cupones-content" *ngIf="selectedOption === 'cupones'">
     <h2 class="text-2xl font-bold text-white mb-4">Mis Cupones</h2>
-    <div
-      class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-8 mx-auto max-w-4xl"
-    >
-      <div
-        class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0"
-      >
+    <div *ngIf="errorMessage" class="text-red-500 mb-4">{{ errorMessage }}</div>
+    @for (cupon of cupones; track cupon.id) {
+    <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-8 mx-auto max-w-4xl mb-4">
+      <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
         <div class="shrink-0 md:order-1 flex flex-col items-start">
-          <p
-            class="text-8xl font-medium text-gray-900 hover:scale-105 dark:text-white"
-            contenteditable="true"
-          >
-            20%
+          <div class="h-30 w-30 dark:hidden">
+            <p class="text-2xl font-bold font-mcdonalds text-orange-600">
+              <span style="color: #fbcd15">W</span>c Donald's
+            </p>
+          </div>
+          <p class="text-8xl font-medium text-gray-900 hover:scale-105 dark:text-white">
+            {{ cupon.descuento }}%
           </p>
         </div>
         <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
           <div class="flex items-center justify-center h-full">
-            <p
-              class="text-4xl font-medium text-gray-900 hover:scale-105 dark:text-white"
-              contenteditable="true"
-            >
-              Nombre del Cupón
+            <p class="text-4xl font-medium text-gray-900 hover:scale-105 dark:text-white">
+              {{ cupon.nombre }}
             </p>
           </div>
           <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
-              <label
-                class="font-semibold text-sm text-gray-600 pb-1 block"
-                for="desde"
-                >Desde</label
-              >
-              <input
-                class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500 text-black"
-                type="date"
-                id="desde"
-              />
+              <label class="font-semibold text-sm text-gray-600 pb-1 block" for="desde">Desde</label>
+              <input class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500 text-black"
+                type="date" [(ngModel)]="cupon.fecha_inicio" id="desde" title="Fecha de inicio del cupón" placeholder="Fecha de inicio" disabled />
             </div>
             <div>
-              <label
-                class="font-semibold text-sm text-gray-600 pb-1 block"
-                for="hasta"
-                >Hasta</label
-              >
-              <input
-                class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500 text-black"
-                type="date"
-                id="hasta"
-              />
+              <label class="font-semibold text-sm text-gray-600 pb-1 block" for="hasta">Hasta</label>
+              <input class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-500 text-black"
+                type="date" [(ngModel)]="cupon.fecha_termino" id="hasta" title="Fecha de vencimiento del cupón" placeholder="Fecha de vencimiento" disabled />
             </div>
           </div>
         </div>
-        <div
-          class="flex items-center justify-between md:order-3 md:justify-end"
-        >
+        <div class="flex items-center justify-between md:order-3 md:justify-end">
           <div class="text-end md:order-4 md:w-32">
             <div class="flex items-center gap-4">
-              <button
-                (click)="openCouponModal()"
-                class="text-blue-600 font-bold hover:underline"
-              >
+              <button (click)="openCouponModal(cupon)" class="text-blue-600 font-bold hover:underline">
                 Ver detalles
               </button>
             </div>
@@ -142,6 +123,12 @@
         </div>
       </div>
     </div>
+    }
+    @if (cupones.length === 0) {
+    <div class="text-center text-white">
+      <p>No tienes cupones disponibles</p>
+    </div>
+    }
   </div>
 </div>
 
@@ -171,26 +158,38 @@
 <!-- Modal para mostrar detalles del cupón -->
 <div
   *ngIf="isCouponModalOpen"
-  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
 >
   <div class="bg-white rounded-lg p-6 max-w-md w-full">
     <h2 class="text-2xl font-bold mb-4">Detalles del Cupón</h2>
-    <p><strong>Nombre del Cupón:</strong> Nombre del Cupón</p>
-    <p><strong>Porcentaje de Descuento:</strong> 20%</p>
-    <p>
-      <strong>Código:</strong> <span *ngIf="!showCode">******</span
-      ><span *ngIf="showCode">ABC123</span>
-    </p>
-    <div class="flex justify-between mt-4">
+    <div *ngIf="selectedCoupon" class="space-y-4">
+      <div class="text-center mb-6">
+        <p class="text-2xl font-bold font-mcdonalds text-orange-600">
+          <span style="color: #fbcd15">W</span>c Donald's
+        </p>
+        <p class="text-6xl font-bold text-gray-900 mt-2">
+          {{ selectedCoupon.descuento }}%
+        </p>
+      </div>
+      <p><strong>Nombre:</strong> {{ selectedCoupon.nombre }}</p>
+      <p><strong>Válido desde:</strong> {{ selectedCoupon.fecha_inicio | date:'dd/MM/yyyy' }}</p>
+      <p><strong>Válido hasta:</strong> {{ selectedCoupon.fecha_termino | date:'dd/MM/yyyy' }}</p>
+      <p>
+        <strong>Código:</strong>
+        <span *ngIf="!showCode" class="ml-2">******</span>
+        <span *ngIf="showCode" class="ml-2">{{ selectedCoupon.codigo }}</span>
+      </p>
+    </div>
+    <div class="flex justify-between mt-6">
       <button
         (click)="closeCouponModal()"
-        class="bg-red-500 text-white py-2 px-4 rounded"
+        class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition-colors"
       >
         Cerrar
       </button>
       <button
         (click)="toggleCode()"
-        class="bg-green-500 text-white py-2 px-4 rounded"
+        class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors"
       >
         {{ showCode ? "Ocultar Código" : "Ver Código" }}
       </button>

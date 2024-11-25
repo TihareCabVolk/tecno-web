@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from "../../components/navbar/navbar.component";
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule, NavbarComponent, FormsModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
@@ -18,14 +19,26 @@ export class ProfileComponent implements OnInit {
   public isModalOpen: boolean = false;
   public isCouponModalOpen: boolean = false;
   public showCode: boolean = false;
+  public cupones: any[] = [];
+  public selectedCoupon: any = null;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    // Inicialización del componente
+    this.getCupones();
+  }
+
+  getCupones() {
+    this.authService.getAllCupones().subscribe({
+      next: (response: any) => {
+        this.cupones = response;
+        console.log('Cupones obtenidos:', this.cupones);
+      },
+      error: (error: Error) => {
+        console.error('Error al obtener cupones:', error);
+        this.errorMessage = 'Error al cargar los cupones';
+      }
+    });
   }
 
   getContent() {
@@ -53,13 +66,15 @@ export class ProfileComponent implements OnInit {
     this.isModalOpen = false;
   }
 
-  openCouponModal() {
+  openCouponModal(cupon: any) {
+    this.selectedCoupon = cupon;
     this.isCouponModalOpen = true;
     this.showCode = false;
   }
 
   closeCouponModal() {
     this.isCouponModalOpen = false;
+    this.selectedCoupon = null;
   }
 
   toggleCode() {
