@@ -1,0 +1,58 @@
+.sidebar {
+    z-index: 10;
+    
+}
+
+.sidebar-link {
+    display: block;
+    background-color: #F97316; /* Color de fondo */
+    color: white; /* Color del texto */
+    padding: 0.5rem; /* Espaciado interno */
+    border-radius: 0.25rem; /* Bordes redondeados */
+    font-weight: 600; /* Negrita */
+    cursor: pointer; /* Cambia el cursor a puntero */
+    transition: background-color 0.3s; /* Transición suave para el color de fondo */
+}
+
+.sidebar-link:hover {
+    background-color: #D95D00; /* Color de fondo al pasar el mouse */
+}
+
+.logout-icon {
+    width: 2rem; /* Ancho del icono */
+    height: 2rem; /* Alto del icono */
+    cursor: pointer; /* Cambia el cursor a puntero */
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: auto;
+    margin-left: 250px;
+    margin-top: 0;
+    padding: 10px;
+}
+
+.profile-content, .pedido-content, .cupones-content {
+    margin: 10px 0;
+    padding: 10px;
+    width: 80%;
+    border-radius: 10px;
+}
+
+.profile-content {
+    background-color: #F97316;
+    color: white;
+}
+
+.pedido-content {
+    background-color: #34D399;
+    color: white;
+}
+
+.cupones-content {
+    background-color: #3B82F6;
+    color: white;
+}
