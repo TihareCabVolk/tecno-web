@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Input, inject } from '@angular/core';
-import { Product } from '../../models/Products';
+import { Product } from '../../interfaces/Products';
 import { CarritoService } from '../../services/carrito.service';
 import { NgModel } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -14,11 +14,10 @@ import { FormsModule } from '@angular/forms';
 })
 export class ProductsComponent implements OnInit {
   private carritoService = inject(CarritoService);
+  constructor() { }
 
   @Input() products: Product[] = [];
   @Input() modo: string = '';
-
-  public ngOnInit(): void { }
 
   public tamanoSeleccionado: number = 0;
   opcionesAHamburguresa = [
@@ -158,7 +157,7 @@ export class ProductsComponent implements OnInit {
         total += opcion.tamanoPrecio;
       }
     });
-    return total + this.productoSeleccionado.price;
+    return total + this.productoSeleccionado.price * 100;
   }
 
   // Actualiza las opciones seleccionadas del producto
@@ -170,6 +169,8 @@ export class ProductsComponent implements OnInit {
     }
   }
 
+  public ngOnInit(): void { }
+
   openCard(id: number): void {
     this.productoSeleccionado = this.products.find(p => p.id === id)!;
   }
@@ -179,6 +180,9 @@ export class ProductsComponent implements OnInit {
   }
 
   agregarProducto(item: Product) {
+    item.price = this.calcularTotal();
+    item.opcionesSeleccionadas = this.productoSeleccionado.opcionesSeleccionadas;
+    console.log('asdbfghadsgfjhas ' + item.opcionesSeleccionadas);
     this.carritoService.agregar(item);
     this.closeCard();
   }

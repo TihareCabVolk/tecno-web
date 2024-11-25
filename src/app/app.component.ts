@@ -3,6 +3,8 @@ import { RouterOutlet } from '@angular/router';
 import { CatalogoComponent } from './pages/catalogo/catalogo.component';
 import { CarritoListarComponent } from './components/pay/carrito-listar.component';
 
+
+
 @Component({
   selector: 'app-root',
   standalone: true,

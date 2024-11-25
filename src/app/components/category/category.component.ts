@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Category } from '../../models/category';
+import { Category } from '../../interfaces/category';
 @Component({
   selector: 'app-category',
   standalone: true,

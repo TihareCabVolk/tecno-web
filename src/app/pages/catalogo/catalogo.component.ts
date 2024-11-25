@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { CategoryComponent } from '../../components/category/category.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ProductsComponent } from '../../components/products/products.component';
-import { Product } from '../../models/Products';
-import { Category } from '../../models/category';
+import { Product } from '../../interfaces/Products';
+import { Category } from '../../interfaces/category';
 import { WcdonaldsService } from '../../services/wcdonalds.service';
 
 @Component({
