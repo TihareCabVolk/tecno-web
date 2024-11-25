@@ -16,25 +16,33 @@ import { FormsModule } from '@angular/forms';
 })
 export class ProductsComponent implements OnInit {
   private carritoService = inject(CarritoService);
-
+  public tamanoSeleccionado: number = 0;
   constructor() { }
 
   @Input() products: Product[] = [];
   @Input() modo: string = '';
 
   opcionesAHamburguresa = [
-    { id: 'checkQuesoH', texto: 'Extra queso', precioExtra: '$' + 1000, checked: false },
-    { id: 'checkPapasH', texto: 'Papas fritas', precioExtra: '$' + 1000, checked: false }
+    { id: 'checkQuesoH', texto: 'Extra queso', precioExtra: '$1000', checked: false },
+    { id: 'checkPapasH', texto: 'Papas fritas', precioExtra: '$1000', checked: false }
+  ]
+
+  opcionesAPapas = [
+    { tamanoSeleccionado: 0 }
   ]
 
   opcionesAPizzas = [
-    { id: 'checkExtraQueso', texto: 'Extra queso', precioExtra: '$' + 1000, checked: false },
-    { id: 'checkRelleno', texto: 'Relleno de queso', precioExtra: '$' + 1000, checked: false }
+    { id: 'checkExtraQueso', texto: 'Extra queso', precioExtra: '$1000', checked: false },
+    { id: 'checkRelleno', texto: 'Relleno de queso', precioExtra: '$1000', checked: false },
   ]
 
   opcionesAPostres = [
-    { id: 'checkSalsaChocolate', texto: 'Salsa de chocolate', precioExtra: '$' + 1000, checked: false },
-    { id: 'checkCoberturaChocolate', texto: 'Cobertura de Chocolate', precioExtra: '$' + 1000, checked: false }
+    { id: 'checkSalsaChocolate', texto: 'Salsa de chocolate', precioExtra: '$1000', checked: false },
+    { id: 'checkCoberturaChocolate', texto: 'Cobertura de Chocolate', precioExtra: '$1000', checked: false }
+  ]
+
+  opcionesABebidas = [
+    { tamanoSeleccionado: 0 }
   ]
 
   productoSeleccionado: Product = {
@@ -47,7 +55,51 @@ export class ProductsComponent implements OnInit {
     opcionesSeleccionadas: []
   };
 
-  actualizarOpcionesSeleccionadas(opcion: any): void {
+  public calcularTotal() {
+    let total = this.tamanoSeleccionado;
+
+    // Sumar el precio de las opciones seleccionadas de la hamburguesa
+    this.opcionesAHamburguresa.forEach(opcion => {
+      if (opcion.checked) {
+        total += parseInt(opcion.precioExtra.replace('$', ''));
+      }
+    });
+
+    // Sumar el precio de las opciones de papas
+    if (this.opcionesAPapas[0].tamanoSeleccionado > 0) {
+      total += this.opcionesAPapas[0].tamanoSeleccionado;
+    }
+
+    // Sumar el precio de las opciones de pizzas
+    this.opcionesAPizzas.forEach(opcion => {
+      if (opcion.checked) {
+        total += parseInt(opcion.precioExtra.replace('$', ''));
+        total += this.productoSeleccionado.price;
+      }
+    });
+
+    // Sumar el precio de las opciones seleccionadas de postres
+    this.opcionesAPostres.forEach(opcion => {
+      if (opcion.checked) {
+        total += parseInt(opcion.precioExtra.replace('$', ''));
+        total += this.productoSeleccionado.price;
+      }
+      if (this.tamanoSeleccionado > 0) {
+        total += this.tamanoSeleccionado;
+      }
+    });
+
+    // Sumar el precio de las opciones seleccionadas de bebidas
+    if (this.opcionesABebidas[0].tamanoSeleccionado > 0) {
+      total += this.opcionesABebidas[0].tamanoSeleccionado;
+      total += this.productoSeleccionado.price;
+    }
+
+    return total;
+  }
+
+
+  public actualizarOpcionesSeleccionadas(opcion: any): void {
     if (opcion.checked) {
       this.productoSeleccionado.opcionesSeleccionadas?.push(opcion);
     } else {
