@@ -6,8 +6,7 @@ import { CatalogoComponent } from './page/catalogo/catalogo.component';
 import { AdminComponent } from './page/admin/admin.component';
 import { ProductsComponent } from './components/admin/products/products.component';
 import { CouponsComponent } from './components/admin/coupons/coupons.component';
-import { CartComponent } from './components/cart/cart.component';
-import { CarritoListarComponent } from './components/pay/carrito-listar.component';
+import { PaymentComponent } from './page/payment/payment.component';
 
 export const routes: Routes = [
     {
@@ -25,5 +24,5 @@ export const routes: Routes = [
     { path: 'login', component:  AuthComponent, canActivate:[authGuard]},
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'home', component: HomeComponent},
-    { path: 'cart', component: CarritoListarComponent}
+    { path: 'payment', component: PaymentComponent}
 ];
